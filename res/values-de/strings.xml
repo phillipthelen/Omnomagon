@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mensa</string>
+    <string name="settings">Einstellungen</string>
+    <string name="price">Preis</string>
+    <string name="preferences">Einstellungen</string>
+    <string-array name="Mensen">
+        <item >Veggie Mensa</item>
+        <item >FU 2</item>
+    </string-array>
+    <string-array name="MensenShort">
+        <item >fu1</item>
+        <item >fu2</item>
+    </string-array>
+        <string name="mensa">Mensa</string>
+        <string name="contentBadges">Markierungen</string>
+        <string name="vegetarian">Vegetarisch</string>
+        <string name="vegan">Vegan</string>
+        <string name="chosenMensa">Keine</string>
+    <string-array name="priceClasses">
+        <item >Studenten</item>
+        <item >Mitarbeiter</item>
+        <item >Gäste</item>
+    </string-array>
+    <string-array name="priceClassesValue">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+    </string-array>
+        <string name="updateAutomatic">Automatisch aktualisieren</string>
+        <string name="menu_refresh">Aktualisieren</string>
+	<string-array name="weekDays">
+        <item >Montag</item>
+        <item >Dienstag</item>
+        <item >Mittwoch</item>
+        <item >Donnerstag</item>
+        <item >Freitag</item>
+        <item >Samstag</item>
+        <item >Sontag</item>
+    </string-array>
+</resources>

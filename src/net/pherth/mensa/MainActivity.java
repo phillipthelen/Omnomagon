@@ -33,7 +33,7 @@ public class MainActivity extends SherlockActivity {
     private Context cxt;
     private ProgressDialog m_ProgressDialog = null; 
     private Runnable viewOrders;
-    private String[] items = new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    private String[] items;
     AmazingListView lsComposer;
     private MainPagerAdapter adapter;
     private ArrayList<MealAdapter> mAdapterList = new ArrayList<MealAdapter>();
@@ -46,6 +46,7 @@ public class MainActivity extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         cxt = this;
+        items = getResources().getStringArray(R.array.weekDays);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cxt);
         OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {

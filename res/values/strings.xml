@@ -20,16 +20,24 @@
         <string name="vegan">Vegan</string>
         <string name="chosenMensa">None</string>
     <string-array name="priceClasses">
-        <item >students</item>
-        <item >academics</item>
+        <item >Students</item>
+        <item >Academics</item>
         <item >Guests</item>
     </string-array>
-    <string-array name="pirceClassesValue">
+    <string-array name="priceClassesValue">
         <item >0</item>
         <item >1</item>
         <item >2</item>
     </string-array>
-        <string name="updateAutomatic">Update Automatically</string>
+        <string name="updateAutomatic">Reload Automatically</string>
         <string name="menu_refresh">Reload</string>
-
+	<string-array name="weekDays">
+        <item >Monday</item>
+        <item >Tuesday</item>
+        <item >Wednesday</item>
+        <item >Thursday</item>
+        <item >Friday</item>
+        <item >Saturday</item>
+        <item >Sunday</item>
+    </string-array>
 </resources>
