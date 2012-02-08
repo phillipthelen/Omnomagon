@@ -1,4 +1,4 @@
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.text.DecimalFormat;
 

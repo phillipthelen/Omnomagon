@@ -1,7 +1,9 @@
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import net.pherth.mensa.R;
 
 import android.content.Context;
 import android.content.SharedPreferences;

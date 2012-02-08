@@ -5,11 +5,9 @@
     </style>
         
     <style name="CustomTitlePageIndicator">
-        <item name="footerColor">?android:attr/colorPressedHighlight</item>
         <item name="footerLineHeight">1dp</item>
         <item name="footerIndicatorHeight">3dp</item>
         <item name="footerIndicatorStyle">underline</item>
-        <item name="selectedColor">?android:attr/colorPressedHighlight</item>
         <item name="selectedBold">false</item>
     </style>
     

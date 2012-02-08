@@ -1,7 +1,6 @@
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.util.Log;
-import android.util.Pair;
 
 
 public class RSSHandler extends DefaultHandler {

@@ -1,12 +1,12 @@
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-
+import net.pherth.mensa.R;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
+
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
  
 public class MainPreference extends SherlockPreferenceActivity {
         @Override

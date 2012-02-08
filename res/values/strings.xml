@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">Mensa</string>
+    <string name="app_name">Omnomagon</string>
     <string name="settings">Settings</string>
     <string name="price">Price</string>
     <string name="preferences">Preferences</string>

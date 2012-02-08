@@ -1,21 +1,21 @@
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import net.pherth.mensa.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Pair;
 import android.view.View;
 import android.widget.ListView;
 
@@ -184,7 +184,7 @@ public class MainActivity extends SherlockActivity {
     }
     
     private void getPlan(){
-    	System.out.println(mAdapterList);
+    	if (isNetworkAvailable()) {
     	data = new Data(cxt);
     	data.getAllData();
     	for(int i=0; i<data.getDayCount(); i++){
@@ -192,7 +192,7 @@ public class MainActivity extends SherlockActivity {
     		mealAdapter.setData(data.getCurrentDay(i));
     		mAdapterList.set(i, mealAdapter);
     	}
-
+    	}
           runOnUiThread(returnRes);
     }
     
@@ -251,6 +251,13 @@ public class MainActivity extends SherlockActivity {
     public void onPause() {
     	m_ProgressDialog.dismiss();
     	super.onPause();
+    }
+    
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager 
+              = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 }
 

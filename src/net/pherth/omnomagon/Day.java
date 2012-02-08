@@ -1,4 +1,4 @@
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.util.ArrayList;
 import java.util.Date;
