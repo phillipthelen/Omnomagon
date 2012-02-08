@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <CheckBoxPreference android:title="@string/updateAutomatic" android:key="automaticUpdate"/><ListPreference android:key="mensaPreference" android:title="@string/mensa" android:entryValues="@array/MensenShort" android:entries="@array/Mensen" android:summary="@string/chosenMensa"/>
+    <ListPreference android:key="priceCategory" android:title="@string/price" android:entryValues="@array/pirceClassesValue" android:entries="@array/priceClasses"/>
+    <PreferenceCategory android:title="@string/contentBadges">
+        <CheckBoxPreference android:title="@string/vegetarian" android:key="vegetarianCheckbox"/>
+        <CheckBoxPreference android:title="@string/vegan" android:key="veganCheckbox"/>
+    </PreferenceCategory>
+    
+    
+
+</PreferenceScreen>

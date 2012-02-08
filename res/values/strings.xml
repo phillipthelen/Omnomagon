@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">Mensa</string>
+    <string name="settings">Settings</string>
+    <string name="price">Price</string>
+    <string name="preferences">Preferences</string>
+    <string-array name="Mensen">
+        <item >Veggie Mensa</item>
+        <item >FU 2</item>
+    </string-array>
+    <string-array name="MensenShort">
+        <item >fu1</item>
+        <item >fu2</item>
+    </string-array>
+        <string name="mensa">Mensa</string>
+        <string name="contentBadges">Badges</string>
+        <string name="vegetarian">Vegetarian</string>
+        <string name="vegan">Vegan</string>
+        <string name="chosenMensa">None</string>
+    <string-array name="priceClasses">
+        <item >students</item>
+        <item >academics</item>
+        <item >Guests</item>
+    </string-array>
+    <string-array name="pirceClassesValue">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+    </string-array>
+        <string name="updateAutomatic">Update Automatically</string>
+        <string name="menu_refresh">Reload</string>
+
+</resources>

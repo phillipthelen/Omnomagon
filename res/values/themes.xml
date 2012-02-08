@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MensaTheme" parent="@style/Theme.Sherlock">
+        <item name="vpiTitlePageIndicatorStyle">@style/CustomTitlePageIndicator</item>
+    </style>
+    
+    <style name="CustomTitlePageIndicator">
+        <item name="footerLineHeight">1dp</item>
+        <item name="footerIndicatorHeight">3dp</item>
+        <item name="footerIndicatorStyle">underline</item>
+        <item name="selectedBold">false</item>
+    </style>
+    
+    <style name="CustomListHeader">
+        <item name="android:textSize">18dp</item>
+    </style>
+</resources>
