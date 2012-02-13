@@ -105,6 +105,16 @@ public class Meal {
     	return this.prices[type];
     }
     
+    public void setSiegel(String siegellink) {
+    	if (siegellink.equals("#vegan_siegel")) {
+    		this.veganBool = true;
+    	} else if (siegellink.equals("#vegetarisch_siegel")) {
+    		this.vegetarianBool = true;
+    	} else if (siegellink.equals("#bio_siegel")){
+    		this.bioBool = true;
+    	}
+    }
+    
     public String getCorrectPriceString(int type) {
     	DecimalFormat dec = new DecimalFormat();
     	dec.setMinimumFractionDigits(2);

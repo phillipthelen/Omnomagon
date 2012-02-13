@@ -127,6 +127,7 @@ public class MainActivity extends SherlockActivity {
             System.out.println(data);
             
             v.setAdapter(mAdapterList.get(position));
+            v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
             v.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View res,

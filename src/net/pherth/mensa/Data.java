@@ -81,13 +81,21 @@ public class Data {
 					for (int number = 1; number < priceList.length; number++) {
 						priceFloatList[number] = Float.parseFloat(priceList[number]);
 					}
+					meal.setPrices(priceFloatList);
 					
 					Elements additions = mealElement.getElementsByAttributeValue("href", "#zusatz");
 					for (int i=0; i<additions.size(); i++) {
 						meal.addAddition(additions.get(i).attributes().get("title"));
 					}
 					
-					meal.setPrices(priceFloatList);
+					Element prevElem = mealElement.previousElementSibling();
+					if (prevElem != null && prevElem.tagName() == "a") {
+						meal.setSiegel(prevElem.attributes().get("href"));
+						Element prevprevElem = prevElem.previousElementSibling();
+						if (prevprevElem != null && prevElem.tagName() == "a" ) {
+							meal.setSiegel(prevprevElem.attributes().get("href"));
+						}
+					}
 					meals.add(meal);
 					
 				}
@@ -96,7 +104,7 @@ public class Data {
 			}
 		}
 	}
-
+	
 
 	public List<Pair<String, List<Meal>>> getCurrentDay(int position) {
 		List<Pair<String, List<Meal>>> currentMeals = new ArrayList<Pair<String, List<Meal>>>();

@@ -50,19 +50,19 @@
 
         <ImageView
             android:id="@+id/bioImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/itemViewPrice"
             android:src="@drawable/biosiegel" />
 
         <ImageView
             android:id="@+id/veganVegetarianImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="14dp"
-            android:layout_toLeftOf="@+id/bioImageView"/>
+            android:layout_toLeftOf="@+id/bioImageView" />
 
         <ListView
             android:id="@+id/additionsListView"
