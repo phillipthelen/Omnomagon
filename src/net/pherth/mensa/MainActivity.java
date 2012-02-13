@@ -75,11 +75,6 @@ public class MainActivity extends SherlockActivity {
         pager.setAdapter( adapter );
         indicator.setViewPager( pager );
         
-        final Typeface mFont = Typeface.createFromAsset(getAssets(), "fonts/Bitter-Regular.otf"); 
-		final ViewGroup mContainer = (ViewGroup) findViewById(
-		android.R.id.content).getRootView();
-		setAppFont(mContainer, mFont);
-        
 	    actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         //actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_demo));
