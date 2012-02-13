@@ -1,4 +1,4 @@
-package net.pherth.omnomagon;
+package net.pherth.mensa;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -17,7 +18,13 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -67,6 +74,11 @@ public class MainActivity extends SherlockActivity {
             (TitlePageIndicator)findViewById( R.id.indicator );
         pager.setAdapter( adapter );
         indicator.setViewPager( pager );
+        
+        final Typeface mFont = Typeface.createFromAsset(getAssets(), "fonts/Bitter-Regular.otf"); 
+		final ViewGroup mContainer = (ViewGroup) findViewById(
+		android.R.id.content).getRootView();
+		setAppFont(mContainer, mFont);
         
 	    actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
@@ -118,9 +130,23 @@ public class MainActivity extends SherlockActivity {
             ( (ViewPager) collection ).addView( v, 0 );
             v.setPinnedHeaderView(getLayoutInflater().inflate(R.layout.item_composer_header, v, false));
             System.out.println(data);
-            MealAdapter mAdapter;
             
             v.setAdapter(mAdapterList.get(position));
+            v.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View res,
+						int arg2, long arg3) {
+					ListView listView = (ListView) res.findViewById(R.id.additionsListView);
+					if (listView.getVisibility() == View.GONE) {
+						Animation rollDownAnimation = AnimationUtils.loadAnimation(cxt, R.anim.rolldown);
+						listView.setVisibility(View.VISIBLE);
+						listView.startAnimation(rollDownAnimation);
+					} else {
+						listView.setVisibility(View.GONE);
+					}
+					System.out.println(listView.getCount());
+				}
+              });
             
             return v;
         }
@@ -258,6 +284,29 @@ public class MainActivity extends SherlockActivity {
               = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
+    }
+    
+    public static final void setAppFont(ViewGroup mContainer, Typeface mFont)
+    {
+        if (mContainer == null || mFont == null) return;
+
+        final int mCount = mContainer.getChildCount();
+
+        // Loop through all of the children.
+        for (int i = 0; i < mCount; ++i)
+        {
+            final View mChild = mContainer.getChildAt(i);
+            if (mChild instanceof TextView)
+            {
+                // Set the font if it is a TextView.
+                ((TextView) mChild).setTypeface(mFont);
+            }
+            else if (mChild instanceof ViewGroup)
+            {
+                // Recursively attempt another ViewGroup.
+                setAppFont((ViewGroup) mChild, mFont);
+            }
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package net.pherth.omnomagon;
+package net.pherth.mensa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,9 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.foound.widget.AmazingAdapter;
@@ -70,12 +73,30 @@ public class MealAdapter extends AmazingAdapter {
 	protected void bindSectionHeader(View view, int position, boolean displaySectionHeader) {
 		if (displaySectionHeader) {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.headerBar).setVisibility(View.VISIBLE);
-			TextView lSectionTitle = (TextView) view.findViewById(R.id.header);
-			lSectionTitle.setText(getSections()[getSectionForPosition(position)]);
+			ImageView lSectionTitle = (ImageView) view.findViewById(R.id.header);
+			String section = getSections()[getSectionForPosition(position)];
+			int drawable;
+			if (section.equals("Aktionsstand")) {
+				drawable = R.drawable.aktion;
+			} else if (section.equals("Beilagen")) {
+				drawable = R.drawable.beilagen;
+			} else if (section.equals("Desserts")) {
+				drawable = R.drawable.desserts;
+			} else if (section.equals("Essen")) {
+				drawable = R.drawable.essen;
+			} else if (section.equals("Salate")) {
+				drawable = R.drawable.salate;
+			} else if (section.equals("Suppen")) {
+				drawable = R.drawable.suppen;
+			} else if (section.equals("Vorspeisen")) {
+				drawable = R.drawable.vorspeisen;
+			} else {
+				drawable = R.drawable.essen;
+			}
+			System.out.println(drawable);
+			lSectionTitle.setImageResource(drawable);
 		} else {
 			view.findViewById(R.id.header).setVisibility(View.GONE);
-			view.findViewById(R.id.headerBar).setVisibility(View.GONE);
 		}
 	}
 
@@ -88,28 +109,38 @@ public class MealAdapter extends AmazingAdapter {
 		}
 		
 		TextView itemBig = (TextView) res.findViewById(R.id.itemViewBig);
-		TextView itemSmall = (TextView) res.findViewById(R.id.itemViewSmall);
 		TextView itemPrice = (TextView) res.findViewById(R.id.itemViewPrice);
+		ImageView bioImageView = (ImageView) res.findViewById(R.id.bioImageView);
+		ImageView veganVegetarianImageView = (ImageView) res.findViewById(R.id.veganVegetarianImageView);
+		ListView additionsListView = (ListView) res.findViewById(R.id.additionsListView);
+		
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 		Meal meal = getItem(position);
 		itemBig.setText(meal.getName());
-		if (meal.getDescription() == "") {
-			itemSmall.setText(meal.getDescription());
-		} else {
-			itemSmall.setTextSize((float) 5.0);
-		}
 		itemPrice.setText(meal.getCorrectPriceString(Integer.parseInt(sharedPrefs.getString("priceCategory", "2"))));
-		
+		if (meal.getBio()) {
+			bioImageView.setVisibility(View.VISIBLE);
+		} else {
+			bioImageView.setVisibility(View.GONE);
+		}
+		if (meal.getVeganterianMsc() != 0) {
+			veganVegetarianImageView.setVisibility(View.VISIBLE);
+			veganVegetarianImageView.setImageResource(meal.getVeganterianMsc());
+		} else {
+			veganVegetarianImageView.setVisibility(View.GONE);
+		}
+		List<String> additionList = meal.getAdditions();
+		if (!additionList.isEmpty()) {
+			AdditionAdapter additionAdapter = new AdditionAdapter(context, R.layout.addition_list_item, additionList);
+			additionsListView.setAdapter(additionAdapter);
+		}
+		additionsListView.setVisibility(View.GONE);
+		Util.setListViewHeightBasedOnChildren(additionsListView);
 		return res;
 	}
 
 	@Override
 	public void configurePinnedHeader(View header, int position, int alpha) {
-		TextView lSectionHeader = (TextView)header.findViewById(R.id.header);
-		header.findViewById(R.id.headerBar).setVisibility(View.GONE);
-		lSectionHeader.setText(getSections()[getSectionForPosition(position)]);
-		lSectionHeader.setBackgroundColor(alpha << 24 | (0x000000));
-		lSectionHeader.setTextColor(alpha << 24 | (0xFFFFFF));
 	}
 
 	@Override

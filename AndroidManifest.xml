@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-	        android:name="net.pherth.omnomagon.MainPreference"
+	        android:name=".MainPreference"
 	        android:label="@string/preferences"
 	        android:theme="@style/MensaTheme">
 		</activity>

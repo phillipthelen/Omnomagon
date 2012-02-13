@@ -1,4 +1,4 @@
-package net.pherth.omnomagon;
+package net.pherth.mensa;
 
 import java.io.IOException;
 import java.net.URL;

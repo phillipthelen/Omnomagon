@@ -1,4 +1,4 @@
-package net.pherth.omnomagon;
+package net.pherth.mensa;
 
 import net.pherth.mensa.R;
 import android.os.Bundle;

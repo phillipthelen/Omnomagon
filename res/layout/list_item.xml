@@ -5,59 +5,77 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-	<include
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    layout="@layout/item_composer_header" />
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_composer_header" />
 
     <RelativeLayout
         android:id="@+id/listTextContainer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:baselineAligned="true"
-        android:orientation="horizontal" 
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        >
-
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" >
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/itemViewPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/include1"
-            android:gravity="top"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" 
-            android:paddingLeft="5dp"/>
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp" >
 
         <TextView
             android:id="@+id/itemViewBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/include1"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/veganVegetarianImageView"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16dp"
-            android:layout_toLeftOf="@+id/itemViewPrice"/>
-
+            android:textColor="@color/fontcolor"
+            android:textSize="14dp"
+            android:typeface="serif" />
+		
+        
+        
         <TextView
-            android:id="@+id/itemViewSmall"
+            android:id="@+id/itemViewPrice"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="right"
+            android:paddingLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/priceColor"
+            android:textSize="14dp"
+            android:textStyle="bold" 
+            android:typeface="serif" />
+
+        <ImageView
+            android:id="@+id/bioImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/itemViewPrice"
+            android:src="@drawable/biosiegel" />
+
+        <ImageView
+            android:id="@+id/veganVegetarianImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:layout_toLeftOf="@+id/bioImageView"/>
+
+        <ListView
+            android:id="@+id/additionsListView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/itemViewBig"
-            android:layout_toLeftOf="@+id/itemViewPrice"/>
+            android:background="@color/priceColor"
+            android:clickable="false"
+            android:focusable="false">
+
+        </ListView>
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package net.pherth.omnomagon;
+package net.pherth.mensa;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,7 +63,7 @@ public class Data {
 		Elements rows = doc.getElementsByTag("tr");
 		for (int x=1; x < rows.size(); x++) {
 			Element row = rows.get(x);
-			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText().toUpperCase();
+			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText();
 			Elements cols = row.getElementsByClass("mensa_week_speise_tag");
 			for (int y=0; y < cols.size(); y++) {
 				List<Meal> meals = new ArrayList<Meal>();
@@ -81,6 +81,12 @@ public class Data {
 					for (int number = 1; number < priceList.length; number++) {
 						priceFloatList[number] = Float.parseFloat(priceList[number]);
 					}
+					
+					Elements additions = mealElement.getElementsByAttributeValue("href", "#zusatz");
+					for (int i=0; i<additions.size(); i++) {
+						meal.addAddition(additions.get(i).attributes().get("title"));
+					}
+					
 					meal.setPrices(priceFloatList);
 					meals.add(meal);
 					
