@@ -5,12 +5,74 @@
     <string name="price">Preis</string>
     <string name="preferences">Einstellungen</string>
     <string-array name="Mensen">
-        <item >Veggie Mensa</item>
-        <item >FU 2</item>
+		<item>Veggie Nr.1</item>
+		<item>Mensa FU II Otto-v.-Sims.</item>
+		<item>Mensa FU Lankwitz</item>
+		<item>Mensa FU AßmannshauserStr</item>
+		<item>Mensa FU Düppel</item>
+		<item>Cafeteria FU Koserstraße</item>
+		<item>Caf. FU Königin-Luise-St</item>
+		<item>Cafeteria FU  V.-Hoff-Str</item>
+		<item>Cafeteria FU Ihnestraße</item>
+		<item>Cafet.  FU Garystraße</item>
+		<item>Mensa TU Hardenbergstraße</item>
+		<item>Cafeteria TU Franklinstr.</item>
+		<item>Cafeteria TU Ackerstraße</item>
+		<item>Cafeteria TU E.-Reuter-Pl</item>
+		<item>Cafeteria TU Skyline</item>
+		<item>Mensa HU Nord</item>
+		<item>Mensa HU Süd</item>
+		<item>Mensa HU Oase Adlershof</item>
+		<item>Mensa HU Spandauer Str.</item>
+		<item>Caf. HU, Grimm-Zentrum</item>
+		<item>Cafeteria UdK Jazz Cafe</item>
+		<item>Mensa HTWB Treskowallee</item>
+		<item>Mensa HTWB Wilhelminenhof</item>
+		<item>Mensa HWRB Badensche Str.</item>
+		<item>Mensa BHT Luxemburger Str</item>
+		<item>Mensa BHT Kurfürstenstr.</item>
+		<item>Mensa HfM Charlottenstr.</item>
+		<item>Caf. HfM Neuer Marstall</item>
+		<item>Mensa ASH Berlin</item>
+		<item>Mensa HSF Schnellerstr.</item>
+		<item>Mensa KHS Weißensee</item>
+		<item>Mensa KHSB Karlshorst</item>
+		<item>Mensa EHB Teltower Damm</item>
     </string-array>
     <string-array name="MensenShort">
-        <item >fu1</item>
-        <item >fu2</item>
+		<item>fu1</item>
+		<item>fu2</item>
+		<item>fu_lankwitz</item>
+		<item>fu_assmannshauser</item>
+		<item>fu_dueppel</item>
+		<item>fu_cafeteria</item>
+		<item>fu_cafe_koenigin_luise</item>
+		<item>fu_cafe_vant_hoff</item>
+		<item>fu_cafe_ihne</item>
+		<item>fu_cafe_gary</item>
+		<item>tu</item>
+		<item>tu_cafeteria</item>
+		<item>tu_ackerstr</item>
+		<item>tu_cafe_erp</item>
+		<item>tu_cafe_skyline</item>
+		<item>hu_nord</item>
+		<item>hu_sued</item>
+		<item>hu_adlershof</item>
+		<item>hu_spandauer</item>
+		<item>hu_cafe_grimm</item>
+		<item>udk_jazzcafe</item>
+		<item>htw_treskow</item>
+		<item>htw_wilhelminenhof</item>
+		<item>hwr</item>
+		<item>beuth</item>
+		<item>beuth_kurfuersten</item>
+		<item>hfm</item>
+		<item>hfm_cafeteria</item>
+		<item>ashb</item>
+		<item>hfs</item>
+		<item>khs</item>
+		<item>khsb</item>
+		<item>ehb</item>
     </string-array>
         <string name="mensa">Mensa</string>
         <string name="contentBadges">Markierungen</string>
