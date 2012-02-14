@@ -5,11 +5,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="Header Image"/>
+        android:contentDescription="Header Image"
+        android:scaleType="center" />
 
     <RelativeLayout
         android:id="@+id/listTextContainer"
