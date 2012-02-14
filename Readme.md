@@ -1,3 +1,15 @@
+Omnomagon
+=========
+
+Setup in Eclipse
+================
+
+*to be done*
+
+
+Licence
+=======
+
 Copyright (c) 2012, Phillip Thelen
 All rights reserved.
 
