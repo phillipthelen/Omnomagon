@@ -2,13 +2,19 @@ Omnomagon
 =========
 
 Setup in Eclipse
-================
+----------------
 
-*to be done*
+Dependencies:
+	* ActionBar Sherlock: http://actionbarsherlock.com/ (4.0 Beta)
+	* Android Viewpager Indicator: https://github.com/JakeWharton/Android-ViewPagerIndicator
+	* Amazing-Listview: http://code.google.com/p/android-amazing-listview/
 
+The dependencies have to be imported into eclipse as library projects.
 
 Licence
-=======
+-------
+
+### Code
 
 Copyright (c) 2012, Phillip Thelen
 All rights reserved.
@@ -32,3 +38,7 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+### Graphics
+
+CC-BY-NC-SA Peter Amende. ( http://peteramende.de/ )
