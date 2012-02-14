@@ -5,9 +5,10 @@ Setup in Eclipse
 ----------------
 
 Dependencies:
-	* ActionBar Sherlock: http://actionbarsherlock.com/ (4.0 Beta)
-	* Android Viewpager Indicator: https://github.com/JakeWharton/Android-ViewPagerIndicator
-	* Amazing-Listview: http://code.google.com/p/android-amazing-listview/
+
+* ActionBar Sherlock: http://actionbarsherlock.com/ (4.0 Beta)
+* Android Viewpager Indicator: https://github.com/JakeWharton/Android-ViewPagerIndicator
+* Amazing-Listview: http://code.google.com/p/android-amazing-listview/
 
 The dependencies have to be imported into eclipse as library projects.
 
