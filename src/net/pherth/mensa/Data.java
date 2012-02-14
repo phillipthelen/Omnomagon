@@ -99,15 +99,19 @@ public class Data {
 					Element mealElement = currmeals.get(c);
 					Meal meal = new Meal(mealElement.getElementsByTag("strong").get(0).ownText());
 					meal.setDescription(mealElement.ownText());
-					String priceString = mealElement.getElementsByClass("mensa_preise").get(0).ownText().substring(4);
-					String[] priceList = priceString.split(" / ");
-					Float firstPrice = Float.parseFloat(priceList[0]);
-					Float[] priceFloatList = new Float[] {firstPrice, firstPrice, firstPrice};
-					for (int number = 1; number < priceList.length; number++) {
-						priceFloatList[number] = Float.parseFloat(priceList[number]);
+					String priceString = mealElement.getElementsByClass("mensa_preise").get(0).ownText();
+					if (priceString.length() > 3) {
+						priceString = priceString.substring(4);
+						String[] priceList = priceString.split(" / ");
+						Float firstPrice = Float.parseFloat(priceList[0]);
+						Float[] priceFloatList = new Float[] {firstPrice, firstPrice, firstPrice};
+						for (int number = 1; number < priceList.length; number++) {
+							priceFloatList[number] = Float.parseFloat(priceList[number]);
+						}
+						meal.setPrices(priceFloatList);
+					} else {
+						meal.setPrices(new Float[]{(float) 0, (float) 0, (float) 0});
 					}
-					meal.setPrices(priceFloatList);
-					
 					Elements additions = mealElement.getElementsByAttributeValue("href", "#zusatz");
 					for (int i=0; i<additions.size(); i++) {
 						meal.addAddition(additions.get(i).attributes().get("title"));
