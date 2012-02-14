@@ -100,4 +100,6 @@
         <item >Samstag</item>
         <item >Sontag</item>
     </string-array>
+    <string name="pleaseWait">Bitte warten…</string>
+	<string name="retrvData">Speiseplan wird abgerufen…</string>
 </resources>

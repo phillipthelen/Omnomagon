@@ -100,4 +100,6 @@
         <item >Saturday</item>
         <item >Sunday</item>
     </string-array>
+	<string name="pleaseWait">Please wait…</string>
+	<string name="retrvData">Schedule is refreshed…</string>
 </resources>

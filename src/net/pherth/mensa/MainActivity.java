@@ -100,9 +100,8 @@ public class MainActivity extends SherlockActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
         actionBar.setDisplayShowHomeEnabled(false);
-        //actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_demo));
-        
 	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
+	    actionBar.show();
 	    if (sharedPrefs.getBoolean("automaticUpdate", true)) {
 	    viewOrders = new Runnable(){
             @Override
@@ -113,7 +112,7 @@ public class MainActivity extends SherlockActivity {
         Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
         thread.start();
         m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
-              "Please wait...", "Retrieving data ...", true);
+              getString( R.string.pleaseWait), getString(R.string.retrvData), true);
 	    }
     }
     
@@ -272,7 +271,7 @@ public class MainActivity extends SherlockActivity {
             	Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
                 thread.start();
                 m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
-                      "Please wait...", "Retrieving data ...", true);
+                		getString( R.string.pleaseWait), getString(R.string.retrvData), true);
                 break;
             	
         }
