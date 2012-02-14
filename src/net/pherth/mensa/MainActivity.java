@@ -1,8 +1,32 @@
+/*
+Copyright (c) 2012, Phillip Thelen
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met: 
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer. 
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 package net.pherth.mensa;
 
 import java.util.ArrayList;
 
-import net.pherth.mensa.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +43,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -36,7 +58,7 @@ import com.viewpagerindicator.TitleProvider;
 
 public class MainActivity extends SherlockActivity {
 	
-    private static int NUM_VIEWS = 7;
+    private static int NUM_VIEWS = 5;
     private Context cxt;
     private ProgressDialog m_ProgressDialog = null; 
     private Runnable viewOrders;
@@ -58,25 +80,26 @@ public class MainActivity extends SherlockActivity {
         OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             			actionBar.setTitle(getCurrentMensa(prefs.getString("mensaPreference", "Mensa")));
-            			for(int i=0; i<7; i++){
+            			for(int i=0; i<5; i++){
             	    		mAdapterList.get(i).notifyDataSetChanged();
             	    	}
                 }
             };
         sharedPrefs.registerOnSharedPreferenceChangeListener(prefsListener);
-        for(int x=0; x<7; x++) {
+        for(int x=0; x<5; x++) {
         	mAdapterList.add(new MealAdapter(cxt));
         }
         adapter = new MainPagerAdapter( this );
-        ViewPager pager =
-            (ViewPager)findViewById( R.id.mainpager );
-        TitlePageIndicator indicator =
-            (TitlePageIndicator)findViewById( R.id.indicator );
+        ViewPager pager = (ViewPager)findViewById( R.id.mainpager );
+        TitlePageIndicator indicator = (TitlePageIndicator)findViewById( R.id.indicator );
+        indicator.bringToFront();
         pager.setAdapter( adapter );
         indicator.setViewPager( pager );
         
 	    actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
+        actionBar.setDisplayShowHomeEnabled(false);
         //actionBar.setHomeAction(new IntentAction(this, createIntent(this), R.drawable.ic_title_home_demo));
         
 	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
@@ -123,8 +146,6 @@ public class MainActivity extends SherlockActivity {
         public Object instantiateItem(View collection, int position) {
         	AmazingListView v = new AmazingListView( context );
             ( (ViewPager) collection ).addView( v, 0 );
-            v.setPinnedHeaderView(getLayoutInflater().inflate(R.layout.item_composer_header, v, false));
-            System.out.println(data);
             
             v.setAdapter(mAdapterList.get(position));
             v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
@@ -134,9 +155,9 @@ public class MainActivity extends SherlockActivity {
 						int arg2, long arg3) {
 					ListView listView = (ListView) res.findViewById(R.id.additionsListView);
 					if (listView.getVisibility() == View.GONE) {
-						Animation rollDownAnimation = AnimationUtils.loadAnimation(cxt, R.anim.rolldown);
+						//Animation rollDownAnimation = AnimationUtils.loadAnimation(cxt, R.anim.rolldown);
 						listView.setVisibility(View.VISIBLE);
-						listView.startAnimation(rollDownAnimation);
+						//listView.startAnimation(rollDownAnimation);
 					} else {
 						listView.setVisibility(View.GONE);
 					}
@@ -223,7 +244,7 @@ public class MainActivity extends SherlockActivity {
         @Override
         public void run() {
             m_ProgressDialog.dismiss();
-            for(int i=0; i<7; i++){
+            for(int i=0; i<5; i++){
 	    		mAdapterList.get(i).notifyDataSetChanged();
 	    	}
         }

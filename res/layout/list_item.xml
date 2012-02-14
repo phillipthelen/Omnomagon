@@ -5,10 +5,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <include
-        android:layout_width="fill_parent"
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/item_composer_header" />
+        android:contentDescription="Header Image"/>
 
     <RelativeLayout
         android:id="@+id/listTextContainer"
@@ -16,9 +17,10 @@
         android:layout_height="fill_parent"
         android:baselineAligned="true"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp" >
+        android:paddingBottom="4dp"
+        android:paddingLeft="29dp"
+        android:paddingRight="29dp" 
+        android:paddingTop="4dp">
 
         <TextView
             android:id="@+id/itemViewBig"

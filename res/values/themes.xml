@@ -5,13 +5,10 @@
     </style>
     
     <style name="CustomTitlePageIndicator">
-        <item name="footerLineHeight">1dp</item>
-        <item name="footerIndicatorHeight">3dp</item>
-        <item name="footerIndicatorStyle">underline</item>
+        <item name="footerLineHeight">0dp</item>
+        <item name="footerIndicatorHeight">0dp</item>
+        <item name="footerIndicatorStyle">none</item>
         <item name="selectedBold">false</item>
-    </style>
-    
-    <style name="CustomListHeader">
-        <item name="android:textSize">18dp</item>
+        <item name="footerPadding">19dp</item>
     </style>
 </resources>
