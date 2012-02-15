@@ -294,7 +294,9 @@ public class MainActivity extends SherlockActivity {
     
     @Override
     public void onPause() {
-    	m_ProgressDialog.dismiss();
+    	if(m_ProgressDialog != null) {
+    		m_ProgressDialog.dismiss();
+    	}
     	super.onPause();
     }
     
