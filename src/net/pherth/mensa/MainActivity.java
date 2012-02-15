@@ -26,6 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package net.pherth.mensa;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -88,6 +89,13 @@ public class MainActivity extends SherlockActivity {
         sharedPrefs.registerOnSharedPreferenceChangeListener(prefsListener);
         for(int x=0; x<5; x++) {
         	mAdapterList.add(new MealAdapter(cxt));
+	        Calendar calendar = Calendar.getInstance();
+	        System.out.println(calendar);
+	        calendar.setFirstDayOfWeek(0);
+	        int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
+	        if (day < 5) {
+	        	pager.setCurrentItem(day);
+	        }
         }
         adapter = new MainPagerAdapter( this );
         ViewPager pager = (ViewPager)findViewById( R.id.mainpager );
