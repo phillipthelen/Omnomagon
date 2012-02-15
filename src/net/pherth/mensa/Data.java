@@ -54,12 +54,16 @@ public class Data {
 		res = new ArrayList<Day>();
 		
 		String url = getURL();
-		
+		//TODO add possibility to support more than one Mensa.
 		RSSHandler rh = new RSSHandler();
 		String htmlString= rh.getHTML(url);
 		parseHTML(htmlString);
+		//TODO save data in database
 	}
 	
+	public void loadDataFromDatabase() {
+		//TODO function that loads the data from database
+	}
 	
 	public int getDayCount() {
 		if (res == null) {
@@ -88,6 +92,7 @@ public class Data {
 		Elements rows = doc.getElementsByTag("tr");
 		for (int x=1; x < rows.size(); x++) {
 			Element row = rows.get(x);
+			//TODO replace groupname with correct drawable
 			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText();
 			Elements cols = row.getElementsByClass("mensa_week_speise_tag");
 			for (int y=0; y < cols.size(); y++) {

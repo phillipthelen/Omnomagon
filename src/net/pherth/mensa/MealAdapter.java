@@ -101,6 +101,7 @@ public class MealAdapter extends AmazingAdapter {
 			ImageView lSectionTitle = (ImageView) view.findViewById(R.id.header);
 			String section = getSections()[getSectionForPosition(position)];
 			int drawable;
+			//TODO drawables are saved directly.
 			if (section.equals("Aktionsstand")) {
 				drawable = R.drawable.aktion;
 			} else if (section.equals("Beilagen")) {

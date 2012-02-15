@@ -102,17 +102,18 @@ public class MainActivity extends SherlockActivity {
         actionBar.setDisplayShowHomeEnabled(false);
 	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
 	    actionBar.show();
+	    //TODO only update if hasn't updated today. Otherwise load data from database
 	    if (sharedPrefs.getBoolean("automaticUpdate", true)) {
-	    viewOrders = new Runnable(){
-            @Override
-            public void run() {
-                getPlan();
-            }
-        };
-        Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
-        thread.start();
-        m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
-              getString( R.string.pleaseWait), getString(R.string.retrvData), true);
+		    viewOrders = new Runnable(){
+	            @Override
+	            public void run() {
+	                getPlan();
+	            }
+	        };
+	        Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
+	        thread.start();
+	        m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
+	              getString( R.string.pleaseWait), getString(R.string.retrvData), true);
 	    }
     }
     
