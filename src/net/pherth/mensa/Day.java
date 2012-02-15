@@ -32,26 +32,26 @@ import java.util.List;
 import android.util.Pair;
 
 public class Day {
-	List<Pair<String, List<Meal>>> allMeals = new ArrayList<Pair<String, List<Meal>>>();
+	List<Pair<Integer, List<Meal>>> allMeals = new ArrayList<Pair<Integer, List<Meal>>>();
 	Date date;
 	
 	public Day(Date currentDay) {
 		date = currentDay;
 	}
 	
-	public List<Pair<String, List<Meal>>> getMeals() {
+	public List<Pair<Integer, List<Meal>>> getMeals() {
 		return allMeals;
 	}
 	
-	public void addMealGroup(String groupname) {
-		allMeals.add(new Pair<String, List<Meal>>(groupname, new ArrayList<Meal>()));
+	public void addMealGroup(Integer group) {
+		allMeals.add(new Pair<Integer, List<Meal>>(group, new ArrayList<Meal>()));
 	}
 	
-	public void addMealGroup(String groupname, List<Meal> meals) {
-		allMeals.add(new Pair<String, List<Meal>>(groupname, meals));
+	public void addMealGroup(Integer group, List<Meal> meals) {
+		allMeals.add(new Pair<Integer, List<Meal>>(group, meals));
 	}
 	
-	public void addMealGroup(Pair<String, List<Meal>> meals) {
+	public void addMealGroup(Pair<Integer, List<Meal>> meals) {
 		allMeals.add(meals);
 	}
 	

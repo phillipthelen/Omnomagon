@@ -45,10 +45,10 @@ import android.widget.TextView;
 import com.foound.widget.AmazingAdapter;
 
 public class MealAdapter extends AmazingAdapter {
-	List<Pair<String, List<Meal>>> all = new ArrayList<Pair<String, List<Meal>>>();
+	List<Pair<Integer, List<Meal>>> all = new ArrayList<Pair<Integer, List<Meal>>>();
 	private Context context;
 	
-	public MealAdapter(Context context, List<Pair<String, List<Meal>>> data){
+	public MealAdapter(Context context, List<Pair<Integer, List<Meal>>> data){
 		this.context = context;
 		if (data == null){
 			this.all = data;
@@ -60,7 +60,7 @@ public class MealAdapter extends AmazingAdapter {
 		this.context = context;
 	}
 	
-	public void setData(List<Pair<String, List<Meal>>> data) {
+	public void setData(List<Pair<Integer, List<Meal>>> data) {
 		this.all = data;
 	}
 	
@@ -99,28 +99,8 @@ public class MealAdapter extends AmazingAdapter {
 		if (displaySectionHeader) {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
 			ImageView lSectionTitle = (ImageView) view.findViewById(R.id.header);
-			String section = getSections()[getSectionForPosition(position)];
-			int drawable;
-			//TODO drawables are saved directly.
-			if (section.equals("Aktionsstand")) {
-				drawable = R.drawable.aktion;
-			} else if (section.equals("Beilagen")) {
-				drawable = R.drawable.beilagen;
-			} else if (section.equals("Desserts")) {
-				drawable = R.drawable.desserts;
-			} else if (section.equals("Essen")) {
-				drawable = R.drawable.essen;
-			} else if (section.equals("Salate")) {
-				drawable = R.drawable.salate;
-			} else if (section.equals("Suppen")) {
-				drawable = R.drawable.suppen;
-			} else if (section.equals("Vorspeisen")) {
-				drawable = R.drawable.vorspeisen;
-			} else {
-				drawable = R.drawable.essen;
-			}
-			System.out.println(drawable);
-			lSectionTitle.setImageResource(drawable);
+			int section = getSections()[getSectionForPosition(position)];
+			lSectionTitle.setImageResource(section);
 			//view.findViewById(R.id.listTextContainer).setBackgroundResource(R.drawable.schatten);
 		} else {
 			view.findViewById(R.id.header).setVisibility(View.GONE);
@@ -143,7 +123,7 @@ public class MealAdapter extends AmazingAdapter {
 		
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 		Meal meal = getItem(position);
-		itemBig.setText(meal.getName());
+		itemBig.setText(meal.getName() + " " + meal.getDescription());
 		itemPrice.setText(meal.getCorrectPriceString(Integer.parseInt(sharedPrefs.getString("priceCategory", "2"))));
 		if (meal.getBio()) {
 			bioImageView.setVisibility(View.VISIBLE);
@@ -197,8 +177,8 @@ public class MealAdapter extends AmazingAdapter {
 	}
 
 	@Override
-	public String[] getSections() {
-		String[] res = new String[all.size()];
+	public Integer[] getSections() {
+		Integer[] res = new Integer[all.size()];
 		for (int i = 0; i < all.size(); i++) {
 			res[i] = all.get(i).first;
 		}

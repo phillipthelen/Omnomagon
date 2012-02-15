@@ -92,8 +92,25 @@ public class Data {
 		Elements rows = doc.getElementsByTag("tr");
 		for (int x=1; x < rows.size(); x++) {
 			Element row = rows.get(x);
-			//TODO replace groupname with correct drawable
 			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText();
+			int groupID;
+			if (groupname.equals("Aktionsstand")) {
+				groupID = R.drawable.aktion;
+			} else if (groupname.equals("Beilagen")) {
+				groupID = R.drawable.beilagen;
+			} else if (groupname.equals("Desserts")) {
+				groupID = R.drawable.desserts;
+			} else if (groupname.equals("Essen")) {
+				groupID = R.drawable.essen;
+			} else if (groupname.equals("Salate")) {
+				groupID = R.drawable.salate;
+			} else if (groupname.equals("Suppen")) {
+				groupID = R.drawable.suppen;
+			} else if (groupname.equals("Vorspeisen")) {
+				groupID = R.drawable.vorspeisen;
+			} else {
+				groupID = R.drawable.essen;
+			}
 			Elements cols = row.getElementsByClass("mensa_week_speise_tag");
 			for (int y=0; y < cols.size(); y++) {
 				List<Meal> meals = new ArrayList<Meal>();
@@ -133,15 +150,15 @@ public class Data {
 					meals.add(meal);
 					
 				}
-				currday.addMealGroup(groupname, meals);
+				currday.addMealGroup(groupID, meals);
 				res.set(y, currday);
 			}
 		}
 	}
 	
 
-	public List<Pair<String, List<Meal>>> getCurrentDay(int position) {
-		List<Pair<String, List<Meal>>> currentMeals = new ArrayList<Pair<String, List<Meal>>>();
+	public List<Pair<Integer, List<Meal>>> getCurrentDay(int position) {
+		List<Pair<Integer, List<Meal>>> currentMeals = new ArrayList<Pair<Integer, List<Meal>>>();
 		Day currentDay = res.get(position);
 		currentMeals = currentDay.getMeals();
 		System.out.println(currentMeals);
