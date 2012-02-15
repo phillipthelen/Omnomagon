@@ -149,6 +149,8 @@ public class MainActivity extends SherlockActivity {
             
             v.setAdapter(mAdapterList.get(position));
             v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
+            v.setDivider(getResources().getDrawable(android.R.color.transparent));
+            v.setCacheColorHint(0x00000000);
             v.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View res,
