@@ -29,6 +29,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 public class Meal {
     
     private String name;
@@ -105,12 +109,13 @@ public class Meal {
     	return this.mscBool;
     }
     
-    public int getVeganterianMsc() {
-    	if (this.vegetarianBool) {
+    public int getVeganterianMsc(Context context) {
+    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+    	if (sharedPrefs.getBoolean("vegetarianCheckbox", false) && this.vegetarianBool) {
     		return R.drawable.vegetarischsiegel;
-    	} else if (this.veganBool) {
+    	} else if (sharedPrefs.getBoolean("vegetarianCheckbox", false) &&this.veganBool) {
     		return R.drawable.vegansiegel;
-    	} else if (this.mscBool) {
+    	} else if (sharedPrefs.getBoolean("vegetarianCheckbox", false) &&this.mscBool) {
     		return 0;
     	}
     	

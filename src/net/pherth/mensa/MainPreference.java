@@ -26,18 +26,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package net.pherth.mensa;
 
 import net.pherth.mensa.R;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
  
 public class MainPreference extends SherlockPreferenceActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 addPreferencesFromResource(R.xml.mainpreferences);
+                ActionBar actionBar = getSupportActionBar();
+                actionBar.setDisplayShowTitleEnabled(true);
+                actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
+                actionBar.setDisplayShowHomeEnabled(false);
+                
                 CharSequence entry;
                 Preference mensaPref = (Preference) findPreference("mensaPreference");
                 mensaPref.setOnPreferenceChangeListener(setListListener());
@@ -64,5 +76,30 @@ public class MainPreference extends SherlockPreferenceActivity {
 					}
         	};
         	return listener;
+        }
+        
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+        	//MenuInflater inflater = getSupportMenuInflater();
+            //inflater.inflate(R.menu.preferencemenu, menu);
+            return true;
+        }
+        
+        
+        
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            /* switch (item.getItemId()) {
+                case R.id.menu_save:
+                	if (getParent() == null) {
+                	    setResult(Activity.RESULT_OK);
+                	} else {
+                	    getParent().setResult(Activity.RESULT_OK);
+                	}
+                	finish();
+                    break;
+                	
+            }*/
+            return true;
         }
 }

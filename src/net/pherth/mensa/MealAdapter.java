@@ -125,14 +125,15 @@ public class MealAdapter extends AmazingAdapter {
 		Meal meal = getItem(position);
 		itemBig.setText(meal.getName() + " " + meal.getDescription());
 		itemPrice.setText(meal.getCorrectPriceString(Integer.parseInt(sharedPrefs.getString("priceCategory", "2"))));
-		if (meal.getBio()) {
+		if (sharedPrefs.getBoolean("bioCheckbox", false) && meal.getBio()) {
 			bioImageView.setVisibility(View.VISIBLE);
 		} else {
 			bioImageView.setVisibility(View.INVISIBLE);
 		}
-		if (meal.getVeganterianMsc() != 0) {
+		Integer m = meal.getVeganterianMsc(this.context);
+		if (m != 0) {
 			veganVegetarianImageView.setVisibility(View.VISIBLE);
-			veganVegetarianImageView.setImageResource(meal.getVeganterianMsc());
+			veganVegetarianImageView.setImageResource(m);
 		} else {
 			veganVegetarianImageView.setVisibility(View.GONE);
 		}

@@ -20,8 +20,8 @@
         android:baselineAligned="true"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
-        android:paddingLeft="29dp"
-        android:paddingRight="29dp" 
+        android:paddingLeft="28dp"
+        android:paddingRight="28dp" 
         android:paddingTop="4dp">
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:gravity="right"
-            android:paddingLeft="5dp"
+            android:paddingLeft="2dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/priceColor"
             android:textSize="14dp"

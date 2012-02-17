@@ -5,8 +5,7 @@
     <PreferenceCategory android:title="@string/contentBadges">
         <CheckBoxPreference android:title="@string/vegetarian" android:key="vegetarianCheckbox"/>
         <CheckBoxPreference android:title="@string/vegan" android:key="veganCheckbox"/>
+        <CheckBoxPreference android:title="@string/bio" android:key="bioCheckbox"/>
+        <CheckBoxPreference android:title="@string/fish" android:key="mscCheckbox"/>
     </PreferenceCategory>
-    
-    
-
 </PreferenceScreen>

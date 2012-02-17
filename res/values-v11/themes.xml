@@ -13,4 +13,9 @@
         <item name="footerPadding">20dp</item>
         <item name="titlePadding">15dp</item>
     </style>
+    
+    <style name="PreferencesTheme" parent="@style/Theme.Sherlock">
+	    <item name="android:windowBackground">@drawable/background_settings</item>
+	    <item name="android:textColor">@color/fontcolor</item>
+	</style>
 </resources>

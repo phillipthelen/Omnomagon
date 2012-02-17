@@ -102,4 +102,6 @@
     </string-array>
     <string name="pleaseWait">Bitte warten…</string>
 	<string name="retrvData">Speiseplan wird abgerufen…</string>
+	<string name="bio">Bio</string>
+	<string name="fish">MSC zertifizierter Fisch</string>
 </resources>
