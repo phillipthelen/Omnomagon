@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -76,8 +77,22 @@ public class MainActivity extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         cxt = this;
-        items = getResources().getStringArray(R.array.weekDays);
+    	
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cxt);
+        
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
+        actionBar.setDisplayShowHomeEnabled(false);
+	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
+        
+        items = getResources().getStringArray(R.array.weekDays);
+        
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar);
+        calendar.setFirstDayOfWeek(0);
+        int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
+        
         OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             			actionBar.setTitle(getCurrentMensa(prefs.getString("mensaPreference", "Mensa")));
@@ -89,13 +104,6 @@ public class MainActivity extends SherlockActivity {
         sharedPrefs.registerOnSharedPreferenceChangeListener(prefsListener);
         for(int x=0; x<5; x++) {
         	mAdapterList.add(new MealAdapter(cxt));
-	        Calendar calendar = Calendar.getInstance();
-	        System.out.println(calendar);
-	        calendar.setFirstDayOfWeek(0);
-	        int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
-	        if (day < 5) {
-	        	pager.setCurrentItem(day);
-	        }
         }
         adapter = new MainPagerAdapter( this );
         ViewPager pager = (ViewPager)findViewById( R.id.mainpager );
@@ -103,13 +111,11 @@ public class MainActivity extends SherlockActivity {
         indicator.bringToFront();
         pager.setAdapter( adapter );
         indicator.setViewPager( pager );
-        
-	    actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
-        actionBar.setDisplayShowHomeEnabled(false);
-	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
-	    actionBar.show();
+        System.out.println(day);
+        if (day < 5) {
+        	pager.setCurrentItem(day);
+        }
+	    
 	    //TODO only update if hasn't updated today. Otherwise load data from database
 	    if (sharedPrefs.getBoolean("automaticUpdate", true)) {
 		    viewOrders = new Runnable(){
@@ -276,7 +282,7 @@ public class MainActivity extends SherlockActivity {
             case R.id.menu_settings:
             	Intent settingsActivity = new Intent(getBaseContext(),
                         MainPreference.class);
-            		startActivity(settingsActivity);
+            		startActivityForResult(settingsActivity, 0);
                    	break;
             case R.id.menu_refresh:
             	Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
@@ -337,5 +343,10 @@ public class MainActivity extends SherlockActivity {
             }
         }
     }
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+    }
+
 }
 

@@ -16,7 +16,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/MensaTheme">
+            android:theme="@style/MensaTheme"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,7 @@
         <activity
 	        android:name=".MainPreference"
 	        android:label="@string/preferences"
-	        android:theme="@style/MensaTheme">
+	        android:theme="@style/PreferencesTheme">
 		</activity>
     </application>
 
