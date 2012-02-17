@@ -135,8 +135,10 @@ public class MealAdapter extends AmazingAdapter {
 			veganVegetarianImageView.setVisibility(View.VISIBLE);
 			veganVegetarianImageView.setImageResource(m);
 		} else {
-			veganVegetarianImageView.setVisibility(View.GONE);
+			veganVegetarianImageView.setVisibility(View.INVISIBLE);
 		}
+		
+		res.findViewById(R.id.allergyImageView).setVisibility(View.GONE);
 		List<String> additionList = meal.getAdditions();
 		if (!additionList.isEmpty()) {
 			AdditionAdapter additionAdapter = new AdditionAdapter(context, R.layout.addition_list_item, additionList);

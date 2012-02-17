@@ -105,4 +105,7 @@
 	<string name="save">Save</string>
 	<string name="bio">Bio</string>
 	<string name="fish">MSC certified fish</string>
+	<string name="allergies">Allergies</string>
+	<string name="selectAllergies">Select the allergies you have.</string>
+	<string-array name="allergiesNames"></string-array>
 </resources>

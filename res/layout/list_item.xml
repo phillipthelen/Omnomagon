@@ -51,7 +51,7 @@
             android:textSize="14dp"
             android:textStyle="bold" 
             android:typeface="serif" />
-
+        
         <ImageView
             android:id="@+id/bioImageView"
             android:layout_width="17dp"
@@ -65,9 +65,17 @@
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="14dp"
             android:layout_toLeftOf="@+id/bioImageView" />
 
+        <ImageView
+            android:id="@+id/allergyImageView"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:src="@drawable/allergisch_siegel"
+            android:layout_toLeftOf="@+id/veganVegetarianImageView" />
+        
         <ListView
             android:id="@+id/additionsListView"
             android:layout_width="match_parent"
