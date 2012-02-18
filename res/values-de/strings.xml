@@ -4,7 +4,7 @@
     <string name="settings">Einstellungen</string>
     <string name="price">Preis</string>
     <string name="preferences">Einstellungen</string>
-    <string-array name="Mensen">
+    <string-array name="beList">
 		<item>Veggie Nr.1</item>
 		<item>Mensa FU II Otto-v.-Sims.</item>
 		<item>Mensa FU Lankwitz</item>
@@ -39,7 +39,7 @@
 		<item>Mensa KHSB Karlshorst</item>
 		<item>Mensa EHB Teltower Damm</item>
     </string-array>
-    <string-array name="MensenShort">
+    <string-array name="beListValues">
 		<item>fu1</item>
 		<item>fu2</item>
 		<item>fu_lankwitz</item>
@@ -104,4 +104,5 @@
 	<string name="retrvData">Speiseplan wird abgerufen…</string>
 	<string name="bio">Bio</string>
 	<string name="fish">MSC zertifizierter Fisch</string>
+	<string name="connError">Es gab einen Verbinungsfehler. Bitte versuche es später wieder.</string>
 </resources>

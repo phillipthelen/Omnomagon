@@ -25,10 +25,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.mensa;
 
-import net.pherth.mensa.R;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -37,7 +34,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
  
 public class MainPreference extends SherlockPreferenceActivity {
@@ -51,20 +47,23 @@ public class MainPreference extends SherlockPreferenceActivity {
                 actionBar.setDisplayShowHomeEnabled(false);
                 
                 CharSequence entry;
-                Preference cityPref = (Preference) findPreference("cityPreference");
+                ListPreference cityPref = (ListPreference) findPreference("cityPreference");
                 cityPref.setOnPreferenceChangeListener(setListListener());
-                entry = ((ListPreference) cityPref).getEntry();
+                entry = cityPref.getEntry();
         		cityPref.setSummary(entry);
-                
-                Preference mensaPref = (Preference) findPreference("mensaPreference");
+        		System.out.println(cityPref.getValue());
+        		System.out.println(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.mensa"));
+                ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
+                mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.mensa"));
+                mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.mensa"));
                 mensaPref.setOnPreferenceChangeListener(setListListener());
-                entry = ((ListPreference) mensaPref).getEntry();
+                entry = mensaPref.getEntry();
         		mensaPref.setSummary(entry);
         		
         		
-                Preference pricePref = (Preference) findPreference("priceCategory");
+                ListPreference pricePref = (ListPreference) findPreference("priceCategory");
                 pricePref.setOnPreferenceChangeListener(setListListener());
-                entry = ((ListPreference) pricePref).getEntry();
+                entry = pricePref.getEntry();
         		pricePref.setSummary(entry);
         		
         }

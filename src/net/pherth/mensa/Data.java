@@ -57,7 +57,10 @@ public class Data {
 		//TODO add possibility to support more than one Mensa.
 		RSSHandler rh = new RSSHandler();
 		String htmlString= rh.getHTML(url);
-		parseHTML(htmlString);
+		if (htmlString != null) {
+			parseHTML(htmlString);
+		} else {
+		}
 		//TODO save data in database
 	}
 	
@@ -170,6 +173,7 @@ public class Data {
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 		String mensa = sharedPrefs.getString("mensaPreference", "fu1");
 		url = "http://www.studentenwerk-berlin.de/speiseplan/rss/" + mensa + "/woche/lang/1";
+		System.out.println(url);
 		return url;
 	}
 }

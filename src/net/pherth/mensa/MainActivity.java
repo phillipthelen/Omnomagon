@@ -298,10 +298,10 @@ public class MainActivity extends SherlockActivity {
     public String getCurrentMensa(String key) {
     	String currentMensa = "Mensa";
         Resources res = getResources();
-        String[] mensaKeys = res.getStringArray(R.array.MensenShort);
+        String[] mensaKeys = res.getStringArray(R.array.beListValues);
         int mensaIndex = java.util.Arrays.asList(mensaKeys).indexOf(key);
         if (mensaIndex >= 0) {
-        	currentMensa = res.getStringArray(R.array.Mensen)[mensaIndex];
+        	currentMensa = res.getStringArray(R.array.beList)[mensaIndex];
         }
         return currentMensa;
     }

@@ -4,7 +4,7 @@
     <string name="settings">Settings</string>
     <string name="price">Price</string>
     <string name="preferences">Preferences</string>
-    <string-array name="Mensen">
+    <string-array name="beList">
 		<item>Veggie Nr.1</item>
 		<item>Mensa FU II Otto-v.-Sims.</item>
 		<item>Mensa FU Lankwitz</item>
@@ -39,7 +39,7 @@
 		<item>Mensa KHSB Karlshorst</item>
 		<item>Mensa EHB Teltower Damm</item>
     </string-array>
-    <string-array name="MensenShort">
+    <string-array name="beListValues">
 		<item>fu1</item>
 		<item>fu2</item>
 		<item>fu_lankwitz</item>
@@ -112,7 +112,8 @@
 		<item >Berlin</item>
 	</string-array>
 	<string-array name="cityListValues">
-		<item >be</item>
+		<item >beList</item>
 	</string-array>
 		<string name="city">City</string>
+		<string name="connError">Something went wrong. Please try later.</string>
 </resources>
