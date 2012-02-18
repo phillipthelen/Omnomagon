@@ -108,4 +108,11 @@
 	<string name="allergies">Allergies</string>
 	<string name="selectAllergies">Select the allergies you have.</string>
 	<string-array name="allergiesNames"></string-array>
+	<string-array name="cityList">
+		<item >Berlin</item>
+	</string-array>
+	<string-array name="cityListValues">
+		<item >be</item>
+	</string-array>
+		<string name="city">City</string>
 </resources>

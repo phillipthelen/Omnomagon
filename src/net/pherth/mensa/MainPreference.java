@@ -51,15 +51,22 @@ public class MainPreference extends SherlockPreferenceActivity {
                 actionBar.setDisplayShowHomeEnabled(false);
                 
                 CharSequence entry;
+                Preference cityPref = (Preference) findPreference("cityPreference");
+                cityPref.setOnPreferenceChangeListener(setListListener());
+                entry = ((ListPreference) cityPref).getEntry();
+        		cityPref.setSummary(entry);
+                
                 Preference mensaPref = (Preference) findPreference("mensaPreference");
                 mensaPref.setOnPreferenceChangeListener(setListListener());
                 entry = ((ListPreference) mensaPref).getEntry();
         		mensaPref.setSummary(entry);
+        		
+        		
                 Preference pricePref = (Preference) findPreference("priceCategory");
                 pricePref.setOnPreferenceChangeListener(setListListener());
                 entry = ((ListPreference) pricePref).getEntry();
         		pricePref.setSummary(entry);
-                
+        		
         }
         
         
