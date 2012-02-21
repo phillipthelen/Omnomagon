@@ -17,5 +17,6 @@
     <style name="PreferencesTheme" parent="@style/Theme.Sherlock">
 	    <item name="android:windowBackground">@drawable/background_settings</item>
 	    <item name="android:textColor">@color/fontcolor</item>
+	    <item name="android:typeface">serif</item>
 	</style>
 </resources>
