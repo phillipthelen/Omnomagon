@@ -51,21 +51,26 @@ public class MainPreference extends SherlockPreferenceActivity {
                 cityPref.setOnPreferenceChangeListener(setListListener());
                 entry = cityPref.getEntry();
         		cityPref.setSummary(entry);
-        		System.out.println(cityPref.getValue());
-        		System.out.println(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.mensa"));
+        		
                 ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
+                String currMensa = mensaPref.getValue();
                 mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.mensa"));
                 mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.mensa"));
                 mensaPref.setOnPreferenceChangeListener(setListListener());
-                entry = mensaPref.getEntry();
-        		mensaPref.setSummary(entry);
-        		
+                if (mensaPref.findIndexOfValue(currMensa) != -1) {
+                	mensaPref.setKey(currMensa);
+                	entry = mensaPref.getEntry();
+            		mensaPref.setSummary(entry);
+                }
+                
+        		System.out.println(mensaPref.getValue());
         		
                 ListPreference pricePref = (ListPreference) findPreference("priceCategory");
                 pricePref.setOnPreferenceChangeListener(setListListener());
                 entry = pricePref.getEntry();
         		pricePref.setSummary(entry);
         		
+        		ListPreference testPref = (ListPreference) findPreference("priceCategory");
         }
         
         

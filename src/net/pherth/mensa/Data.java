@@ -45,6 +45,7 @@ public class Data {
 	public static final String TAG = Data.class.getSimpleName();
 	List<Day> res;
 	private Context context;
+	SharedPreferences sharedPrefs;
 	
 	public Data(Context cxt) {
 		this.context = cxt;
@@ -53,12 +54,14 @@ public class Data {
 	public void getAllData() {
 		res = new ArrayList<Day>();
 		
-		String url = getURL();
-		//TODO add possibility to support more than one Mensa.
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
+		String city = sharedPrefs.getString("cityPreference", "beList");
+		String mensa = sharedPrefs.getString("mensaPreference", "fu1");
+		String url = getURL(city, mensa);
 		RSSHandler rh = new RSSHandler();
 		String htmlString= rh.getHTML(url);
 		if (htmlString != null) {
-			parseHTML(htmlString);
+			parseHTML(htmlString, city);
 		} else {
 		}
 		//TODO save data in database
@@ -75,7 +78,13 @@ public class Data {
 		return res.size();
 	}
 	
-	private void parseHTML(String htmlString) {
+	private void parseHTML(String html, String id) {
+		if (id == "beList") {
+				parseHTMLBerlin(html);
+		}
+	}
+	
+	private void parseHTMLBerlin(String htmlString) {
 		System.out.println("parsing HTML");		
 		Document doc = Jsoup.parse(htmlString);
 		Elements headers = doc.getElementsByClass("mensa_week_head_col");
@@ -168,12 +177,11 @@ public class Data {
 		return currentMeals;
 	}
 	
-	private String getURL() {
-		String url;
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
-		String mensa = sharedPrefs.getString("mensaPreference", "fu1");
-		url = "http://www.studentenwerk-berlin.de/speiseplan/rss/" + mensa + "/woche/lang/1";
-		System.out.println(url);
+	private String getURL(String city, String mensa) {
+		String url = null;
+		if (city == "beList") {
+			url = "http://www.studentenwerk-berlin.de/speiseplan/rss/" + mensa + "/woche/lang/1";
+		}
 		return url;
 	}
 }
