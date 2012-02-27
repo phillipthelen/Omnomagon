@@ -123,7 +123,7 @@ public class MealAdapter extends AmazingAdapter {
 		
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 		Meal meal = getItem(position);
-		itemBig.setText(meal.getName() + " " + meal.getDescription());
+		itemBig.setText(meal.getName());
 		itemPrice.setText(meal.getCorrectPriceString(Integer.parseInt(sharedPrefs.getString("priceCategory", "2"))));
 		if (sharedPrefs.getBoolean("bioCheckbox", false) && meal.getBio()) {
 			bioImageView.setVisibility(View.VISIBLE);

@@ -131,8 +131,7 @@ public class Data {
 				Elements currmeals = col.getElementsByClass("mensa_speise");
 				for (int c = 0; c < currmeals.size(); c++) {
 					Element mealElement = currmeals.get(c);
-					Meal meal = new Meal(mealElement.getElementsByTag("strong").get(0).ownText());
-					meal.setDescription(mealElement.ownText());
+					Meal meal = new Meal(mealElement.getElementsByTag("strong").get(0).ownText() + " " + mealElement.ownText());
 					String priceString = mealElement.getElementsByClass("mensa_preise").get(0).ownText();
 					if (priceString.length() > 3) {
 						priceString = priceString.substring(4);

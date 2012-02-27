@@ -48,7 +48,22 @@ public class MainPreference extends SherlockPreferenceActivity {
                 
                 CharSequence entry;
                 ListPreference cityPref = (ListPreference) findPreference("cityPreference");
-                cityPref.setOnPreferenceChangeListener(setListListener());
+                cityPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+    				@Override
+    				public boolean onPreferenceChange(
+    					Preference arg0, Object arg1) {
+    						int index = ((ListPreference) arg0).findIndexOfValue(arg1.toString());
+    						CharSequence summary = ((ListPreference) arg0).getEntries()[index];
+                    		arg0.setSummary(summary);
+                    		 ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
+                    		 mensaPref.setValueIndex(0);
+                    		 CharSequence entry = mensaPref.getEntry();
+                    		 mensaPref.setSummary(entry);
+            		
+                    		return true;
+    					}
+            	});
+                
                 entry = cityPref.getEntry();
         		cityPref.setSummary(entry);
         		
@@ -59,11 +74,12 @@ public class MainPreference extends SherlockPreferenceActivity {
                 mensaPref.setOnPreferenceChangeListener(setListListener());
                 if (mensaPref.findIndexOfValue(currMensa) != -1) {
                 	mensaPref.setKey(currMensa);
-                	entry = mensaPref.getEntry();
-            		mensaPref.setSummary(entry);
+                	
+                } else {
+                	mensaPref.setValueIndex(0);
                 }
-                
-        		System.out.println(mensaPref.getValue());
+                entry = mensaPref.getEntry();
+        		mensaPref.setSummary(entry);
         		
                 ListPreference pricePref = (ListPreference) findPreference("priceCategory");
                 pricePref.setOnPreferenceChangeListener(setListListener());
