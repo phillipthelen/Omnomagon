@@ -25,7 +25,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.mensa;
 
-import android.content.res.Resources;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -33,10 +34,8 @@ import android.preference.Preference.OnPreferenceChangeListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
  
-public class MainPreference extends SherlockPreferenceActivity {
+public class MainPreference extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -48,38 +47,23 @@ public class MainPreference extends SherlockPreferenceActivity {
                 
                 CharSequence entry;
                 ListPreference cityPref = (ListPreference) findPreference("cityPreference");
-                cityPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-    				@Override
-    				public boolean onPreferenceChange(
-    					Preference arg0, Object arg1) {
-    						int index = ((ListPreference) arg0).findIndexOfValue(arg1.toString());
-    						CharSequence summary = ((ListPreference) arg0).getEntries()[index];
-                    		arg0.setSummary(summary);
-                    		 ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
-                    		 mensaPref.setValueIndex(0);
-                    		 CharSequence entry = mensaPref.getEntry();
-                    		 mensaPref.setSummary(entry);
-            		
-                    		return true;
-    					}
-            	});
-                
                 entry = cityPref.getEntry();
         		cityPref.setSummary(entry);
         		
+        		
                 ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
-                String currMensa = mensaPref.getValue();
-                mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.mensa"));
-                mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.mensa"));
-                mensaPref.setOnPreferenceChangeListener(setListListener());
-                if (mensaPref.findIndexOfValue(currMensa) != -1) {
-                	mensaPref.setKey(currMensa);
-                	
+                if (cityPref.getValue() != null) {
+        			System.out.println("cityPref " + cityPref.getValue());
+        			System.out.println("mensaPref " + mensaPref);
+                 	mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.mensa"));
+                 	mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.mensa"));
                 } else {
-                	mensaPref.setValueIndex(0);
+                 	mensaPref.setEntries(R.array.beList);
+                 	mensaPref.setEntryValues(R.array.beListValues);
                 }
                 entry = mensaPref.getEntry();
         		mensaPref.setSummary(entry);
+        		
         		
                 ListPreference pricePref = (ListPreference) findPreference("priceCategory");
                 pricePref.setOnPreferenceChangeListener(setListListener());
@@ -105,28 +89,22 @@ public class MainPreference extends SherlockPreferenceActivity {
         	return listener;
         }
         
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-        	//MenuInflater inflater = getSupportMenuInflater();
-            //inflater.inflate(R.menu.preferencemenu, menu);
-            return true;
-        }
-        
-        
-        
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            /* switch (item.getItemId()) {
-                case R.id.menu_save:
-                	if (getParent() == null) {
-                	    setResult(Activity.RESULT_OK);
-                	} else {
-                	    getParent().setResult(Activity.RESULT_OK);
-                	}
-                	finish();
-                    break;
-                	
-            }*/
-            return true;
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        	if (key.equals("cityPreference")) {
+        		ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
+        		ListPreference cityPref = (ListPreference) findPreference("cityPreference");
+        		if (cityPref.getValue() != null) {
+        			System.out.println("cityPref " + cityPref.getValue());
+        			System.out.println("mensaPref " + mensaPref);
+                 	mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.mensa"));
+                 	mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.mensa"));
+                } else {
+                 	mensaPref.setEntries(R.array.beList);
+                 	mensaPref.setEntryValues(R.array.beListValues);
+                }
+        		mensaPref.setValueIndex(0);
+        		CharSequence entry = mensaPref.getEntry();
+        		mensaPref.setSummary(entry);
+        	}
         }
 }

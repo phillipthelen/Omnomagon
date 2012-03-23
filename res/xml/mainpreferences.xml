@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <CheckBoxPreference android:title="@string/updateAutomatic" android:key="automaticUpdate" android:layout="@layout/checkboxpref"/><ListPreference android:key="cityPreference" android:entries="@array/cityList" android:title="@string/city" android:entryValues="@array/cityListValues"/><ListPreference android:key="mensaPreference" android:title="@string/mensa" android:summary="@string/chosenMensa"/>
-    <ListPreference android:key="priceCategory" android:title="@string/price" android:entryValues="@array/priceClassesValue" android:entries="@array/priceClasses"/>
+    <PreferenceCategory android:title="@string/general"><CheckBoxPreference android:title="@string/updateAutomatic" android:key="automaticUpdate" android:layout="@layout/checkboxpref" android:defaultValue="true" /><ListPreference android:key="cityPreference" android:entries="@array/cityList" android:title="@string/city" android:entryValues="@array/cityListValues" android:defaultValue="beList" /><ListPreference android:key="mensaPreference" android:title="@string/mensa" android:summary="@string/chosenMensa" android:defaultValue="fu1" /><ListPreference android:key="priceCategory" android:title="@string/price" android:entryValues="@array/priceClassesValue" android:entries="@array/priceClasses" android:defaultValue="2" /></PreferenceCategory>
+    
     <PreferenceCategory android:title="@string/contentBadges">
         <CheckBoxPreference android:title="@string/vegetarian" android:key="vegetarianCheckbox" android:layout="@layout/checkboxpref"/>
         <CheckBoxPreference android:title="@string/vegan" android:key="veganCheckbox" android:layout="@layout/checkboxpref"/>
         <CheckBoxPreference android:title="@string/bio" android:key="bioCheckbox" android:layout="@layout/checkboxpref"/>
         <CheckBoxPreference android:title="@string/fish" android:key="mscCheckbox" android:layout="@layout/checkboxpref"/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/misc"><Preference android:title="@string/help" /><Preference android:title="@string/about" android:selectable="true" />
+    
+</PreferenceCategory>
+    
+    
     
 </PreferenceScreen>

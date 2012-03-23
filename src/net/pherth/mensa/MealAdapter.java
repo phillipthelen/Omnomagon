@@ -28,16 +28,14 @@ package net.pherth.mensa;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.pherth.mensa.R;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -101,9 +99,10 @@ public class MealAdapter extends AmazingAdapter {
 			ImageView lSectionTitle = (ImageView) view.findViewById(R.id.header);
 			int section = getSections()[getSectionForPosition(position)];
 			lSectionTitle.setImageResource(section);
-			//view.findViewById(R.id.listTextContainer).setBackgroundResource(R.drawable.schatten);
+			view.findViewById(R.id.listTextContainer).setBackgroundResource(R.drawable.schatten);
 		} else {
 			view.findViewById(R.id.header).setVisibility(View.GONE);
+			view.findViewById(R.id.listTextContainer).setBackgroundResource(android.R.color.transparent);
 		}
 	}
 

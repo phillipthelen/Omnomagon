@@ -32,6 +32,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class Meal {
     
@@ -115,7 +116,7 @@ public class Meal {
     }
     
     public List<String> getAdditions() {
-    	System.out.println(this.additions);
+    	Log.i("Additions", this.additions.toString());
     	return this.additions;
     }
     

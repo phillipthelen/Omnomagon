@@ -2,6 +2,7 @@
 <resources>
     <style name="MensaTheme" parent="@style/Theme.Sherlock">
         <item name="vpiTitlePageIndicatorStyle">@style/CustomTitlePageIndicator</item>
+                <item name="android:typeface">serif</item>
     </style>
     
     <style name="CustomTitlePageIndicator">
@@ -11,4 +12,11 @@
         <item name="selectedBold">false</item>
         <item name="footerPadding">19dp</item>
     </style>
+    
+    
+    <style name="PreferencesTheme" parent="@style/Theme.Sherlock">
+	    <item name="android:windowBackground">@drawable/background_settings</item>
+	    <item name="android:textColor">@color/fontcolor</item>
+	    <item name="android:typeface">serif</item>
+	</style>
 </resources>

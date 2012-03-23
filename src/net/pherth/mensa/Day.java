@@ -25,18 +25,42 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.mensa;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.util.Log;
 import android.util.Pair;
 
 public class Day {
 	List<Pair<Integer, List<Meal>>> allMeals = new ArrayList<Pair<Integer, List<Meal>>>();
-	Date date;
+	public Date date;
+	public String id;
 	
 	public Day(Date currentDay) {
 		date = currentDay;
+	}
+	
+	public Day(String currentDayString) {
+		try {
+			SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
+			date = sdfToDate.parse(currentDayString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Day(String currentDayString, String dayid) {
+		try {
+			SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
+			date = sdfToDate.parse(currentDayString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		id = dayid;
 	}
 	
 	public List<Pair<Integer, List<Meal>>> getMeals() {
@@ -55,7 +79,23 @@ public class Day {
 		allMeals.add(meals);
 	}
 	
-	public void addMeal(String groupname, Meal meal) {
+	public void addMeal(Integer groupID, Meal meal) {
+		boolean found = false;
+		for(int group = 0; group < allMeals.size(); group++) {
+			if (allMeals.get(group).first.equals(groupID)) {
+				allMeals.get(group).second.add(meal);
+				found = true;
+			}
+		}
 		
+		if (!found) {
+			List<Meal> meallist = new ArrayList<Meal>();
+			meallist.add(meal);
+			allMeals.add(new Pair<Integer, List<Meal>>(groupID, meallist));
+		}
+	}
+	
+	public void setMeals(List<Pair<Integer, List<Meal>>> meals) {
+		allMeals = meals;
 	}
 }

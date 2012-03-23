@@ -43,6 +43,7 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -63,7 +64,7 @@ public class MainActivity extends SherlockActivity {
     private static int NUM_VIEWS = 5;
     private Context cxt;
     private ProgressDialog m_ProgressDialog = null; 
-    private Runnable viewOrders;
+    private Runnable loadNew;
     private String[] items;
     AmazingListView lsComposer;
     private MainPagerAdapter adapter;
@@ -89,7 +90,7 @@ public class MainActivity extends SherlockActivity {
         items = getResources().getStringArray(R.array.weekDays);
         
         Calendar calendar = Calendar.getInstance();
-        System.out.println(calendar);
+        Log.i("Calendar", calendar.toString());
         calendar.setFirstDayOfWeek(0);
         int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
         
@@ -111,20 +112,31 @@ public class MainActivity extends SherlockActivity {
         indicator.bringToFront();
         pager.setAdapter( adapter );
         indicator.setViewPager( pager );
-        System.out.println(day);
+        Log.i("Day", String.valueOf(day));
         if (day < 5) {
         	pager.setCurrentItem(day);
         }
-	    
+        loadNew = new Runnable(){
+            @Override
+            public void run() {
+                getPlan(false);
+            }
+        };
 	    //TODO only update if hasn't updated today. Otherwise load data from database
 	    if (sharedPrefs.getBoolean("automaticUpdate", true)) {
-		    viewOrders = new Runnable(){
+	        Thread thread =  new Thread(null, loadNew, "MagentoBackground");
+	        thread.start();
+	        m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
+	              getString( R.string.pleaseWait), getString(R.string.retrvData), true);
+	    } else {
+	    	Runnable loadDatabase = new Runnable(){
 	            @Override
 	            public void run() {
-	                getPlan();
+	                getPlan(true);
+	                
 	            }
 	        };
-	        Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
+	        Thread thread =  new Thread(null, loadDatabase, "MagentoBackground");
 	        thread.start();
 	        m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
 	              getString( R.string.pleaseWait), getString(R.string.retrvData), true);
@@ -177,7 +189,7 @@ public class MainActivity extends SherlockActivity {
 					} else {
 						listView.setVisibility(View.GONE);
 					}
-					System.out.println(listView.getCount());
+					Log.i("Listview", String.valueOf(listView.getCount()));
 				}
               });
             
@@ -242,17 +254,17 @@ public class MainActivity extends SherlockActivity {
         }
     }
     
-    private void getPlan(){
+    private void getPlan(boolean fromDatabase){
     	if (isNetworkAvailable()) {
     	data = new Data(cxt);
-    	data.getAllData();
+    	data.getAllData(fromDatabase);
     	for(int i=0; i<data.getDayCount(); i++){
     		MealAdapter mealAdapter = mAdapterList.get(i);
     		mealAdapter.setData(data.getCurrentDay(i));
     		mAdapterList.set(i, mealAdapter);
     	}
     	}
-          runOnUiThread(returnRes);
+        runOnUiThread(returnRes);
     }
     
     private Runnable returnRes = new Runnable() {
@@ -276,8 +288,7 @@ public class MainActivity extends SherlockActivity {
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	System.out.println(item);
-    	System.out.println(item.getItemId());
+    	Log.i("Item", item.toString());
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	Intent settingsActivity = new Intent(getBaseContext(),
@@ -285,7 +296,7 @@ public class MainActivity extends SherlockActivity {
             		startActivityForResult(settingsActivity, 0);
                    	break;
             case R.id.menu_refresh:
-            	Thread thread =  new Thread(null, viewOrders, "MagentoBackground");
+            	Thread thread =  new Thread(null, loadNew, "MagentoBackground");
                 thread.start();
                 m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
                 		getString( R.string.pleaseWait), getString(R.string.retrvData), true);

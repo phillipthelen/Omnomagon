@@ -39,6 +39,7 @@ import org.jsoup.select.Elements;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.Pair;
 
 public class Data {
@@ -46,29 +47,40 @@ public class Data {
 	List<Day> res;
 	private Context context;
 	SharedPreferences sharedPrefs;
+	Dataprovider dataprov;
 	
 	public Data(Context cxt) {
+		dataprov = new Dataprovider(cxt);
 		this.context = cxt;
 	}
 	
-	public void getAllData() {
+	public void getAllData(boolean fromDatabase) {
 		res = new ArrayList<Day>();
-		
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
-		String city = sharedPrefs.getString("cityPreference", "beList");
-		String mensa = sharedPrefs.getString("mensaPreference", "fu1");
-		String url = getURL(city, mensa);
-		RSSHandler rh = new RSSHandler();
-		String htmlString= rh.getHTML(url);
-		if (htmlString != null) {
-			parseHTML(htmlString, city);
+		if(fromDatabase) {
+			Log.i("Data", "Load from database");
+			loadDataFromDatabase();
 		} else {
+			Log.i("Data", "Load new data");
+			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
+			String city = sharedPrefs.getString("cityPreference", "beList");
+			String mensa = sharedPrefs.getString("mensaPreference", "fu1");
+			String url = getURL(city, mensa);
+			RSSHandler rh = new RSSHandler();
+			String htmlString= rh.getHTML(url);
+			if (htmlString != null) {
+				parseHTML(htmlString, city);
+			} else {
+			}
+			dataprov.open();
+			dataprov.newData(res);
+			dataprov.close();
 		}
-		//TODO save data in database
 	}
 	
 	public void loadDataFromDatabase() {
-		//TODO function that loads the data from database
+		dataprov.open();
+		res = dataprov.getData();
+		dataprov.close();
 	}
 	
 	public int getDayCount() {
@@ -79,13 +91,13 @@ public class Data {
 	}
 	
 	private void parseHTML(String html, String id) {
-		if (id == "beList") {
+		if (id.equals("beList")) {
 				parseHTMLBerlin(html);
 		}
 	}
 	
 	private void parseHTMLBerlin(String htmlString) {
-		System.out.println("parsing HTML");		
+		Log.i("HTML", "beginning to parse");		
 		Document doc = Jsoup.parse(htmlString);
 		Elements headers = doc.getElementsByClass("mensa_week_head_col");
 		for (int x=0; x < headers.size(); x++){
@@ -172,15 +184,16 @@ public class Data {
 		List<Pair<Integer, List<Meal>>> currentMeals = new ArrayList<Pair<Integer, List<Meal>>>();
 		Day currentDay = res.get(position);
 		currentMeals = currentDay.getMeals();
-		System.out.println(currentMeals);
+		Log.i("Current Meals", currentMeals.toString());
 		return currentMeals;
 	}
 	
 	private String getURL(String city, String mensa) {
-		String url = null;
-		if (city == "beList") {
+		String url = "";
+		if (city.equals("beList")) {
 			url = "http://www.studentenwerk-berlin.de/speiseplan/rss/" + mensa + "/woche/lang/1";
 		}
+		Log.i("url", city + ", " + mensa + ", " + url);
 		return url;
 	}
 }
