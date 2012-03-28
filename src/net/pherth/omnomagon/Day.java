@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,6 +55,7 @@ public class Day {
 	public Day(String currentDayString, String dayid) {
 		try {
 			SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
+			Log.i("Day", currentDayString);
 			date = sdfToDate.parse(currentDayString);
 		} catch (ParseException e) {
 			e.printStackTrace();

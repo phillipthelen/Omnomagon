@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -74,6 +74,11 @@ public class Data {
 			dataprov.open();
 			dataprov.newData(res);
 			dataprov.close();
+
+
+			SharedPreferences.Editor editor = sharedPrefs.edit();
+			editor.putLong("lastUpdate", System.currentTimeMillis());
+			editor.commit();
 		}
 	}
 	

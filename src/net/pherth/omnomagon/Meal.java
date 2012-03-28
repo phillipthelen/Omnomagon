@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -137,7 +137,7 @@ public class Meal {
     public String getCorrectPriceString(int type) {
     	DecimalFormat dec = new DecimalFormat();
     	dec.setMinimumFractionDigits(2);
-    	return dec.format(this.prices[type]) + " Û";
+    	return dec.format(this.prices[type]) + " â‚¬";
     }
     
     

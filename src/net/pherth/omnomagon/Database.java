@@ -1,8 +1,7 @@
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -20,7 +19,7 @@ public class Database extends SQLiteOpenHelper {
 	private static final String addition_TABLE_CREATE =
 	            "CREATE TABLE " + addition_TABLE_NAME + " ( mealID INTEGER, name TEXT);";
 	
-	private static String DB_PATH = "/data/data/net.pherth.mensa/databases/";
+	private static String DB_PATH = "/data/data/net.pherth.omnomagon/databases/";
 	private static String DB_NAME = "omnomagon.db";
 	
 	Database(Context context) {

@@ -1,5 +1,4 @@
-package net.pherth.mensa;
-import java.io.IOException;
+package net.pherth.omnomagon;
 import java.util.ArrayList;
 import java.util.List;
 

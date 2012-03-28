@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package net.pherth.mensa;
+package net.pherth.omnomagon;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,40 +60,36 @@ import com.viewpagerindicator.TitlePageIndicator;
 import com.viewpagerindicator.TitleProvider;
 
 public class MainActivity extends SherlockActivity {
-	
-    private static int NUM_VIEWS = 5;
-    private Context cxt;
-    private ProgressDialog m_ProgressDialog = null; 
+
+	private Context cxt;
+    private ProgressDialog m_ProgressDialog = null;
     private Runnable loadNew;
     private String[] items;
-    AmazingListView lsComposer;
-    private MainPagerAdapter adapter;
-    private ArrayList<MealAdapter> mAdapterList = new ArrayList<MealAdapter>();
+	private ArrayList<MealAdapter> mAdapterList = new ArrayList<MealAdapter>();
     com.actionbarsherlock.app.ActionBar actionBar;
-    private Data data;
-    
-    /** Called when the activity is first created. */
+
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         cxt = this;
-    	
+
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cxt);
-        
+
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
         actionBar.setDisplayShowHomeEnabled(false);
 	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
-        
+
         items = getResources().getStringArray(R.array.weekDays);
-        
+
         Calendar calendar = Calendar.getInstance();
         Log.i("Calendar", calendar.toString());
         calendar.setFirstDayOfWeek(0);
         int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
-        
+
         OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             			actionBar.setTitle(getCurrentMensa(prefs.getString("mensaPreference", "Mensa")));
@@ -106,11 +102,11 @@ public class MainActivity extends SherlockActivity {
         for(int x=0; x<5; x++) {
         	mAdapterList.add(new MealAdapter(cxt));
         }
-        adapter = new MainPagerAdapter( this );
+	    MainPagerAdapter adapter = new MainPagerAdapter(this);
         ViewPager pager = (ViewPager)findViewById( R.id.mainpager );
         TitlePageIndicator indicator = (TitlePageIndicator)findViewById( R.id.indicator );
         indicator.bringToFront();
-        pager.setAdapter( adapter );
+        pager.setAdapter(adapter);
         indicator.setViewPager( pager );
         Log.i("Day", String.valueOf(day));
         if (day < 5) {
@@ -122,57 +118,46 @@ public class MainActivity extends SherlockActivity {
                 getPlan(false);
             }
         };
-	    //TODO only update if hasn't updated today. Otherwise load data from database
-	    if (sharedPrefs.getBoolean("automaticUpdate", true)) {
+
+	    Long lastUpdate = sharedPrefs.getLong("lastUpdate", -1);
+	    if (sharedPrefs.getBoolean("automaticUpdate", true) && !updateToday(lastUpdate)) {
 	        Thread thread =  new Thread(null, loadNew, "MagentoBackground");
 	        thread.start();
-	        m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
+	        m_ProgressDialog = ProgressDialog.show(MainActivity.this,
 	              getString( R.string.pleaseWait), getString(R.string.retrvData), true);
 	    } else {
 	    	Runnable loadDatabase = new Runnable(){
 	            @Override
 	            public void run() {
 	                getPlan(true);
-	                
+
 	            }
 	        };
 	        Thread thread =  new Thread(null, loadDatabase, "MagentoBackground");
 	        thread.start();
-	        m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
+	        m_ProgressDialog = ProgressDialog.show(MainActivity.this,
 	              getString( R.string.pleaseWait), getString(R.string.retrvData), true);
 	    }
     }
-    
+
     private class MainPagerAdapter extends PagerAdapter implements TitleProvider{
-    	
+
     	private final Context context;
-        
+
     	public MainPagerAdapter( Context context )
         {
             this.context = context;
         }
-    	
+
         @Override
         public int getCount() {
-                return NUM_VIEWS;
+	        return 5;
         }
-
-    /**
-     * Create the page for the given position.  The adapter is responsible
-     * for adding the view to the container given here, although it only
-     * must ensure this is done by the time it returns from
-     * {@link #finishUpdate()}.
-     *
-     * @param container The containing View in which the page will be shown.
-     * @param position The page position to be instantiated.
-     * @return Returns an Object representing the new page.  This does not
-     * need to be a View, but can be some other container of the page.
-     */
         @Override
         public Object instantiateItem(View collection, int position) {
         	AmazingListView v = new AmazingListView( context );
             ( (ViewPager) collection ).addView( v, 0 );
-            
+
             v.setAdapter(mAdapterList.get(position));
             v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
             v.setDivider(getResources().getDrawable(android.R.color.transparent));
@@ -192,44 +177,26 @@ public class MainActivity extends SherlockActivity {
 					Log.i("Listview", String.valueOf(listView.getCount()));
 				}
               });
-            
+
             return v;
         }
 
-    /**
-     * Remove a page for the given position.  The adapter is responsible
-     * for removing the view from its container, although it only must ensure
-     * this is done by the time it returns from {@link #finishUpdate()}.
-     *
-     * @param container The containing View from which the page will be removed.
-     * @param position The page position to be removed.
-     * @param object The same object that was returned by
-     * {@link #instantiateItem(View, int)}.
-     */
         @Override
         public void destroyItem(View collection, int position, Object view) {
                 ((ViewPager) collection).removeView((ListView) view);
         }
 
-        
-        
+
+
         @Override
         public boolean isViewFromObject(View view, Object object) {
                 return view==((ListView)object);
         }
 
-        
-    /**
-     * Called when the a change in the shown pages has been completed.  At this
-     * point you must ensure that all of the pages have actually been added or
-     * removed from the container as appropriate.
-     * @param container The containing View which is displaying this adapter's
-     * page views.
-     */
         @Override
         public void finishUpdate(View arg0) {
         }
-        
+
 
         @Override
         public void restoreState(Parcelable arg0, ClassLoader arg1) {}
@@ -241,24 +208,24 @@ public class MainActivity extends SherlockActivity {
 
         @Override
         public void startUpdate(View arg0) {}
-        
+
         @Override
         public int getItemPosition(Object object) {
             return POSITION_NONE;
         }
-        
+
         @Override
         public String getTitle( int position )
         {
             return items[ position ];
         }
     }
-    
+
     private void getPlan(boolean fromDatabase){
     	if (isNetworkAvailable()) {
-    	data = new Data(cxt);
+		    Data data = new Data(cxt);
     	data.getAllData(fromDatabase);
-    	for(int i=0; i<data.getDayCount(); i++){
+    	for(int i=0; i< data.getDayCount(); i++){
     		MealAdapter mealAdapter = mAdapterList.get(i);
     		mealAdapter.setData(data.getCurrentDay(i));
     		mAdapterList.set(i, mealAdapter);
@@ -266,7 +233,7 @@ public class MainActivity extends SherlockActivity {
     	}
         runOnUiThread(returnRes);
     }
-    
+
     private Runnable returnRes = new Runnable() {
 
         @Override
@@ -277,15 +244,15 @@ public class MainActivity extends SherlockActivity {
 	    	}
         }
     };
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.optionmenu, menu);
         return true;
     }
-    
-    
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	Log.i("Item", item.toString());
@@ -298,14 +265,14 @@ public class MainActivity extends SherlockActivity {
             case R.id.menu_refresh:
             	Thread thread =  new Thread(null, loadNew, "MagentoBackground");
                 thread.start();
-                m_ProgressDialog = ProgressDialog.show(MainActivity.this,    
+                m_ProgressDialog = ProgressDialog.show(MainActivity.this,
                 		getString( R.string.pleaseWait), getString(R.string.retrvData), true);
                 break;
-            	
+
         }
         return true;
     }
-    
+
     public String getCurrentMensa(String key) {
     	String currentMensa = "Mensa";
         Resources res = getResources();
@@ -316,7 +283,7 @@ public class MainActivity extends SherlockActivity {
         }
         return currentMensa;
     }
-    
+
     @Override
     public void onPause() {
     	if(m_ProgressDialog != null) {
@@ -324,14 +291,14 @@ public class MainActivity extends SherlockActivity {
     	}
     	super.onPause();
     }
-    
+
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager 
+        ConnectivityManager connectivityManager
               = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
-    
+
     public static final void setAppFont(ViewGroup mContainer, Typeface mFont)
     {
         if (mContainer == null || mFont == null) return;
@@ -354,10 +321,18 @@ public class MainActivity extends SherlockActivity {
             }
         }
     }
-    
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
     }
 
+	
+	public Boolean updateToday(Long timestamp) {
+		Long currTimestamp = System.currentTimeMillis();
+		Float diff = (currTimestamp.floatValue() - timestamp) / 86400000;
+		Log.i("MainActivity", diff.toString());
+		return (diff < 1);
+		
+	}
 }
 
