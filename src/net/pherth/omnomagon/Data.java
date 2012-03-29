@@ -124,21 +124,21 @@ public class Data {
 			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText();
 			int groupID;
 			if (groupname.equals("Aktionsstand")) {
-				groupID = R.drawable.aktion;
+				groupID = R.drawable.ic_aktion;
 			} else if (groupname.equals("Beilagen")) {
-				groupID = R.drawable.beilagen;
+				groupID = R.drawable.ic_beilagen;
 			} else if (groupname.equals("Desserts")) {
-				groupID = R.drawable.desserts;
+				groupID = R.drawable.ic_desserts;
 			} else if (groupname.equals("Essen")) {
-				groupID = R.drawable.essen;
+				groupID = R.drawable.ic_essen;
 			} else if (groupname.equals("Salate")) {
-				groupID = R.drawable.salate;
+				groupID = R.drawable.ic_salate;
 			} else if (groupname.equals("Suppen")) {
-				groupID = R.drawable.suppen;
+				groupID = R.drawable.ic_suppen;
 			} else if (groupname.equals("Vorspeisen")) {
-				groupID = R.drawable.vorspeisen;
+				groupID = R.drawable.ic_vorspeisen;
 			} else {
-				groupID = R.drawable.essen;
+				groupID = R.drawable.ic_essen;
 			}
 			Elements cols = row.getElementsByClass("mensa_week_speise_tag");
 			for (int y=0; y < cols.size(); y++) {
@@ -178,15 +178,15 @@ public class Data {
 					meals.add(meal);
 					
 				}
-				currday.addMealGroup(groupID, meals);
+				currday.addMealGroup(groupID, groupname.toUpperCase(), meals);
 				res.set(y, currday);
 			}
 		}
 	}
 	
 
-	public List<Pair<Integer, List<Meal>>> getCurrentDay(int position) {
-		List<Pair<Integer, List<Meal>>> currentMeals = new ArrayList<Pair<Integer, List<Meal>>>();
+	public List<Pair<Pair<Integer, String>, List<Meal>>> getCurrentDay(int position) {
+		List<Pair<Pair<Integer, String>, List<Meal>>> currentMeals = new ArrayList<Pair<Pair<Integer, String>, List<Meal>>>();
 		Day currentDay = res.get(position);
 		currentMeals = currentDay.getMeals();
 		Log.i("Current Meals", currentMeals.toString());

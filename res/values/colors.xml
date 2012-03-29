@@ -4,4 +4,5 @@
     <color name="grey">#DBDBDB</color>
     <color name="fontcolor">#545454</color>
     <color name="priceColor">#a2543f</color>
+	<color name="cardblue">#83a0be</color>
 </resources>

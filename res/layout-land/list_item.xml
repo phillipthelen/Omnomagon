@@ -10,22 +10,23 @@
         android:id="@+id/header"
         android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@drawable/bg_board_strech">
+		android:background="@drawable/bg_board_strech"
+		android:paddingTop="15dp">
 		<TextView
-		android:id="@+id/headerText"
-		android:textColor="@color/cardblue"
-		android:background="@drawable/bg_sign"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentBottom="true"
+				android:id="@+id/headerText"
+				android:textColor="@color/cardblue"
+				android:background="@drawable/bg_sign"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentBottom="true"
 				/>
 		<ImageView
-			android:id="@+id/headerImage"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"
-			android:layout_alignParentBottom="true"/>
+				android:id="@+id/headerImage"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentTop="true"/>
 	</RelativeLayout>
 
     <RelativeLayout
@@ -49,7 +50,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/fontcolor"
             android:textSize="14dp"
-			android:paddingLeft="2dp"
+			android:paddingLeft="4dp"
             android:typeface="serif" />
 		
         
@@ -61,13 +62,13 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:gravity="right"
-            android:paddingLeft="2dp"
+            android:paddingLeft="6dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/priceColor"
             android:textSize="14dp"
-            android:textStyle="bold"
-			android:paddingRight="2dp"
-            android:typeface="serif" />
+            android:textStyle="bold" 
+            android:typeface="serif"
+			android:paddingRight="4dp"/>
         
         <ImageView
             android:id="@+id/bioImageView"
@@ -75,21 +76,23 @@
             android:layout_height="17dp"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/itemViewPrice"
-            android:src="@drawable/biosiegel" />
+            android:src="@drawable/biosiegel"
+			android:paddingLeft="4dp"/>
 
         <ImageView
             android:id="@+id/veganVegetarianImageView"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/bioImageView" />
+            android:layout_toLeftOf="@+id/bioImageView"
+			android:paddingLeft="4dp"/>
 
         <ImageView
             android:id="@+id/allergyImageView"
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/allergisch_siegel"
             android:layout_toLeftOf="@+id/veganVegetarianImageView" />
         
@@ -98,13 +101,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+			android:gravity="top"
             android:layout_below="@+id/itemViewBig"
             android:background="@drawable/bg_details"
 			android:textColor="@color/white"
             android:clickable="false"
-            android:focusable="false"
-			android:lineSpacingExtra="2dp"
-				/>
+            android:focusable="false" />
 
     </RelativeLayout>
 

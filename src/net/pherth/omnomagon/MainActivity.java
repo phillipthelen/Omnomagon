@@ -46,12 +46,15 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -166,15 +169,18 @@ public class MainActivity extends SherlockActivity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View res,
 						int arg2, long arg3) {
-					ListView listView = (ListView) res.findViewById(R.id.additionsListView);
-					if (listView.getVisibility() == View.GONE) {
-						//Animation rollDownAnimation = AnimationUtils.loadAnimation(cxt, R.anim.rolldown);
-						listView.setVisibility(View.VISIBLE);
-						//listView.startAnimation(rollDownAnimation);
+					TextView textView = (TextView) res.findViewById(R.id.additionsTextView);
+					if (textView.getVisibility() == View.GONE) {
+						textView.setVisibility(View.VISIBLE);
+						Animation anim = AnimationUtils.loadAnimation(context, R.anim.rolldown);
+						textView.setAnimation(anim);
+						anim.start();
 					} else {
-						listView.setVisibility(View.GONE);
+						Animation anim = AnimationUtils.loadAnimation(context, R.anim.rolldown);
+						textView.setAnimation(anim);
+						anim.start();
+						textView.setVisibility(View.GONE);
 					}
-					Log.i("Listview", String.valueOf(listView.getCount()));
 				}
               });
 

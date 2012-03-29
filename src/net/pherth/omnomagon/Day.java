@@ -35,7 +35,7 @@ import android.util.Log;
 import android.util.Pair;
 
 public class Day {
-	List<Pair<Integer, List<Meal>>> allMeals = new ArrayList<Pair<Integer, List<Meal>>>();
+	List<Pair<Pair<Integer, String>, List<Meal>>> allMeals = new ArrayList<Pair<Pair<Integer, String>, List<Meal>>>();
 	public Date date;
 	public String id;
 	
@@ -54,7 +54,8 @@ public class Day {
 	
 	public Day(String currentDayString, String dayid) {
 		try {
-			SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
+			//Tue Mar 29 00:00:00 MESZ 12
+			SimpleDateFormat sdfToDate = new SimpleDateFormat("E M dd HH:mm:ss z yy");
 			Log.i("Day", currentDayString);
 			date = sdfToDate.parse(currentDayString);
 		} catch (ParseException e) {
@@ -64,26 +65,27 @@ public class Day {
 		id = dayid;
 	}
 	
-	public List<Pair<Integer, List<Meal>>> getMeals() {
+	public List<Pair<Pair<Integer, String>, List<Meal>>> getMeals() {
 		return allMeals;
 	}
 	
-	public void addMealGroup(Integer group) {
-		allMeals.add(new Pair<Integer, List<Meal>>(group, new ArrayList<Meal>()));
+	public void addMealGroup(Integer group, String groupStr) {
+		allMeals.add(new Pair<Pair<Integer, String>, List<Meal>>(new Pair<Integer, String>(group, groupStr), new ArrayList<Meal>()));
 	}
 	
-	public void addMealGroup(Integer group, List<Meal> meals) {
-		allMeals.add(new Pair<Integer, List<Meal>>(group, meals));
+	public void addMealGroup(Integer group, String groupStr, List<Meal> meals) {
+		allMeals.add(new Pair<Pair<Integer, String>, List<Meal>>(new Pair<Integer, String>(group, groupStr), meals));
 	}
 	
-	public void addMealGroup(Pair<Integer, List<Meal>> meals) {
+	public void addMealGroup(Pair<Pair<Integer, String>, List<Meal>> meals) {
+		Log.w("Day", "Mealgroup: " + meals.first.first.toString() + meals.first.second);
 		allMeals.add(meals);
 	}
 	
-	public void addMeal(Integer groupID, Meal meal) {
+	public void addMeal(Integer groupID, String groupStr, Meal meal) {
 		boolean found = false;
 		for(int group = 0; group < allMeals.size(); group++) {
-			if (allMeals.get(group).first.equals(groupID)) {
+			if (allMeals.get(group).first.first.equals(groupID)) {
 				allMeals.get(group).second.add(meal);
 				found = true;
 			}
@@ -92,11 +94,11 @@ public class Day {
 		if (!found) {
 			List<Meal> meallist = new ArrayList<Meal>();
 			meallist.add(meal);
-			allMeals.add(new Pair<Integer, List<Meal>>(groupID, meallist));
+			allMeals.add(new Pair<Pair<Integer, String>, List<Meal>>(new Pair<Integer, String>(groupID, groupStr), meallist));
 		}
 	}
 	
-	public void setMeals(List<Pair<Integer, List<Meal>>> meals) {
+	public void setMeals(List<Pair<Pair<Integer, String>, List<Meal>>> meals) {
 		allMeals = meals;
 	}
 }

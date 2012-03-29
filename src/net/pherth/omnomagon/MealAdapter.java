@@ -30,7 +30,9 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,10 +44,10 @@ import android.widget.TextView;
 import com.foound.widget.AmazingAdapter;
 
 public class MealAdapter extends AmazingAdapter {
-	List<Pair<Integer, List<Meal>>> all = new ArrayList<Pair<Integer, List<Meal>>>();
+	List<Pair<Pair<Integer, String>, List<Meal>>> all = new ArrayList<Pair<Pair<Integer, String>, List<Meal>>>();
 	private Context context;
 	
-	public MealAdapter(Context context, List<Pair<Integer, List<Meal>>> data){
+	public MealAdapter(Context context, List<Pair<Pair<Integer, String>, List<Meal>>> data){
 		this.context = context;
 		if (data == null){
 			this.all = data;
@@ -57,7 +59,7 @@ public class MealAdapter extends AmazingAdapter {
 		this.context = context;
 	}
 	
-	public void setData(List<Pair<Integer, List<Meal>>> data) {
+	public void setData(List<Pair<Pair<Integer, String>, List<Meal>>> data) {
 		this.all = data;
 	}
 	
@@ -95,10 +97,13 @@ public class MealAdapter extends AmazingAdapter {
 	protected void bindSectionHeader(View view, int position, boolean displaySectionHeader) {
 		if (displaySectionHeader) {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
-			//ImageView lSectionTitle = (ImageView) view.findViewById(R.id.header);
-			int section = getSections()[getSectionForPosition(position)];
-			//lSectionTitle.setImageResource(section);
+			ImageView lSectionTitle = (ImageView) view.findViewById(R.id.headerImage);
+			Pair<Integer, String> section = getSectionsList().get(getSectionForPosition(position));
+			Log.w("MealAdapter", section.first.toString());
+			lSectionTitle.setImageResource(section.first);
 			view.findViewById(R.id.listTextContainer).setBackgroundResource(R.drawable.schatten);
+			TextView headerText = (TextView) view.findViewById(R.id.headerText);
+			headerText.setText(section.second);
 		} else {
 			view.findViewById(R.id.header).setVisibility(View.GONE);
 			view.findViewById(R.id.listTextContainer).setBackgroundResource(android.R.color.transparent);
@@ -117,7 +122,7 @@ public class MealAdapter extends AmazingAdapter {
 		TextView itemPrice = (TextView) res.findViewById(R.id.itemViewPrice);
 		ImageView bioImageView = (ImageView) res.findViewById(R.id.bioImageView);
 		ImageView veganVegetarianImageView = (ImageView) res.findViewById(R.id.veganVegetarianImageView);
-		ListView additionsListView = (ListView) res.findViewById(R.id.additionsListView);
+		TextView additionsTextView = (TextView) res.findViewById(R.id.additionsTextView);
 		
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 		Meal meal = getItem(position);
@@ -139,12 +144,20 @@ public class MealAdapter extends AmazingAdapter {
 		res.findViewById(R.id.allergyImageView).setVisibility(View.GONE);
 		List<String> additionList = meal.getAdditions();
 		if (!additionList.isEmpty()) {
-			AdditionAdapter additionAdapter = new AdditionAdapter(context, R.layout.addition_list_item, additionList);
-			additionsListView.setAdapter(additionAdapter);
+			additionsTextView.setText(fillText(additionList));
 		}
-		additionsListView.setVisibility(View.GONE);
-		Util.setListViewHeightBasedOnChildren(additionsListView);
+		//additionsTextView.setVisibility(View.GONE);
 		return res;
+	}
+
+	private String fillText(List<String> additionList) {
+		String text = new String();
+		for (int i = 0; i < additionList.size() -1; i++) {
+			text = text + additionList.get(i) + "\n";
+		}
+		text = text + additionList.get(additionList.size()-1);
+		return text;
+
 	}
 
 	@Override
@@ -177,12 +190,18 @@ public class MealAdapter extends AmazingAdapter {
 		return -1;
 	}
 
-	@Override
-	public Integer[] getSections() {
-		Integer[] res = new Integer[all.size()];
+
+	public List<Pair<Integer, String>> getSectionsList() {
+		List<Pair<Integer, String>> res = new ArrayList<Pair<Integer, String>>();
 		for (int i = 0; i < all.size(); i++) {
-			res[i] = all.get(i).first;
+			Log.w("MealAdapter", "CurrentItem" + String.valueOf(i));
+			res.add(all.get(i).first);
 		}
 		return res;
+	}
+
+	@Override
+	public Integer[] getSections() {
+		return new Integer[0];
 	}
 }
