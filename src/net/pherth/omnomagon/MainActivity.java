@@ -176,7 +176,7 @@ public class MainActivity extends SherlockActivity {
 						textView.setAnimation(anim);
 						anim.start();
 					} else {
-						Animation anim = AnimationUtils.loadAnimation(context, R.anim.rolldown);
+						Animation anim = AnimationUtils.loadAnimation(context, R.anim.rollup);
 						textView.setAnimation(anim);
 						anim.start();
 						textView.setVisibility(View.GONE);

@@ -146,7 +146,7 @@ public class MealAdapter extends AmazingAdapter {
 		if (!additionList.isEmpty()) {
 			additionsTextView.setText(fillText(additionList));
 		}
-		//additionsTextView.setVisibility(View.GONE);
+		additionsTextView.setVisibility(View.GONE);
 		return res;
 	}
 
