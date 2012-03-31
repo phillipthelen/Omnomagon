@@ -280,7 +280,7 @@ public class MainActivity extends SherlockActivity {
     }
 
     public String getCurrentMensa(String key) {
-    	String currentMensa = "Mensa";
+    	String currentMensa = "Omnomagon";
         Resources res = getResources();
         String[] mensaKeys = res.getStringArray(R.array.beListValues);
         int mensaIndex = java.util.Arrays.asList(mensaKeys).indexOf(key);
