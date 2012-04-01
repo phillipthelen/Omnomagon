@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.pherth.omnomagon"
     android:versionCode="1"
-    android:versionName="0.5" >
+    android:versionName="0.9beta" >
 
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14"/>
 	
@@ -27,6 +27,11 @@
 	        android:name=".MainPreference"
 	        android:label="@string/preferences"
 	        android:theme="@style/PreferencesTheme">
+		</activity>
+		<activity
+				android:name=".AboutActivity"
+				android:label="@string/about"
+				android:theme="@style/MensaTheme">
 		</activity>
     </application>
 

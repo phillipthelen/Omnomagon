@@ -6,4 +6,5 @@
     <color name="priceColor">#a2543f</color>
 	<color name="cardblue">#83a0be</color>
 	<color name="listSummary">#b0ba96</color>
+	<color name="prefCategory">#bebebe</color>
 </resources>

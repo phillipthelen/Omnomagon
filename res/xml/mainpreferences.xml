@@ -12,7 +12,8 @@
 				android:entries="@array/cityList"
 				android:title="@string/city"
 				android:entryValues="@array/cityListValues"
-				android:defaultValue="beList" />
+				android:defaultValue="beList"
+				android:layout="@layout/listviewpref"/>
 		<ListPreference
 				android:key="mensaPreference"
 				android:title="@string/mensa"
@@ -50,8 +51,13 @@
     <PreferenceCategory
 			android:title="@string/misc">
 		<Preference
-				android:title="@string/help" />
-		<Preference
-				android:title="@string/about" />
+				android:title="@string/about"
+				android:layout="@layout/genpref">
+			<intent
+					android:action="android.intent.action.VIEW"
+					android:targetPackage="net.pherth.omnomagon"
+					android:targetClass="net.pherth.omnomagon.AboutActivity"
+					/>
+		</Preference>
 	</PreferenceCategory>
 </PreferenceScreen>

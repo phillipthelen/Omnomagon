@@ -120,4 +120,10 @@
 		<string name="general">General</string>
 		<string name="misc">Misc.</string>
 		<string name="help">Help</string>
+	<string name="graphics">Graphics:</string>
+	<string name="code">Code:</string>
+	<string name="version">Version:</string>
+	<string name="github">Github:</string>
+	<string name="contact">Contact:</string>
+	<string name="website">Website:</string>
 </resources>

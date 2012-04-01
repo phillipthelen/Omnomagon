@@ -16,18 +16,22 @@
 			android:layout_height="wrap_content"
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentTop="true"
-			android:layout_marginTop="5dip"
 			android:layout_marginLeft="10dip"
 			android:textAppearance="?android:attr/textAppearanceMedium" />
 	<TextView
 			android:id="@+android:id/summary"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true"
-			android:layout_marginTop="5dip"
+			android:layout_below="@+android:id/title"
 			android:layout_marginLeft="10dip"
-			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textAppearance="?android:attr/textAppearanceSmall"
 			android:textColor="@color/listSummary"/>
-
+	<ImageView
+			android:id="@+id/listviewprefImage"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentTop="true"
+			android:src="@drawable/icon_select"
+			android:scaleType="center"/>
 </RelativeLayout>

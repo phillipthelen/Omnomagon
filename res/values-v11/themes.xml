@@ -3,6 +3,7 @@
     <style name="MensaTheme" parent="@style/Theme.Sherlock">
         <item name="vpiTitlePageIndicatorStyle">@style/CustomTitlePageIndicator</item>
         <item name="android:typeface">serif</item>
+		<item name="android:selectableItemBackground">@android:color/transparent</item>
     </style>
 
     <style name="CustomTitlePageIndicator" parent="Widget">
