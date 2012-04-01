@@ -42,6 +42,7 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 		addPreferencesFromResource(R.xml.mainpreferences);
 
 		getListView().setCacheColorHint(0x00000000);
+		getListView().setDivider(null);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayShowTitleEnabled(true);
