@@ -77,7 +77,6 @@ public class Dataprovider {
 			Pair<String, String> line = data.get(i);
 			values.put(line.first, line.second);
 		}
-		Log.i("Database insert", database.toString());
 		return database.insert(table, null, values);
 	}
 

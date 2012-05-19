@@ -50,6 +50,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -85,6 +86,7 @@ public class MainActivity extends SherlockActivity {
         actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
         actionBar.setDisplayShowHomeEnabled(false);
 	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
+	    actionBar.setSubtitle("07.05.2012");
 
         items = getResources().getStringArray(R.array.weekDays);
 
@@ -159,12 +161,15 @@ public class MainActivity extends SherlockActivity {
         @Override
         public Object instantiateItem(View collection, int position) {
         	AmazingListView v = new AmazingListView( context );
-            ( (ViewPager) collection ).addView( v, 0 );
-
+	        ImageView iv = new ImageView( context );
+	        ((ViewPager) collection).addView(v, 0);
+	        v.addFooterView(iv);
+	        iv.setImageResource(R.drawable.footer);
             v.setAdapter(mAdapterList.get(position));
             v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
             v.setDivider(getResources().getDrawable(android.R.color.transparent));
             v.setCacheColorHint(0x00000000);
+	        v.setSelector(android.R.color.transparent);
             v.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View res,
@@ -330,6 +335,7 @@ public class MainActivity extends SherlockActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
     }
 
 	

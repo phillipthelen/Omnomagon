@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.database.sqlite.SQLiteException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -71,9 +72,13 @@ public class Data {
 				parseHTML(htmlString, city);
 			} else {
 			}
-			dataprov.open();
-			dataprov.newData(res);
-			dataprov.close();
+			try {
+				dataprov.open();
+				dataprov.newData(res);
+				dataprov.close();
+			} catch (SQLiteException e) {
+				e.printStackTrace();
+			}
 
 
 			SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -83,10 +88,14 @@ public class Data {
 	}
 	
 	public void loadDataFromDatabase() {
-		dataprov.open();
-		res = dataprov.getData();
-		dataprov.close();
-	}
+		try {
+			dataprov.open();
+			res = dataprov.getData();
+			dataprov.close();
+		} catch (SQLiteException e) {
+			e.printStackTrace();
+		}
+}
 	
 	public int getDayCount() {
 		if (res == null) {

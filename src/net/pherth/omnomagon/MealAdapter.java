@@ -194,7 +194,6 @@ public class MealAdapter extends AmazingAdapter {
 	public List<Pair<Integer, String>> getSectionsList() {
 		List<Pair<Integer, String>> res = new ArrayList<Pair<Integer, String>>();
 		for (int i = 0; i < all.size(); i++) {
-			Log.w("MealAdapter", "CurrentItem" + String.valueOf(i));
 			res.add(all.get(i).first);
 		}
 		return res;
