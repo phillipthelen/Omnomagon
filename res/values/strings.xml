@@ -101,7 +101,7 @@
         <item >Sunday</item>
     </string-array>
 	<string name="pleaseWait">Please wait…</string>
-	<string name="retrvData">Schedule is refreshed…</string>
+	<string name="retrvData">Refreshing schedule…</string>
 	<string name="save">Save</string>
 	<string name="bio">Bio</string>
 	<string name="fish">MSC certified fish</string>
