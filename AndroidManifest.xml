@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.pherth.omnomagon"
-    android:versionCode="1"
-    android:versionName="0.9beta" >
+    android:versionCode="2"
+    android:versionName="0.9.5" >
 
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14"/>
 	

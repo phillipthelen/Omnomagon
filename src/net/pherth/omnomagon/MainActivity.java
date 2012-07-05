@@ -101,9 +101,6 @@ public class MainActivity extends SherlockActivity {
 	        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
 
 		        actionBar.setTitle(getCurrentMensa(prefs.getString("mensaPreference", "Mensa")));
-		        for(int i=0; i<5; i++){
-			        mAdapterList.get(i).notifyDataSetChanged();
-		        }
 	        }
         };
         sharedPrefs.registerOnSharedPreferenceChangeListener(prefListener);
