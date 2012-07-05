@@ -103,6 +103,7 @@
     <string name="pleaseWait">Bitte warten…</string>
 	<string name="retrvData">Speiseplan wird abgerufen…</string>
 	<string name="bio">Bio</string>
+	<string name="city">Stadt</string>
 	<string name="fish">MSC zertifizierter Fisch</string>
 	<string name="connError">Es gab einen Verbindungsfehler. Bitte versuche es später wieder.</string>
 	<string name="about">Über</string>

@@ -75,7 +75,7 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 		mensaPref.setSummary(entry);
 
 
-		pricePref = (ListPreference) findPreference("priceCategory");
+		ListPreference pricePref = (ListPreference) findPreference("priceCategory");
 		pricePref.setOnPreferenceChangeListener(setListListener());
 		entry = pricePref.getEntry();
 		pricePref.setSummary(entry);
@@ -114,7 +114,7 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 			mensaPref.setSummary(mensaPref.getEntry());
 
 		} else if (key.equals("pricePreference")) {
-			pricePref.setSummary(pricePref.getEntry());
+			//pricePref.setSummary(pricePref.getEntry());
 		}
 	}
 

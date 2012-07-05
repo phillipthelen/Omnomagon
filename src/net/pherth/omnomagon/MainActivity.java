@@ -170,6 +170,7 @@ public class MainActivity extends SherlockActivity {
 				v.setAdapter(mAdapterList.get(position));
 				v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
 				ImageView img = new ImageView(context);
+				img.setScaleType(ImageView.ScaleType.FIT_XY);
 				img.setImageResource(R.drawable.footer);
 				v.addFooterView(img);
 				v.setDivider(getResources().getDrawable(android.R.color.transparent));
