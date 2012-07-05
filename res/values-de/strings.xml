@@ -6,38 +6,38 @@
     <string name="preferences">Einstellungen</string>
     <string-array name="beList">
 		<item>Veggie Nr.1</item>
-		<item>Mensa FU II Otto-v.-Sims.</item>
-		<item>Mensa FU Lankwitz</item>
-		<item>Mensa FU AßmannshauserStr</item>
-		<item>Mensa FU Düppel</item>
+		<item>FU II Otto-v.-Sims.</item>
+		<item>FU Lankwitz</item>
+		<item>FU AßmannshauserStr</item>
+		<item>FU Düppel</item>
 		<item>Cafeteria FU Koserstraße</item>
 		<item>Caf. FU Königin-Luise-St</item>
 		<item>Cafeteria FU  V.-Hoff-Str</item>
 		<item>Cafeteria FU Ihnestraße</item>
 		<item>Cafet.  FU Garystraße</item>
-		<item>Mensa TU Hardenbergstraße</item>
+		<item>TU Hardenbergstraße</item>
 		<item>Cafeteria TU Franklinstr.</item>
 		<item>Cafeteria TU Ackerstraße</item>
 		<item>Cafeteria TU E.-Reuter-Pl</item>
 		<item>Cafeteria TU Skyline</item>
-		<item>Mensa HU Nord</item>
-		<item>Mensa HU Süd</item>
-		<item>Mensa HU Oase Adlershof</item>
-		<item>Mensa HU Spandauer Str.</item>
+		<item>HU Nord</item>
+		<item>HU Süd</item>
+		<item>HU Oase Adlershof</item>
+		<item>HU Spandauer Str.</item>
 		<item>Caf. HU, Grimm-Zentrum</item>
 		<item>Cafeteria UdK Jazz Cafe</item>
-		<item>Mensa HTWB Treskowallee</item>
-		<item>Mensa HTWB Wilhelminenhof</item>
-		<item>Mensa HWRB Badensche Str.</item>
-		<item>Mensa BHT Luxemburger Str</item>
-		<item>Mensa BHT Kurfürstenstr.</item>
-		<item>Mensa HfM Charlottenstr.</item>
+		<item>HTWB Treskowallee</item>
+		<item>HTWB Wilhelminenhof</item>
+		<item>HWRB Badensche Str.</item>
+		<item>BHT Luxemburger Str</item>
+		<item>BHT Kurfürstenstr.</item>
+		<item>HfM Charlottenstr.</item>
 		<item>Caf. HfM Neuer Marstall</item>
-		<item>Mensa ASH Berlin</item>
-		<item>Mensa HSF Schnellerstr.</item>
-		<item>Mensa KHS Weißensee</item>
-		<item>Mensa KHSB Karlshorst</item>
-		<item>Mensa EHB Teltower Damm</item>
+		<item>ASH Berlin</item>
+		<item>HSF Schnellerstr.</item>
+		<item>KHS Weißensee</item>
+		<item>KHSB Karlshorst</item>
+		<item>EHB Teltower Damm</item>
     </string-array>
     <string-array name="beListValues">
 		<item>fu1</item>
