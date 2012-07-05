@@ -151,7 +151,7 @@ public class MealAdapter extends AmazingAdapter {
 	private String fillText(List<String> additionList) {
 		String text = "";
 		for (int i = 0; i < additionList.size() -1; i++) {
-			text = text + additionList.get(i) + "\n";
+			text = text + additionList.get(i) + ",  ";
 		}
 		text = text + additionList.get(additionList.size()-1);
 		return text;

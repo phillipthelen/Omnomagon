@@ -44,6 +44,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -67,10 +68,10 @@ public class MainActivity extends SherlockActivity {
     private Runnable loadNew;
     private String[] items;
 	private ArrayList<MealAdapter> mAdapterList = new ArrayList<MealAdapter>();
-	//private ViewSwitcher mSwitcher;
     com.actionbarsherlock.app.ActionBar actionBar;
 	OnSharedPreferenceChangeListener prefListener;
 	SharedPreferences sharedPrefs;
+	MainPagerAdapter adapter;
 
 	/** Called when the activity is first created. */
     @Override
@@ -109,8 +110,7 @@ public class MainActivity extends SherlockActivity {
         for(int x=0; x<5; x++) {
         	mAdapterList.add(new MealAdapter(cxt));
         }
-	    MainPagerAdapter adapter = new MainPagerAdapter(this);
-	    //mSwitcher = (ViewSwitcher)findViewById(R.id.mainSwitcher);
+		adapter = new MainPagerAdapter(this);
         ViewPager pager = (ViewPager)findViewById( R.id.mainpager );
         TitlePageIndicator indicator = (TitlePageIndicator)findViewById( R.id.indicator );
         indicator.bringToFront();
@@ -163,43 +163,55 @@ public class MainActivity extends SherlockActivity {
         }
         @Override
         public Object instantiateItem(View collection, int position) {
-        	AmazingListView v = new AmazingListView( context );
-	        ((ViewPager) collection).addView(v, 0);
-	        /*if (!mAdapterList.get(position).isEmpty()) {
-		        ImageView iv = new ImageView( context );
-		        v.addFooterView(iv);
-		        iv.setImageResource(R.drawable.footer);
-	        }*/
-            v.setAdapter(mAdapterList.get(position));
-            v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
-            v.setDivider(getResources().getDrawable(android.R.color.transparent));
-            v.setCacheColorHint(0x00000000);
-	        v.setSelector(android.R.color.transparent);
-            v.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View res,
-						int arg2, long arg3) {
-					TextView textView = (TextView) res.findViewById(R.id.additionsTextView);
-					if (textView.getVisibility() == View.GONE) {
-						textView.setVisibility(View.VISIBLE);
-						Animation anim = AnimationUtils.loadAnimation(context, R.anim.rolldown);
-						textView.setAnimation(anim);
-						anim.start();
-					} else {
-						Animation anim = AnimationUtils.loadAnimation(context, R.anim.rollup);
-						textView.setAnimation(anim);
-						anim.start();
-						textView.setVisibility(View.GONE);
-					}
-				}
-              });
 
-            return v;
+			if (!mAdapterList.get(position).isEmpty()) {
+				AmazingListView v = new AmazingListView( context );
+				((ViewPager) collection).addView(v, 0);
+				v.setAdapter(mAdapterList.get(position));
+				v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
+				ImageView img = new ImageView(context);
+				img.setImageResource(R.drawable.footer);
+				v.addFooterView(img);
+				v.setDivider(getResources().getDrawable(android.R.color.transparent));
+				v.setCacheColorHint(0x00000000);
+				v.setSelector(android.R.color.transparent);
+				v.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View res,
+							int arg2, long arg3) {
+						TextView textView = (TextView) res.findViewById(R.id.additionsTextView);
+						if (textView.getVisibility() == View.GONE) {
+							textView.setVisibility(View.VISIBLE);
+							Animation anim = AnimationUtils.loadAnimation(context, R.anim.rolldown);
+							textView.setAnimation(anim);
+							anim.start();
+						} else {
+							Animation anim = AnimationUtils.loadAnimation(context, R.anim.rollup);
+							textView.setAnimation(anim);
+							anim.start();
+							textView.setVisibility(View.GONE);
+						}
+					}
+				  });
+				return v;
+			} else {
+				RelativeLayout v = new RelativeLayout(context);
+				TextView tv = new TextView(context);
+				tv.setText(R.string.noData);
+				RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+				lp.addRule(14, RelativeLayout.TRUE);
+				lp.addRule(15, RelativeLayout.TRUE);
+				tv.setLayoutParams(lp);
+				tv.setTextSize(25);
+				v.addView(tv);
+				((ViewPager) collection).addView(v, 0);
+				return v;
+			}
         }
 
         @Override
         public void destroyItem(View collection, int position, Object view) {
-                ((ViewPager) collection).removeView((ListView) view);
+                ((ViewPager) collection).removeView((View) view);
         }
 
 
@@ -251,7 +263,7 @@ public class MainActivity extends SherlockActivity {
             for(int i=0; i<5; i++){
 	    		mAdapterList.get(i).notifyDataSetChanged();
 	    	}
-	        //mSwitcher.showNext();
+	        adapter.notifyDataSetChanged();
         }
     };
 

@@ -12,24 +12,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/tab_bar" />
-	    <RelativeLayout
-			android:id="@+id/loadScreen"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:background="@drawable/background">
-			<TextView
-				android:id="@+id/loadText"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:text="@string/loadText" 
-				android:layout_centerHorizontal="true"
-				android:layout_centerVertical="true"/>
-		</RelativeLayout>
 		<android.support.v4.view.ViewPager
 			android:id="@+id/mainpager"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="20dp"
-			android:background="@drawable/background"
+			android:background="@drawable/background_settings"
 			android:paddingTop="20dp" />
 </RelativeLayout>
