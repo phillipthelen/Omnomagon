@@ -8,7 +8,7 @@
         android:layout_weight="1"
         android:background="@drawable/box_stretch">
     <CheckBox
-        android:id="@+android:id/checkbox"
+        android:id="@+id/checkbox"
         android:layout_width="17dp"
         android:layout_height="17dp"
         android:layout_alignParentRight="true"
@@ -19,7 +19,7 @@
 		android:button="@drawable/prefcheckbox"/>
 
     <TextView
-        android:id="@+android:id/title"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

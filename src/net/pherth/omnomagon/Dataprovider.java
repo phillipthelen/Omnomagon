@@ -17,7 +17,7 @@ public class Dataprovider {
 	private Database dbHelper;
 
 	public Dataprovider(Context context) {
-		Log.i("Dataprovider", "initializing Dataprovider");
+		if(false) Log.i("Dataprovider", "initializing Dataprovider");
 		dbHelper = new Database(context);
 	}
 

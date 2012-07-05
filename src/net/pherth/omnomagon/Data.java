@@ -58,10 +58,10 @@ public class Data {
 	public void getAllData(boolean fromDatabase) {
 		res = new ArrayList<Day>();
 		if(fromDatabase) {
-			Log.i("Data", "Load from database");
+			if(false) Log.i("Data", "Load from database");
 			loadDataFromDatabase();
 		} else {
-			Log.i("Data", "Load new data");
+			if(false) Log.i("Data", "Load new data");
 			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 			String city = sharedPrefs.getString("cityPreference", "beList");
 			String mensa = sharedPrefs.getString("mensaPreference", "fu1");
@@ -111,7 +111,7 @@ public class Data {
 	}
 	
 	private void parseHTMLBerlin(String htmlString) {
-		Log.i("HTML", "beginning to parse");		
+		if(false) Log.i("HTML", "beginning to parse");		
 		Document doc = Jsoup.parse(htmlString);
 		Elements headers = doc.getElementsByClass("mensa_week_head_col");
 		for (int x=0; x < headers.size(); x++){
@@ -198,7 +198,7 @@ public class Data {
 		List<Pair<Pair<Integer, String>, List<Meal>>> currentMeals = new ArrayList<Pair<Pair<Integer, String>, List<Meal>>>();
 		Day currentDay = res.get(position);
 		currentMeals = currentDay.getMeals();
-		Log.i("Current Meals", currentMeals.toString());
+		if(false) Log.i("Current Meals", currentMeals.toString());
 		return currentMeals;
 	}
 	
@@ -207,7 +207,7 @@ public class Data {
 		if (city.equals("beList")) {
 			url = "http://www.studentenwerk-berlin.de/speiseplan/rss/" + mensa + "/woche/lang/1";
 		}
-		Log.i("url", city + ", " + mensa + ", " + url);
+		if(false) Log.i("url", city + ", " + mensa + ", " + url);
 		return url;
 	}
 }

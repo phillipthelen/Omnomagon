@@ -137,7 +137,7 @@ public class Meal {
     public String getCorrectPriceString(int type) {
     	DecimalFormat dec = new DecimalFormat();
     	dec.setMinimumFractionDigits(2);
-    	return dec.format(this.prices[type]) + " €";
+    	return dec.format(this.prices[type]) + "€";
     }
     
     

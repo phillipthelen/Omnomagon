@@ -104,15 +104,17 @@
 	<string name="retrvData">Speiseplan wird abgerufen…</string>
 	<string name="bio">Bio</string>
 	<string name="fish">MSC zertifizierter Fisch</string>
-	<string name="connError">Es gab einen Verbinungsfehler. Bitte versuche es später wieder.</string>
+	<string name="connError">Es gab einen Verbindungsfehler. Bitte versuche es später wieder.</string>
 	<string name="about">Über</string>
 	<string name="general">Generell</string>
 	<string name="misc">Misc.</string>
 	<string name="help">Hilfe</string>
-	<string name="graphics">Grrafiken:</string>
+	<string name="graphics">Grafiken:</string>
 	<string name="code">Code:</string>
 	<string name="version">Version:</string>
 	<string name="github">Github:</string>
 	<string name="contact">Kontakt:</string>
 	<string name="website">Webseite:</string>
+		<string name="loadText">ucanhaz Update?</string>
+	<string name="noData">Keine Daten verfügbar.</string>
 </resources>

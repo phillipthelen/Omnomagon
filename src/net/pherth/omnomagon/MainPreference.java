@@ -32,14 +32,22 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 
+import android.preference.PreferenceManager;
+import android.util.Log;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 
 public class MainPreference extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener {
+
+	private ListPreference cityPref;
+	private ListPreference mensaPref;
+	private ListPreference pricePref;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.mainpreferences);
+		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 
 		getListView().setCacheColorHint(0x00000000);
 		getListView().setDivider(null);
@@ -50,15 +58,13 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 		actionBar.setDisplayShowHomeEnabled(false);
 
 		CharSequence entry;
-		ListPreference cityPref = (ListPreference) findPreference("cityPreference");
+		cityPref = (ListPreference) findPreference("cityPreference");
 		entry = cityPref.getEntry();
 		cityPref.setSummary(entry);
 
 
-		ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
+		mensaPref = (ListPreference) findPreference("mensaPreference");
 		if (cityPref.getValue() != null) {
-			System.out.println("cityPref " + cityPref.getValue());
-			System.out.println("mensaPref " + mensaPref);
 			mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.omnomagon"));
 			mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.omnomagon"));
 		} else {
@@ -69,7 +75,7 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 		mensaPref.setSummary(entry);
 
 
-		ListPreference pricePref = (ListPreference) findPreference("priceCategory");
+		pricePref = (ListPreference) findPreference("priceCategory");
 		pricePref.setOnPreferenceChangeListener(setListListener());
 		entry = pricePref.getEntry();
 		pricePref.setSummary(entry);
@@ -79,8 +85,8 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 
 
 	private OnPreferenceChangeListener setListListener(){
-		OnPreferenceChangeListener listener = new OnPreferenceChangeListener() {
-			@Override
+		return new OnPreferenceChangeListener() {
+			@Override()
 			public boolean onPreferenceChange(Preference arg0, Object arg1) {
 				int index = ((ListPreference) arg0).findIndexOfValue(arg1.toString());
 				CharSequence summary = ((ListPreference) arg0).getEntries()[index];
@@ -88,16 +94,13 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 				return true;
 			}
 		};
-		return listener;
 	}
 
+	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		Log.d("Preference", "Herp the derp");
 		if (key.equals("cityPreference")) {
-			ListPreference mensaPref = (ListPreference) findPreference("mensaPreference");
-			ListPreference cityPref = (ListPreference) findPreference("cityPreference");
 			if (cityPref.getValue() != null) {
-				System.out.println("cityPref " + cityPref.getValue());
-				System.out.println("mensaPref " + mensaPref);
 				mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.omnomagon"));
 				mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.omnomagon"));
 			} else {
@@ -107,6 +110,26 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 			mensaPref.setValueIndex(0);
 			CharSequence entry = mensaPref.getEntry();
 			mensaPref.setSummary(entry);
+		} else if (key.equals("mensaPreference")) {
+			mensaPref.setSummary(mensaPref.getEntry());
+
+		} else if (key.equals("pricePreference")) {
+			pricePref.setSummary(pricePref.getEntry());
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+	}
+
+
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+
 	}
 }

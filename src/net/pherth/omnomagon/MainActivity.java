@@ -48,11 +48,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
@@ -70,7 +67,10 @@ public class MainActivity extends SherlockActivity {
     private Runnable loadNew;
     private String[] items;
 	private ArrayList<MealAdapter> mAdapterList = new ArrayList<MealAdapter>();
+	//private ViewSwitcher mSwitcher;
     com.actionbarsherlock.app.ActionBar actionBar;
+	OnSharedPreferenceChangeListener prefListener;
+	SharedPreferences sharedPrefs;
 
 	/** Called when the activity is first created. */
     @Override
@@ -79,41 +79,44 @@ public class MainActivity extends SherlockActivity {
         setContentView(R.layout.main);
         cxt = this;
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cxt);
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cxt);
 
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar));
         actionBar.setDisplayShowHomeEnabled(false);
 	    actionBar.setTitle(getCurrentMensa(sharedPrefs.getString("mensaPreference", "Mensa")));
-	    actionBar.setSubtitle("07.05.2012");
+	    //actionBar.setSubtitle("07.05.2012");
 
         items = getResources().getStringArray(R.array.weekDays);
 
         Calendar calendar = Calendar.getInstance();
-        Log.i("Calendar", calendar.toString());
+        if(false) Log.i("Calendar", calendar.toString());
         calendar.setFirstDayOfWeek(0);
         int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
 
-        OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            			actionBar.setTitle(getCurrentMensa(prefs.getString("mensaPreference", "Mensa")));
-            			for(int i=0; i<5; i++){
-            	    		mAdapterList.get(i).notifyDataSetChanged();
-            	    	}
-                }
-            };
-        sharedPrefs.registerOnSharedPreferenceChangeListener(prefsListener);
+        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+	        @Override
+	        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+
+		        actionBar.setTitle(getCurrentMensa(prefs.getString("mensaPreference", "Mensa")));
+		        for(int i=0; i<5; i++){
+			        mAdapterList.get(i).notifyDataSetChanged();
+		        }
+	        }
+        };
+        sharedPrefs.registerOnSharedPreferenceChangeListener(prefListener);
         for(int x=0; x<5; x++) {
         	mAdapterList.add(new MealAdapter(cxt));
         }
 	    MainPagerAdapter adapter = new MainPagerAdapter(this);
+	    //mSwitcher = (ViewSwitcher)findViewById(R.id.mainSwitcher);
         ViewPager pager = (ViewPager)findViewById( R.id.mainpager );
         TitlePageIndicator indicator = (TitlePageIndicator)findViewById( R.id.indicator );
         indicator.bringToFront();
         pager.setAdapter(adapter);
         indicator.setViewPager( pager );
-        Log.i("Day", String.valueOf(day));
+        if(false) Log.i("Day", String.valueOf(day));
         if (day < 5) {
         	pager.setCurrentItem(day);
         }
@@ -161,10 +164,12 @@ public class MainActivity extends SherlockActivity {
         @Override
         public Object instantiateItem(View collection, int position) {
         	AmazingListView v = new AmazingListView( context );
-	        ImageView iv = new ImageView( context );
 	        ((ViewPager) collection).addView(v, 0);
-	        v.addFooterView(iv);
-	        iv.setImageResource(R.drawable.footer);
+	        /*if (!mAdapterList.get(position).isEmpty()) {
+		        ImageView iv = new ImageView( context );
+		        v.addFooterView(iv);
+		        iv.setImageResource(R.drawable.footer);
+	        }*/
             v.setAdapter(mAdapterList.get(position));
             v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
             v.setDivider(getResources().getDrawable(android.R.color.transparent));
@@ -201,11 +206,7 @@ public class MainActivity extends SherlockActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-                return view==((ListView)object);
-        }
-
-        @Override
-        public void finishUpdate(View arg0) {
+                return view==(object);
         }
 
 
@@ -216,9 +217,6 @@ public class MainActivity extends SherlockActivity {
         public Parcelable saveState() {
                 return null;
         }
-
-        @Override
-        public void startUpdate(View arg0) {}
 
         @Override
         public int getItemPosition(Object object) {
@@ -253,6 +251,7 @@ public class MainActivity extends SherlockActivity {
             for(int i=0; i<5; i++){
 	    		mAdapterList.get(i).notifyDataSetChanged();
 	    	}
+	        //mSwitcher.showNext();
         }
     };
 
@@ -266,7 +265,7 @@ public class MainActivity extends SherlockActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	Log.i("Item", item.toString());
+    	if(false) Log.i("Item", item.toString());
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	Intent settingsActivity = new Intent(getBaseContext(),
@@ -300,9 +299,10 @@ public class MainActivity extends SherlockActivity {
     	if(m_ProgressDialog != null) {
     		m_ProgressDialog.dismiss();
     	}
-    	super.onPause();
+	    //sharedPrefs.unregisterOnSharedPreferenceChangeListener(prefListener);
+	    super.onPause();
     }
-
+    
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
               = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -342,9 +342,15 @@ public class MainActivity extends SherlockActivity {
 	public Boolean updateToday(Long timestamp) {
 		Long currTimestamp = System.currentTimeMillis();
 		Float diff = (currTimestamp.floatValue() - timestamp) / 86400000;
-		Log.i("MainActivity", diff.toString());
+		if(false) Log.i("MainActivity", diff.toString());
 		return (diff < 1);
 		
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		sharedPrefs.registerOnSharedPreferenceChangeListener(prefListener);
 	}
 }
 

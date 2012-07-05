@@ -11,7 +11,7 @@
 				android:background="@drawable/box_stretch">
 
 	<TextView
-			android:id="@+android:id/title"
+			android:id="@+id/titleText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentLeft="true"
@@ -19,13 +19,12 @@
 			android:layout_marginLeft="10dip"
 			android:textAppearance="?android:attr/textAppearanceMedium" />
 	<TextView
-			android:id="@+android:id/summary"
+			android:id="@+id/summaryText"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_below="@+android:id/title"
 			android:layout_marginLeft="10dip"
 			android:textAppearance="?android:attr/textAppearanceSmall"
-			android:textColor="@color/listSummary"/>
+			android:textColor="@color/listSummary" android:layout_toRightOf="@id/titleText"/>
 	<ImageView
 			android:id="@+id/listviewprefImage"
 			android:layout_width="wrap_content"

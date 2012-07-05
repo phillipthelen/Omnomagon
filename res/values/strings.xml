@@ -126,4 +126,6 @@
 	<string name="github">Github:</string>
 	<string name="contact">Contact:</string>
 	<string name="website">Website:</string>
+	<string name="loadText">ucanhaz Update?</string>
+	<string name="noData">No data available.</string>
 </resources>
