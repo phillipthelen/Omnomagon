@@ -58,18 +58,18 @@ public class Data {
 	public void getAllData(boolean fromDatabase) {
 		res = new ArrayList<Day>();
 		if(fromDatabase) {
-			if(false) Log.i("Data", "Load from database");
+			if(Util.getDebuggable(context)) Log.i("Data", "Load from database");
 			loadDataFromDatabase();
 		} else {
-			if(false) Log.i("Data", "Load new data");
+			if(Util.getDebuggable(context)) Log.i("Data", "Load new data");
 			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
 			String city = sharedPrefs.getString("cityPreference", "beList");
 			String mensa = sharedPrefs.getString("mensaPreference", "fu1");
 			String url = getURL(city, mensa);
 			RSSHandler rh = new RSSHandler();
-			String htmlString= rh.getHTML(url);
+			String htmlString= rh.getHTML(url, city);
 			if (htmlString != null) {
-				parseHTML(htmlString, city);
+				parseString(htmlString, city);
 			} else {
 			}
 			try {
@@ -104,14 +104,16 @@ public class Data {
 		return res.size();
 	}
 	
-	private void parseHTML(String html, String id) {
+	private void parseString(String html, String id) {
 		if (id.equals("beList")) {
-				parseHTMLBerlin(html);
+			parseHTMLBerlin(html);
+		} else if (id.equals("ulm")) {
+			parseXMLUlm(html);
 		}
 	}
 	
 	private void parseHTMLBerlin(String htmlString) {
-		if(false) Log.i("HTML", "beginning to parse");		
+		if(Util.getDebuggable(context)) Log.i("HTML", "beginning to parse");		
 		Document doc = Jsoup.parse(htmlString);
 		Elements headers = doc.getElementsByClass("mensa_week_head_col");
 		for (int x=0; x < headers.size(); x++){
@@ -193,12 +195,33 @@ public class Data {
 		}
 	}
 	
+	private void parseXMLUlm(String xml) {
+		if(Util.getDebuggable(context)) Log.i("HTML", "beginning to parse");		
+		Document doc = Jsoup.parse(xml);
+		Elements weeks = doc.getElementsByTag("week");
+		Element week = weeks.get(0);
+		Elements days = week.getElementsByTag("day");
+		for (int x=0; x < days.size(); x++){
+			String dateString = days.get(x).ownText().substring(4);
+			Date date1 = new Date();
+			try {
+				SimpleDateFormat sdfToDate = new SimpleDateFormat("yyyy-MM-dd");
+				date1 = sdfToDate.parse(dateString);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			res.add(new Day(date1));
+		}
+		
+	}
+	
 
 	public List<Pair<Pair<Integer, String>, List<Meal>>> getCurrentDay(int position) {
 		List<Pair<Pair<Integer, String>, List<Meal>>> currentMeals = new ArrayList<Pair<Pair<Integer, String>, List<Meal>>>();
 		Day currentDay = res.get(position);
 		currentMeals = currentDay.getMeals();
-		if(false) Log.i("Current Meals", currentMeals.toString());
+		if(Util.getDebuggable(context)) Log.i("Current Meals", currentMeals.toString());
 		return currentMeals;
 	}
 	
@@ -206,8 +229,10 @@ public class Data {
 		String url = "";
 		if (city.equals("beList")) {
 			url = "http://www.studentenwerk-berlin.de/speiseplan/rss/" + mensa + "/woche/lang/1";
+		} else if (city.equals("ulm")) {
+			url = "http://www.uni-ulm.de/mensaplan/mensaplan.xml";
 		}
-		if(false) Log.i("url", city + ", " + mensa + ", " + url);
+		if(Util.getDebuggable(context)) Log.i("url", city + ", " + mensa + ", " + url);
 		return url;
 	}
 }

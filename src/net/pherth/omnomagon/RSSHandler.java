@@ -46,6 +46,7 @@ import android.util.Log;
 public class RSSHandler extends DefaultHandler {
 
 	List<String> descList = new ArrayList<String>();
+	String city;
 	
 	//Current characters being accumulated
 	StringBuffer chars = new StringBuffer();
@@ -114,20 +115,25 @@ public class RSSHandler extends DefaultHandler {
 	 * @param feedUrl
 	 * @return
 	 **/
-	public String getHTML(String feedUrl) {
+	public String getHTML(String feedUrl, String city) {
 		URL url = null;
+		this.city = city;
 		try {
+			if (city.equals("beList")) {
+				SAXParserFactory spf = SAXParserFactory.newInstance();
+				SAXParser sp = spf.newSAXParser();
+				XMLReader xr = sp.getXMLReader();
 
-			SAXParserFactory spf = SAXParserFactory.newInstance();
-			SAXParser sp = spf.newSAXParser();
-			XMLReader xr = sp.getXMLReader();
-
-			url = new URL(feedUrl);
+				url = new URL(feedUrl);
 			
-			xr.setContentHandler(this);
-			xr.parse(new InputSource(url.openStream()));
-			return descList.get(1);
-
+				xr.setContentHandler(this);
+				xr.parse(new InputSource(url.openStream()));
+				return descList.get(1);
+			} else if (city.equals("ulm")){
+				url = new URL(feedUrl);
+				return new InputSource(url.openStream()).toString();
+			}
+				
 		} catch (IOException e) {
 			Log.e("RSS Handler IO", e.getMessage() + " >> " + e.toString());
 		} catch (SAXException e) {

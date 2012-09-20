@@ -25,6 +25,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.omnomagon;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -50,4 +52,8 @@ public class Util {
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
+	
+	public static boolean getDebuggable(Context c){
+		return ( 0 != ( c.getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE ) );
+	}
 }

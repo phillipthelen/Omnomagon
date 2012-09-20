@@ -110,9 +110,11 @@
 	<string-array name="allergiesNames"></string-array>
 	<string-array name="cityList">
 		<item >Berlin</item>
+		<item >Ulm</item>
 	</string-array>
 	<string-array name="cityListValues">
 		<item >beList</item>
+		<item >ulm</item>
 	</string-array>
 		<string name="city">City</string>
 		<string name="connError">Something went wrong. Please try again later.</string>

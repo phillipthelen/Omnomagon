@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -92,8 +93,9 @@ public class MainActivity extends SherlockActivity {
         items = getResources().getStringArray(R.array.weekDays);
 
         Calendar calendar = Calendar.getInstance();
-        if(false) Log.i("Calendar", calendar.toString());
+        if(Util.getDebuggable(cxt)) Log.i("Calendar", calendar.toString());
         calendar.setFirstDayOfWeek(0);
+        
         int day = calendar.get(Calendar.DAY_OF_WEEK) - 2;
 
         prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
@@ -113,7 +115,7 @@ public class MainActivity extends SherlockActivity {
         indicator.bringToFront();
         pager.setAdapter(adapter);
         indicator.setViewPager( pager );
-        if(false) Log.i("Day", String.valueOf(day));
+        if(Util.getDebuggable(cxt)) Log.i("Day", String.valueOf(day));
         if (day < 5) {
         	pager.setCurrentItem(day);
         }
@@ -196,7 +198,9 @@ public class MainActivity extends SherlockActivity {
 				RelativeLayout v = new RelativeLayout(context);
 				TextView tv = new TextView(context);
 				tv.setText(R.string.noData);
-				RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+				RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT, 
+						RelativeLayout.LayoutParams.WRAP_CONTENT);
 				lp.addRule(14, RelativeLayout.TRUE);
 				lp.addRule(15, RelativeLayout.TRUE);
 				tv.setLayoutParams(lp);
@@ -275,7 +279,7 @@ public class MainActivity extends SherlockActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	if(false) Log.i("Item", item.toString());
+    	if(Util.getDebuggable(cxt)) Log.i("Item", item.toString());
         switch (item.getItemId()) {
             case R.id.menu_settings:
             	Intent settingsActivity = new Intent(getBaseContext(),
@@ -352,7 +356,7 @@ public class MainActivity extends SherlockActivity {
 	public Boolean updateToday(Long timestamp) {
 		Long currTimestamp = System.currentTimeMillis();
 		Float diff = (currTimestamp.floatValue() - timestamp) / 86400000;
-		if(false) Log.i("MainActivity", diff.toString());
+		if(Util.getDebuggable(cxt)) Log.i("MainActivity", diff.toString());
 		return (diff < 1);
 		
 	}

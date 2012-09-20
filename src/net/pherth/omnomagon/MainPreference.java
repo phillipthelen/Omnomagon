@@ -100,16 +100,21 @@ public class MainPreference extends SherlockPreferenceActivity implements OnShar
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		Log.d("Preference", "Herp the derp");
 		if (key.equals("cityPreference")) {
-			if (cityPref.getValue() != null) {
-				mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.omnomagon"));
-				mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.omnomagon"));
+			if (cityPref.getValue() == "ulm") {
+				mensaPref.setEnabled(false);
 			} else {
-				mensaPref.setEntries(R.array.beList);
-				mensaPref.setEntryValues(R.array.beListValues);
+				mensaPref.setEnabled(true);
+				if (cityPref.getValue() != null) {
+					mensaPref.setEntries(getResources().getIdentifier(cityPref.getValue(), "array", "net.pherth.omnomagon"));
+					mensaPref.setEntryValues(getResources().getIdentifier(cityPref.getValue()+"Values", "array", "net.pherth.omnomagon"));
+				} else {
+					mensaPref.setEntries(R.array.beList);
+					mensaPref.setEntryValues(R.array.beListValues);
+				}
+				mensaPref.setValueIndex(0);
+				CharSequence entry = mensaPref.getEntry();
+				mensaPref.setSummary(entry);
 			}
-			mensaPref.setValueIndex(0);
-			CharSequence entry = mensaPref.getEntry();
-			mensaPref.setSummary(entry);
 		} else if (key.equals("mensaPreference")) {
 			mensaPref.setSummary(mensaPref.getEntry());
 

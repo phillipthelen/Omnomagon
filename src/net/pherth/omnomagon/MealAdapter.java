@@ -97,7 +97,7 @@ public class MealAdapter extends AmazingAdapter {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
 			ImageView lSectionTitle = (ImageView) view.findViewById(R.id.headerImage);
 			Pair<Integer, String> section = getSectionsList().get(getSectionForPosition(position));
-			if(false) Log.w("MealAdapter", section.first.toString());
+			if(Util.getDebuggable(context)) Log.w("MealAdapter", section.first.toString());
 			lSectionTitle.setImageResource(section.first);
 			view.findViewById(R.id.listTextContainer).setBackgroundResource(R.drawable.schatten);
 			TextView headerText = (TextView) view.findViewById(R.id.headerText);
