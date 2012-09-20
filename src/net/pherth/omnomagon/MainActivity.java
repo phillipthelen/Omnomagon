@@ -60,7 +60,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.foound.widget.AmazingListView;
 import com.viewpagerindicator.TitlePageIndicator;
-import com.viewpagerindicator.TitleProvider;
 
 public class MainActivity extends SherlockActivity {
 
@@ -147,7 +146,7 @@ public class MainActivity extends SherlockActivity {
 	    }
     }
 
-    private class MainPagerAdapter extends PagerAdapter implements TitleProvider{
+    private class MainPagerAdapter extends PagerAdapter{
 
     	private final Context context;
 
@@ -238,9 +237,8 @@ public class MainActivity extends SherlockActivity {
         }
 
         @Override
-        public String getTitle( int position )
-        {
-            return items[ position ];
+        public CharSequence getPageTitle(int position) {
+        	return items[ position ];
         }
     }
 
