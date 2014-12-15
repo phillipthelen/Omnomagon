@@ -38,10 +38,10 @@ public class Meal {
     
     private String name;
     private Float[] prices = new Float[] {(float) 0.1, (float) 0.2, (float) 0.3};
-    private Boolean vegetarianBool = new Boolean(false);
-    private Boolean veganBool = new Boolean(false);
-    private Boolean bioBool = new Boolean(false);
-    private Boolean mscBool = new Boolean(false);
+    private Boolean vegetarianBool = false;
+    private Boolean veganBool = false;
+    private Boolean bioBool = false;
+    private Boolean mscBool = false;
     private List<String> additions = new ArrayList<String>();
     
     public Meal(String name) {
@@ -137,7 +137,7 @@ public class Meal {
     public String getCorrectPriceString(int type) {
     	DecimalFormat dec = new DecimalFormat();
     	dec.setMinimumFractionDigits(2);
-    	return dec.format(this.prices[type]) + " Û";
+    	return dec.format(this.prices[type]) + " â‚¬";
     }
     
     

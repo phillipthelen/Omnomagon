@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OmnomagonTheme" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+
+        <item name="pstsTabBackground">@android:color/transparent</item>
+        <item name="pstsIndicatorColor">@color/crayon_orange</item>
+        <item name="pstsUnderlineColor">@android:color/transparent</item>
+        <item name="pstsDividerColor">@android:color/transparent</item>
+        <item name="pstsIndicatorHeight">2dp</item>
+    </style>
+
+    <style name="OmnomagonPopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
+
+</resources>

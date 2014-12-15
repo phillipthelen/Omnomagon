@@ -133,24 +133,24 @@ public class Data {
 		for (int x=1; x < rows.size(); x++) {
 			Element row = rows.get(x);
 			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText();
-			int groupID;
-			if (groupname.equals("Aktionsstand")) {
-				groupID = R.drawable.ic_aktion;
+			int groupID = R.drawable.biosiegel;
+			/*if (groupname.equals("Aktionsstand")) {
+				groupID = R.drawable.ic_list_special_png;
 			} else if (groupname.equals("Beilagen")) {
-				groupID = R.drawable.ic_beilagen;
+				groupID = R.drawable.ic_list_supplement_png;
 			} else if (groupname.equals("Desserts")) {
-				groupID = R.drawable.ic_desserts;
+				groupID = R.drawable.ic_list_dessert_png;
 			} else if (groupname.equals("Essen")) {
-				groupID = R.drawable.ic_essen;
+				groupID = R.drawable.ic_list_meal_png;
 			} else if (groupname.equals("Salate")) {
-				groupID = R.drawable.ic_salate;
+				groupID = R.drawable.ic_list_salad_png;
 			} else if (groupname.equals("Suppen")) {
-				groupID = R.drawable.ic_suppen;
+				groupID = R.drawable.ic_list_soup_png;
 			} else if (groupname.equals("Vorspeisen")) {
-				groupID = R.drawable.ic_vorspeisen;
+				groupID = R.drawable.ic_list_appetizer_png;
 			} else {
-				groupID = R.drawable.ic_essen;
-			}
+				groupID = R.drawable.ic_list_meal_png;
+			}*/
 			Elements cols = row.getElementsByClass("mensa_week_speise_tag");
 			for (int y=0; y < cols.size(); y++) {
 				List<Meal> meals = new ArrayList<Meal>();

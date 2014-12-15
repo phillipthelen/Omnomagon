@@ -7,6 +7,7 @@ import android.util.Log;
 
 
 public class Database extends SQLiteOpenHelper {
+
 	private static final int DATABASE_VERSION = 4;
 	private static final String DAY_TABLE_NAME = "day";
 	private static final String DAY_TABLE_CREATE =
@@ -19,8 +20,7 @@ public class Database extends SQLiteOpenHelper {
 	private static final String addition_TABLE_CREATE =
 	            "CREATE TABLE " + addition_TABLE_NAME + " ( mealID INTEGER, name TEXT);";
 	
-	private static String DB_PATH = "/data/data/net.pherth.omnomagon/databases/";
-	private static String DB_NAME = "omnomagon.db";
+	private static final String DB_NAME = "omnomagon.db";
 	
 	Database(Context context) {
 		super(context,DB_NAME, null, DATABASE_VERSION);

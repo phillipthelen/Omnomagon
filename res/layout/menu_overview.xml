@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            >
+
+        <ImageView
+                android:src="@drawable/feature_image_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:focusable="true" android:focusableInTouchMode="true" />
+
+        <android.support.v7.widget.Toolbar
+                app:popupTheme="@style/OmnomagonPopupTheme"
+                android:id="@+id/support_actionbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                />
+
+        <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/menu_overview_tabs"
+                android:layout_marginLeft="72dp"
+                android:layout_marginStart="72dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/menu_overview_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -31,18 +31,16 @@ public class Dataprovider {
 
 	public Boolean newData(List<Day> data) {
 		dbHelper.clearDatabase(database);
-		for (int d = 0; d < data.size(); d++) {
-			Day day = data.get(d);
+		for (final Day day : data) {
 			List<Pair<String, String>> daydata = new ArrayList<Pair<String, String>>();
 			daydata.add(new Pair<String, String>("date", day.date.toString()));
 			long dayId = insert("day", daydata);
 			List<Pair<Pair<Integer, String>, List<Meal>>> meals = day.getMeals();
-			for (int m = 0; m < meals.size(); m++) {
-				List<Meal> meallist = meals.get(m).second;
-				Integer groupID = meals.get(m).first.first;
-				String groupStr = meals.get(m).first.second;
-				for(int n = 0; n < meallist.size(); n++) {
-					Meal meal = meallist.get(n);
+			for (final Pair<Pair<Integer, String>, List<Meal>> meal1 : meals) {
+				List<Meal> meallist = meal1.second;
+				Integer groupID = meal1.first.first;
+				String groupStr = meal1.first.second;
+				for (final Meal meal : meallist) {
 					ContentValues mealValues = new ContentValues();
 					mealValues.put("dayID", dayId);
 					mealValues.put("groupID", groupID);
@@ -57,12 +55,12 @@ public class Dataprovider {
 					mealValues.put("price2", prices[1]);
 					mealValues.put("price3", prices[2]);
 					long mealID = database.insert("meal", null, mealValues);
-					
+
 					List<String> additions = meal.getAdditions();
-					for(int addition = 0; addition < additions.size(); addition++) {
+					for (final String addition1 : additions) {
 						ContentValues additiondata = new ContentValues();
 						additiondata.put("mealid", mealID);
-						additiondata.put("name", additions.get(addition));
+						additiondata.put("name", addition1);
 						database.insert("additions", null, additiondata);
 					}
 				}
@@ -73,8 +71,7 @@ public class Dataprovider {
 
 	public long insert(String table, List<Pair<String, String>> data) {
 		ContentValues values = new ContentValues();
-		for (int i = 0; i < data.size(); i++) {
-			Pair<String, String> line = data.get(i);
+		for (final Pair<String, String> line : data) {
 			values.put(line.first, line.second);
 		}
 		return database.insert(table, null, values);
@@ -93,13 +90,13 @@ public class Dataprovider {
 		}
 		cursor.close();
 
-		for (int day = 0; day < data.size(); day++) {
-			String[] dayarg = {data.get(day).id};
+		for (final Day aData : data) {
+			String[] dayarg = {aData.id};
 			cursor = database.query("meal", mealcolumns, "dayID = ?", dayarg, null, null, null);
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
 				Meal meal = new Meal(cursor.getString(1));
-				Float[] prices = {cursor.getFloat(5), cursor.getFloat(6),cursor.getFloat(7)};
+				Float[] prices = {cursor.getFloat(5), cursor.getFloat(6), cursor.getFloat(7)};
 				meal.setPrices(prices);
 				meal.setBio((cursor.getInt(11) == 1));
 				meal.setMsc((cursor.getInt(10) == 1));
@@ -113,11 +110,11 @@ public class Dataprovider {
 					acursor.moveToNext();
 				}
 				acursor.close();
-				data.get(day).addMeal(cursor.getInt(3), cursor.getString(4), meal);
+				aData.addMeal(cursor.getInt(3), cursor.getString(4), meal);
 				cursor.moveToNext();
 			}
 			cursor.close();
-			
+
 		}
 		
 		return data;
