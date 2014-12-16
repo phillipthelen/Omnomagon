@@ -1,29 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <RelativeLayout
+            android:id="@+id/menu_overview_header_layout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/menu_overview_header_layout_height"
             >
 
-        <ImageView
-                android:src="@drawable/feature_image_1"
+        <net.pherth.omnomagon.header.FeatureImageContainer
+                android:id="@+id/menu_overview_header_container"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:scrollbars="none"
+                android:scrollbarTrackHorizontal="@null"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                />
+                >
 
-        <View android:layout_width="0dp" android:layout_height="0dp" android:focusable="true" android:focusableInTouchMode="true" />
+            <ImageView
+                    android:id="@+id/menu_overview_header_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    />
+
+        </net.pherth.omnomagon.header.FeatureImageContainer>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/feature_image_overlay"
+                />
 
         <android.support.v7.widget.Toolbar
                 app:popupTheme="@style/OmnomagonPopupTheme"
                 android:id="@+id/support_actionbar"
+                android:layout_marginTop="@dimen/menu_overview_actionbar_margin_top"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                />
+
+        <TextView
+                android:id="@+id/menu_overview_header_mensa_name"
+                android:gravity="center_vertical"
+                android:textSize="34sp"
+                android:textColor="@color/white"
+                android:layout_below="@+id/support_actionbar"
+                android:layout_above="@+id/menu_overview_tabs"
+                android:layout_marginLeft="72dp"
+                android:layout_marginStart="72dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 />
 
         <com.astuetz.PagerSlidingTabStrip
@@ -32,13 +68,15 @@
                 android:layout_marginStart="72dp"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                />
 
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
             android:id="@+id/menu_overview_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
 </LinearLayout>

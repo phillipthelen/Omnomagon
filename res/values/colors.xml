@@ -4,6 +4,9 @@
     <color name="white_alpha_60_percent">#99ffffff</color>
     <color name="crayon_orange">#FF5724</color>
 
+    <color name="black_0_percent">#00000000</color>
+    <color name="black_50_percent">#80000000</color>
+
     <color name="grey">#DBDBDB</color>
     <color name="fontcolor">#545454</color>
     <color name="priceColor">#a2543f</color>

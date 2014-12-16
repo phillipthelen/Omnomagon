@@ -1,36 +1,34 @@
 package net.pherth.omnomagon;
 
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.astuetz.PagerSlidingTabStrip;
-import net.pherth.omnomagon.tabs.MenuTabAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.view.*;
+import net.pherth.omnomagon.header.FeatureImageHandler;
+import net.pherth.omnomagon.header.MensaNameViewHolder;
+import net.pherth.omnomagon.tabs.MenuTabHandler;
 
 public class MenuOverviewActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
-    private final List<TextView> _tabs = new ArrayList<TextView>(7);
-    private ViewPager _viewPager;
-    private int _selectedTab = 0;
+    private static final long FIVE_MINUTES = 1000L * 60L * 5L;
+
+    private MensaNameViewHolder _mensaNameViewHolder;
+    private MenuTabHandler _menuTabHandler;
+    private FeatureImageHandler _featureImageHandler;
+    private long _lastFeatureImageChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_overview);
         configureActionBar();
-        setUpViewPager();
-        setUpTabs();
+        _mensaNameViewHolder = new MensaNameViewHolder(this);
+        _mensaNameViewHolder.setMensaName("Veggie Nr.1");
+        _menuTabHandler = new MenuTabHandler(this, this);
+        _featureImageHandler = new FeatureImageHandler(this);
+        _lastFeatureImageChange = System.currentTimeMillis();
     }
 
     private void configureActionBar() {
@@ -40,28 +38,18 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         supportActionBar.setDisplayShowTitleEnabled(false);
     }
 
-    private void setUpViewPager() {
-        final FragmentManager supportFragmentManager = getSupportFragmentManager();
-        final MenuTabAdapter menuTabAdapter = new MenuTabAdapter(supportFragmentManager);
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.menu_overview_view_pager);
-        viewPager.setAdapter(menuTabAdapter);
-        _viewPager = viewPager;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        changeFeatureImageAfterFiveMinutes();
     }
 
-    private void setUpTabs() {
-        final PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.menu_overview_tabs);
-        tabStrip.setViewPager(_viewPager);
-        tabStrip.setOnPageChangeListener(this);
-        final LinearLayout tabContainer = (LinearLayout) tabStrip.getChildAt(0);
-        for (int i = 0; i < tabContainer.getChildCount(); i++) {
-            final TextView tab = (TextView) tabContainer.getChildAt(i);
-            final Resources resources = getResources();
-            final ColorStateList colorStateList = resources.getColorStateList(R.color.tab_text_color);
-            tab.setTextColor(colorStateList);
-            if (i == 0) {
-                tab.setSelected(true);
-            }
-            _tabs.add(tab);
+    private void changeFeatureImageAfterFiveMinutes() {
+        final long currentTimeMillis = System.currentTimeMillis();
+        if (Math.abs(currentTimeMillis - _lastFeatureImageChange) >= FIVE_MINUTES) {
+            _featureImageHandler.switchFeatureImage();
+            final int selectedTab = _menuTabHandler.getSelectedTab();
+            _featureImageHandler.onPageSelected(selectedTab);
         }
     }
 
@@ -73,18 +61,17 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
-
-    @Override
-    public void onPageSelected(int position) {
-        if (_viewPager != null) {
-            _viewPager.setCurrentItem(position);
-            _tabs.get(_selectedTab).setSelected(false);
-            _tabs.get(position).setSelected(true);
-            _selectedTab = position;
-        }
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        _featureImageHandler.onPageScrolled(position, positionOffset, positionOffsetPixels);
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) { }
+    public void onPageSelected(int position) {
+        _featureImageHandler.onPageSelected(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        _featureImageHandler.onPageScrollStateChanged(state);
+    }
 }

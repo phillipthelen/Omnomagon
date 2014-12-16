@@ -17,8 +17,8 @@
 
         <activity
             android:name=".MenuOverviewActivity"
-            android:launchMode="singleTask"
-            android:label="@string/app_name">
+            android:theme="@style/OmnomagonTheme.MenuOverview.V21"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -18,4 +18,8 @@
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
+    <style name="OmnomagonTheme.MenuOverview" />
+
+    <style name="OmnomagonTheme.MenuOverview.V21" />
+
 </resources>
