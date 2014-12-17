@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="priceClassesValue">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+    </string-array>
+
+    <string-array name="cityList">
+        <item >Berlin</item>
+        <item >Ulm</item>
+    </string-array>
+
+    <string-array name="cityListValues">
+        <item >beList</item>
+        <item >ulm</item>
+    </string-array>
+
+    <!-- Berlin -->
+
+    <string-array name="beList">
+        <item>Veggie Nr.1</item>
+        <item>FU II Otto-v.-Sims.</item>
+        <item>FU Lankwitz</item>
+        <item>FU AßmannshauserStr</item>
+        <item>FU Düppel</item>
+        <item>Cafeteria FU Koserstraße</item>
+        <item>Caf. FU Königin-Luise-St</item>
+        <item>Cafeteria FU  V.-Hoff-Str</item>
+        <item>Cafeteria FU Ihnestraße</item>
+        <item>Cafet.  FU Garystraße</item>
+        <item>TU Hardenbergstraße</item>
+        <item>Cafeteria TU Franklinstr.</item>
+        <item>Cafeteria TU Ackerstraße</item>
+        <item>Cafeteria TU E.-Reuter-Pl</item>
+        <item>Cafeteria TU Skyline</item>
+        <item>HU Nord</item>
+        <item>HU Süd</item>
+        <item>HU Oase Adlershof</item>
+        <item>HU Spandauer Str.</item>
+        <item>Caf. HU, Grimm-Zentrum</item>
+        <item>Cafeteria UdK Jazz Cafe</item>
+        <item>HTWB Treskowallee</item>
+        <item>HTWB Wilhelminenhof</item>
+        <item>HWRB Badensche Str.</item>
+        <item>BHT Luxemburger Str</item>
+        <item>BHT Kurfürstenstr.</item>
+        <item>HfM Charlottenstr.</item>
+        <item>Caf. HfM Neuer Marstall</item>
+        <item>ASH Berlin</item>
+        <item>HSF Schnellerstr.</item>
+        <item>KHS Weißensee</item>
+        <item>KHSB Karlshorst</item>
+        <item>EHB Teltower Damm</item>
+    </string-array>
+
+    <string-array name="beListValues">
+        <item>fu1</item>
+        <item>fu2</item>
+        <item>fu_lankwitz</item>
+        <item>fu_assmannshauser</item>
+        <item>fu_dueppel</item>
+        <item>fu_cafeteria</item>
+        <item>fu_cafe_koenigin_luise</item>
+        <item>fu_cafe_vant_hoff</item>
+        <item>fu_cafe_ihne</item>
+        <item>fu_cafe_gary</item>
+        <item>tu</item>
+        <item>tu_cafeteria</item>
+        <item>tu_ackerstr</item>
+        <item>tu_cafe_erp</item>
+        <item>tu_cafe_skyline</item>
+        <item>hu_nord</item>
+        <item>hu_sued</item>
+        <item>hu_adlershof</item>
+        <item>hu_spandauer</item>
+        <item>hu_cafe_grimm</item>
+        <item>udk_jazzcafe</item>
+        <item>htw_treskow</item>
+        <item>htw_wilhelminenhof</item>
+        <item>hwr</item>
+        <item>beuth</item>
+        <item>beuth_kurfuersten</item>
+        <item>hfm</item>
+        <item>hfm_cafeteria</item>
+        <item>ashb</item>
+        <item>hfs</item>
+        <item>khs</item>
+        <item>khsb</item>
+        <item>ehb</item>
+    </string-array>
+
+</resources>

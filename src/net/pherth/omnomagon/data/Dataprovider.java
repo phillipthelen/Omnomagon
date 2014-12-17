@@ -1,4 +1,4 @@
-package net.pherth.omnomagon;
+package net.pherth.omnomagon.data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +9,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.util.Pair;
+import net.pherth.omnomagon.Util;
 
 public class Dataprovider {
 
@@ -35,16 +36,13 @@ public class Dataprovider {
 			List<Pair<String, String>> daydata = new ArrayList<Pair<String, String>>();
 			daydata.add(new Pair<String, String>("date", day.date.toString()));
 			long dayId = insert("day", daydata);
-			List<Pair<Pair<Integer, String>, List<Meal>>> meals = day.getMeals();
-			for (final Pair<Pair<Integer, String>, List<Meal>> meal1 : meals) {
+			List<Pair<MealGroup, List<Meal>>> meals = day.getMeals();
+			for (final Pair<MealGroup, List<Meal>> meal1 : meals) {
 				List<Meal> meallist = meal1.second;
-				Integer groupID = meal1.first.first;
-				String groupStr = meal1.first.second;
 				for (final Meal meal : meallist) {
 					ContentValues mealValues = new ContentValues();
 					mealValues.put("dayID", dayId);
-					mealValues.put("groupID", groupID);
-					mealValues.put("groupString", groupStr);
+					mealValues.put("groupString", meal1.first.name());
 					mealValues.put("name", meal.getName());
 					mealValues.put("vegan", meal.getVegan());
 					mealValues.put("vegetarian", meal.getVegetarian());
@@ -110,7 +108,7 @@ public class Dataprovider {
 					acursor.moveToNext();
 				}
 				acursor.close();
-				aData.addMeal(cursor.getInt(3), cursor.getString(4), meal);
+				aData.addMeal(MealGroup.valueOf(cursor.getString(4)), meal);
 				cursor.moveToNext();
 			}
 			cursor.close();

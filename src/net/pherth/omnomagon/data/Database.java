@@ -1,4 +1,4 @@
-package net.pherth.omnomagon;
+package net.pherth.omnomagon.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,13 +8,13 @@ import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	private static final String DAY_TABLE_NAME = "day";
 	private static final String DAY_TABLE_CREATE =
 	            "CREATE TABLE " + DAY_TABLE_NAME + " ( _id integer primary key autoincrement, date TEXT);";
 	private static final String meal_TABLE_NAME = "meal";
 	private static final String meal_TABLE_CREATE =
-	            "CREATE TABLE " + meal_TABLE_NAME + " ( _id integer primary key autoincrement, dayID INTEGER, groupID INTEGER, groupString TEXT, name TEXT, price1 FLOAT, price2 FLOAT, price3 FLOAT, vegan BOOLEAN, " +
+	            "CREATE TABLE " + meal_TABLE_NAME + " ( _id integer primary key autoincrement, dayID INTEGER, groupString TEXT, name TEXT, price1 FLOAT, price2 FLOAT, price3 FLOAT, vegan BOOLEAN, " +
 	            		"vegetarian BOOLEAN, msc BOOLEAN, bio BOOLEAN);";
 	private static final String addition_TABLE_NAME = "additions";
 	private static final String addition_TABLE_CREATE =

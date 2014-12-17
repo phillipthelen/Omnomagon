@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package net.pherth.omnomagon;
+package net.pherth.omnomagon.data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.database.sqlite.SQLiteException;
+import net.pherth.omnomagon.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -133,24 +134,12 @@ public class Data {
 		for (int x=1; x < rows.size(); x++) {
 			Element row = rows.get(x);
 			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText();
-			int groupID = R.drawable.biosiegel;
-			/*if (groupname.equals("Aktionsstand")) {
-				groupID = R.drawable.ic_list_special_png;
-			} else if (groupname.equals("Beilagen")) {
-				groupID = R.drawable.ic_list_supplement_png;
-			} else if (groupname.equals("Desserts")) {
-				groupID = R.drawable.ic_list_dessert_png;
-			} else if (groupname.equals("Essen")) {
-				groupID = R.drawable.ic_list_meal_png;
-			} else if (groupname.equals("Salate")) {
-				groupID = R.drawable.ic_list_salad_png;
-			} else if (groupname.equals("Suppen")) {
-				groupID = R.drawable.ic_list_soup_png;
-			} else if (groupname.equals("Vorspeisen")) {
-				groupID = R.drawable.ic_list_appetizer_png;
-			} else {
-				groupID = R.drawable.ic_list_meal_png;
-			}*/
+			MealGroup mealGroup;
+			try {
+				mealGroup = MealGroup.valueOf(groupname);
+			} catch (IllegalArgumentException ignore) {
+				mealGroup = MealGroup.Essen;
+			}
 			Elements cols = row.getElementsByClass("mensa_week_speise_tag");
 			for (int y=0; y < cols.size(); y++) {
 				List<Meal> meals = new ArrayList<Meal>();
@@ -179,17 +168,17 @@ public class Data {
 					}
 					
 					Element prevElem = mealElement.previousElementSibling();
-					if (prevElem != null && prevElem.tagName() == "a") {
+					if (prevElem != null && prevElem.tagName().equals("a")) {
 						meal.setSiegel(prevElem.attributes().get("href"));
 						Element prevprevElem = prevElem.previousElementSibling();
-						if (prevprevElem != null && prevElem.tagName() == "a" ) {
+						if (prevprevElem != null && prevElem.tagName().equals("a")) {
 							meal.setSiegel(prevprevElem.attributes().get("href"));
 						}
 					}
 					meals.add(meal);
 					
 				}
-				currday.addMealGroup(groupID, groupname.toUpperCase(), meals);
+				currday.addMealGroup(mealGroup, meals);
 				res.set(y, currday);
 			}
 		}
@@ -217,8 +206,8 @@ public class Data {
 	}
 	
 
-	public List<Pair<Pair<Integer, String>, List<Meal>>> getCurrentDay(int position) {
-		List<Pair<Pair<Integer, String>, List<Meal>>> currentMeals = new ArrayList<Pair<Pair<Integer, String>, List<Meal>>>();
+	public List<Pair<MealGroup, List<Meal>>> getCurrentDay(int position) {
+		List<Pair<MealGroup, List<Meal>>> currentMeals;
 		Day currentDay = res.get(position);
 		currentMeals = currentDay.getMeals();
 		if(Util.getDebuggable(context)) Log.i("Current Meals", currentMeals.toString());

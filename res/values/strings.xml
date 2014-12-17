@@ -4,93 +4,21 @@
     <string name="settings">Settings</string>
     <string name="price">Price</string>
     <string name="preferences">Preferences</string>
-    <string-array name="beList">
-		<item>Veggie Nr.1</item>
-		<item>FU II Otto-v.-Sims.</item>
-		<item>FU Lankwitz</item>
-		<item>FU AßmannshauserStr</item>
-		<item>FU Düppel</item>
-		<item>Cafeteria FU Koserstraße</item>
-		<item>Caf. FU Königin-Luise-St</item>
-		<item>Cafeteria FU  V.-Hoff-Str</item>
-		<item>Cafeteria FU Ihnestraße</item>
-		<item>Cafet.  FU Garystraße</item>
-		<item>TU Hardenbergstraße</item>
-		<item>Cafeteria TU Franklinstr.</item>
-		<item>Cafeteria TU Ackerstraße</item>
-		<item>Cafeteria TU E.-Reuter-Pl</item>
-		<item>Cafeteria TU Skyline</item>
-		<item>HU Nord</item>
-		<item>HU Süd</item>
-		<item>HU Oase Adlershof</item>
-		<item>HU Spandauer Str.</item>
-		<item>Caf. HU, Grimm-Zentrum</item>
-		<item>Cafeteria UdK Jazz Cafe</item>
-		<item>HTWB Treskowallee</item>
-		<item>HTWB Wilhelminenhof</item>
-		<item>HWRB Badensche Str.</item>
-		<item>BHT Luxemburger Str</item>
-		<item>BHT Kurfürstenstr.</item>
-		<item>HfM Charlottenstr.</item>
-		<item>Caf. HfM Neuer Marstall</item>
-		<item>ASH Berlin</item>
-		<item>HSF Schnellerstr.</item>
-		<item>KHS Weißensee</item>
-		<item>KHSB Karlshorst</item>
-		<item>EHB Teltower Damm</item>
-    </string-array>
-    <string-array name="beListValues">
-		<item>fu1</item>
-		<item>fu2</item>
-		<item>fu_lankwitz</item>
-		<item>fu_assmannshauser</item>
-		<item>fu_dueppel</item>
-		<item>fu_cafeteria</item>
-		<item>fu_cafe_koenigin_luise</item>
-		<item>fu_cafe_vant_hoff</item>
-		<item>fu_cafe_ihne</item>
-		<item>fu_cafe_gary</item>
-		<item>tu</item>
-		<item>tu_cafeteria</item>
-		<item>tu_ackerstr</item>
-		<item>tu_cafe_erp</item>
-		<item>tu_cafe_skyline</item>
-		<item>hu_nord</item>
-		<item>hu_sued</item>
-		<item>hu_adlershof</item>
-		<item>hu_spandauer</item>
-		<item>hu_cafe_grimm</item>
-		<item>udk_jazzcafe</item>
-		<item>htw_treskow</item>
-		<item>htw_wilhelminenhof</item>
-		<item>hwr</item>
-		<item>beuth</item>
-		<item>beuth_kurfuersten</item>
-		<item>hfm</item>
-		<item>hfm_cafeteria</item>
-		<item>ashb</item>
-		<item>hfs</item>
-		<item>khs</item>
-		<item>khsb</item>
-		<item>ehb</item>
-    </string-array>
-        <string name="mensa">Mensa</string>
-        <string name="contentBadges">Badges</string>
-        <string name="vegetarian">Vegetarian</string>
-        <string name="vegan">Vegan</string>
-        <string name="chosenMensa">None</string>
+	<string name="mensa">Mensa</string>
+	<string name="contentBadges">Badges</string>
+	<string name="vegetarian">Vegetarian</string>
+	<string name="vegan">Vegan</string>
+	<string name="chosenMensa">None</string>
+
     <string-array name="priceClasses">
         <item >Students</item>
         <item >Academics</item>
         <item >Guests</item>
     </string-array>
-    <string-array name="priceClassesValue">
-        <item >0</item>
-        <item >1</item>
-        <item >2</item>
-    </string-array>
-        <string name="updateAutomatic">Reload Automatically</string>
-        <string name="menu_refresh">Reload</string>
+
+	<string name="updateAutomatic">Reload Automatically</string>
+	<string name="menu_refresh">Reload</string>
+
 	<string-array name="weekDays">
         <item >Monday</item>
         <item >Tuesday</item>
@@ -100,28 +28,19 @@
         <item >Saturday</item>
         <item >Sunday</item>
     </string-array>
+
 	<string name="pleaseWait">Please wait…</string>
 	<string name="retrvData">Refreshing schedule…</string>
 	<string name="save">Save</string>
 	<string name="bio">Bio</string>
 	<string name="fish">MSC certified fish</string>
-	<string name="allergies">Allergies</string>
-	<string name="selectAllergies">Select the allergies you have.</string>
-	<string-array name="allergiesNames"></string-array>
-	<string-array name="cityList">
-		<item >Berlin</item>
-		<item >Ulm</item>
-	</string-array>
-	<string-array name="cityListValues">
-		<item >beList</item>
-		<item >ulm</item>
-	</string-array>
-		<string name="city">City</string>
-		<string name="connError">Something went wrong. Please try again later.</string>
-		<string name="about">About</string>
-		<string name="general">General</string>
-		<string name="misc">Misc.</string>
-		<string name="help">Help</string>
+
+	<string name="city">City</string>
+	<string name="connError">Something went wrong. Please try again later.</string>
+	<string name="about">About</string>
+	<string name="general">General</string>
+	<string name="misc">Misc.</string>
+	<string name="help">Help</string>
 	<string name="graphics">Graphics:</string>
 	<string name="code">Code:</string>
 	<string name="version">Version:</string>
@@ -130,4 +49,12 @@
 	<string name="website">Website:</string>
 	<string name="loadText">ucanhaz Update?</string>
 	<string name="noData">No data available.</string>
+
+	<string name="meal_group_special">Special</string>
+	<string name="meal_group_supplement">Supplements</string>
+	<string name="meal_group_dessert">Desserts</string>
+	<string name="meal_group_meal">Meals</string>
+	<string name="meal_group_salad">Salads</string>
+	<string name="meal_group_soup">Soups</string>
+	<string name="meal_group_appetizer">Appetizer</string>
 </resources>

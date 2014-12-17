@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package net.pherth.omnomagon;
+package net.pherth.omnomagon.data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,11 +31,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Pair;
 
 public class Day {
-	List<Pair<Pair<Integer, String>, List<Meal>>> allMeals = new ArrayList<Pair<Pair<Integer, String>, List<Meal>>>();
+	List<Pair<MealGroup, List<Meal>>> allMeals = new ArrayList<Pair<MealGroup, List<Meal>>>();
 	public Date date;
 	public String id;
 	
@@ -65,40 +66,39 @@ public class Day {
 		id = dayid;
 	}
 	
-	public List<Pair<Pair<Integer, String>, List<Meal>>> getMeals() {
+	public List<Pair<MealGroup, List<Meal>>> getMeals() {
 		return allMeals;
 	}
 	
-	public void addMealGroup(Integer group, String groupStr) {
-		allMeals.add(new Pair<Pair<Integer, String>, List<Meal>>(new Pair<Integer, String>(group, groupStr), new ArrayList<Meal>()));
+	public void addMealGroup(@NonNull MealGroup mealGroup) {
+		allMeals.add(new Pair<MealGroup, List<Meal>>(mealGroup, new ArrayList<Meal>()));
 	}
 	
-	public void addMealGroup(Integer group, String groupStr, List<Meal> meals) {
-		allMeals.add(new Pair<Pair<Integer, String>, List<Meal>>(new Pair<Integer, String>(group, groupStr), meals));
+	public void addMealGroup(@NonNull MealGroup mealGroup, @NonNull List<Meal> meals) {
+		allMeals.add(new Pair<MealGroup, List<Meal>>(mealGroup, meals));
 	}
 	
-	public void addMealGroup(Pair<Pair<Integer, String>, List<Meal>> meals) {
-		Log.w("Day", "Mealgroup: " + meals.first.first.toString() + meals.first.second);
+	public void addMealGroup(@NonNull Pair<MealGroup, List<Meal>> meals) {
 		allMeals.add(meals);
 	}
 	
-	public void addMeal(Integer groupID, String groupStr, Meal meal) {
+	public void addMeal(@NonNull MealGroup mealGroup, Meal meal) {
 		boolean found = false;
-		for(int group = 0; group < allMeals.size(); group++) {
-			if (allMeals.get(group).first.first.equals(groupID)) {
-				allMeals.get(group).second.add(meal);
+		for (final Pair<MealGroup, List<Meal>> allMeal : allMeals) {
+			if (allMeal.first == mealGroup) {
+				allMeal.second.add(meal);
 				found = true;
 			}
 		}
 		
 		if (!found) {
-			List<Meal> meallist = new ArrayList<Meal>();
-			meallist.add(meal);
-			allMeals.add(new Pair<Pair<Integer, String>, List<Meal>>(new Pair<Integer, String>(groupID, groupStr), meallist));
+			List<Meal> mealList = new ArrayList<Meal>();
+			mealList.add(meal);
+			allMeals.add(new Pair<MealGroup, List<Meal>>(mealGroup, mealList));
 		}
 	}
 	
-	public void setMeals(List<Pair<Pair<Integer, String>, List<Meal>>> meals) {
+	public void setMeals(List<Pair<MealGroup, List<Meal>>> meals) {
 		allMeals = meals;
 	}
 }

@@ -23,7 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package net.pherth.omnomagon;
+package net.pherth.omnomagon.data;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -32,7 +32,10 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import net.pherth.omnomagon.R;
 
 public class Meal {
     
@@ -43,6 +46,22 @@ public class Meal {
     private Boolean bioBool = false;
     private Boolean mscBool = false;
     private List<String> additions = new ArrayList<String>();
+
+    @NonNull
+    public static Meal create(@NonNull String name, float price1, float price2, float price3, boolean vegetarianBool, boolean veganBool, boolean bioBool, boolean mscBool, @Nullable String... additions) {
+        final Meal meal = new Meal(name);
+        meal.setPrices(new Float[] {price1, price2, price3});
+        meal.setVegetarian(vegetarianBool);
+        meal.setVegan(veganBool);
+        meal.setBio(bioBool);
+        meal.setMsc(mscBool);
+        if (additions != null && additions.length > 0) {
+            for (final String addition : additions) {
+                meal.addAddition(addition);
+            }
+        }
+        return meal;
+    }
     
     public Meal(String name) {
     	this.name = name;

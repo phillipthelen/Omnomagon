@@ -1,43 +1,46 @@
 package net.pherth.omnomagon.tabs;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import net.pherth.omnomagon.R;
+import net.pherth.omnomagon.data.Day;
+import net.pherth.omnomagon.data.DummyDataProvider;
+import net.pherth.omnomagon.data.PriceGroup;
+
+import java.util.List;
 
 public class MenuTabAdapter extends FragmentStatePagerAdapter {
 
-    public MenuTabAdapter(@NonNull FragmentManager fragmentManager) {
+    private final static int DEFAULT_TAB_COUNT = 5;
+
+    private final Context _context;
+    private final List<Day> dummyData = DummyDataProvider.generateDummyData();
+
+    public MenuTabAdapter(@NonNull Context context, @NonNull FragmentManager fragmentManager) {
         super(fragmentManager);
+        _context = context;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return new DummyFragment();
+        final WeekdayTab weekdayTab = new WeekdayTab();
+        weekdayTab.setData(dummyData.get(position), PriceGroup.students);
+        return weekdayTab;
     }
 
     @Override
     public int getCount() {
-        return 7;
+        return DEFAULT_TAB_COUNT;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "A Tab";
-    }
-
-    public static class DummyFragment extends Fragment {
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            final TextView textView = new TextView(getActivity());
-            textView.setText("hi");
-            return textView;
-        }
+        final Resources resources = _context.getResources();
+        final String[] weekDays = resources.getStringArray(R.array.weekDays);
+        return weekDays[position];
     }
 }

@@ -2,7 +2,10 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="white_alpha_60_percent">#99ffffff</color>
+    <color name="anti_flash_white">#F0F2F5</color>
+
     <color name="crayon_orange">#FF5724</color>
+    <color name="mantis">#8BC34A</color>
 
     <color name="black_0_percent">#00000000</color>
     <color name="black_50_percent">#80000000</color>

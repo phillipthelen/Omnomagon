@@ -53,6 +53,12 @@
             <version>1.8.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.joanzapata.android</groupId>
+            <artifactId>android-iconify</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

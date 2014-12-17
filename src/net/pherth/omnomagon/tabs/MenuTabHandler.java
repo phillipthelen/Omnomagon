@@ -16,21 +16,28 @@ import java.util.List;
 
 public class MenuTabHandler implements ViewPager.OnPageChangeListener {
 
-    private final List<TextView> _tabs = new ArrayList<TextView>(7);
+    private final List<TextView> _tabs;
     private final ViewPager.OnPageChangeListener _onPageChangeListener;
     private final ViewPager _viewPager;
     private int _selectedTab = 0;
 
     public MenuTabHandler(@NonNull ActionBarActivity actionBarActivity, @NonNull ViewPager.OnPageChangeListener onPageChangeListener) {
         _onPageChangeListener = onPageChangeListener;
-        _viewPager = createViewPager(actionBarActivity);
+        final MenuTabAdapter menuTabAdapter = createTabAdapter(actionBarActivity);
+        final int menuTabAdapterCount = menuTabAdapter.getCount();
+        _tabs = new ArrayList<TextView>(menuTabAdapterCount);
+        _viewPager = createViewPager(actionBarActivity, menuTabAdapter);
         createTabs(actionBarActivity);
     }
 
     @NonNull
-    private ViewPager createViewPager(@NonNull ActionBarActivity actionBarActivity) {
+    private MenuTabAdapter createTabAdapter(@NonNull ActionBarActivity actionBarActivity) {
         final FragmentManager supportFragmentManager = actionBarActivity.getSupportFragmentManager();
-        final MenuTabAdapter menuTabAdapter = new MenuTabAdapter(supportFragmentManager);
+        return new MenuTabAdapter(actionBarActivity, supportFragmentManager);
+    }
+
+    @NonNull
+    private ViewPager createViewPager(@NonNull ActionBarActivity actionBarActivity, @NonNull MenuTabAdapter menuTabAdapter) {
         final ViewPager viewPager = (ViewPager) actionBarActivity.findViewById(R.id.menu_overview_view_pager);
         viewPager.setAdapter(menuTabAdapter);
         return viewPager;
