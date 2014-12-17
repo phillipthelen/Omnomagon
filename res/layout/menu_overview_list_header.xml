@@ -18,7 +18,6 @@
 
     <TextView
             android:id="@+id/menu_overview_list_header_text"
-            android:textStyle="bold"
             android:textColor="@color/mantis"
             android:textSize="16sp"
             android:layout_centerVertical="true"
