@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import net.pherth.omnomagon.R;
 import net.pherth.omnomagon.data.Day;
 import net.pherth.omnomagon.data.DummyDataProvider;
+import net.pherth.omnomagon.data.MealGroupBasedSorter;
 import net.pherth.omnomagon.data.PriceGroup;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
     public MenuTabAdapter(@NonNull Context context, @NonNull FragmentManager fragmentManager) {
         super(fragmentManager);
         _context = context;
+        MealGroupBasedSorter.sort(dummyData);
     }
 
     @Override

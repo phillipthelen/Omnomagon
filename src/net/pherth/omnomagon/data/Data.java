@@ -42,7 +42,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.util.Pair;
 
 public class Data {
 	public static final String TAG = Data.class.getSimpleName();
@@ -203,15 +202,6 @@ public class Data {
 			res.add(new Day(date1));
 		}
 		
-	}
-	
-
-	public List<Pair<MealGroup, List<Meal>>> getCurrentDay(int position) {
-		List<Pair<MealGroup, List<Meal>>> currentMeals;
-		Day currentDay = res.get(position);
-		currentMeals = currentDay.getMeals();
-		if(Util.getDebuggable(context)) Log.i("Current Meals", currentMeals.toString());
-		return currentMeals;
 	}
 	
 	private String getURL(String city, String mensa) {

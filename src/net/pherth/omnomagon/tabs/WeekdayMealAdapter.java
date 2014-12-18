@@ -3,7 +3,6 @@ package net.pherth.omnomagon.tabs;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import net.pherth.omnomagon.data.MealGroup;
 import net.pherth.omnomagon.data.PriceGroup;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -25,16 +25,15 @@ public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private PriceGroup _priceGroup = PriceGroup.guests;
 
     public void setData(@NonNull Day day, @NonNull PriceGroup priceGroup) {
-        //todo sort lists?
         _priceGroup = priceGroup;
         _typeMap.clear();
         _dataObjects.clear();
-        final List<Pair<MealGroup, List<Meal>>> groupedMeals = day.getMeals();
+        final Map<MealGroup, List<Meal>> groupedMeals = day.getMeals();
         int index = 0;
-        for (final Pair<MealGroup, List<Meal>> groupedMeal : groupedMeals) {
-            final List<Meal> meals = groupedMeal.second;
+        for (final Entry<MealGroup, List<Meal>> groupedMeal : groupedMeals.entrySet()) {
+            final List<Meal> meals = groupedMeal.getValue();
             if (meals != null && !meals.isEmpty()) {
-                _dataObjects.add(index, groupedMeal.first);
+                _dataObjects.add(index, groupedMeal.getKey());
                 _typeMap.put(index, VIEW_TYPE_MEAL_GROUP);
                 index++;
                 for (final Meal meal : meals) {

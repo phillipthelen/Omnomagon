@@ -17,6 +17,7 @@ public class WeekdayMealGroupViewHolder extends RecyclerView.ViewHolder {
 
     public WeekdayMealGroupViewHolder(@NonNull View itemView) {
         super(itemView);
+        itemView.setTag(true);
         _context = itemView.getContext();
         _mealGroupIcon = (ImageView) itemView.findViewById(R.id.menu_overview_list_header_icon);
         _mealGroupHeadline = (TextView) itemView.findViewById(R.id.menu_overview_list_header_text);

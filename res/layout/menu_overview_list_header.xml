@@ -6,7 +6,7 @@
         android:paddingLeft="16dp"
         android:paddingStart="16dp"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="56dp"
         >
 
     <ImageView
@@ -21,8 +21,8 @@
             android:textColor="@color/mantis"
             android:textSize="16sp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="72dp"
-            android:layout_marginStart="72dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

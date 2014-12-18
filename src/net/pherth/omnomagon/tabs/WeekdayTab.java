@@ -72,7 +72,8 @@ public class WeekdayTab extends Fragment {
             _listView.setLayoutManager(linearLayoutManager);
             final DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
             _listView.setItemAnimator(defaultItemAnimator);
-            //todo add dividers
+            final WeekdayMealGroupDivider mealGroupDivider = new WeekdayMealGroupDivider(context);
+            _listView.addItemDecoration(mealGroupDivider);
         }
 
         public void setAdapter(@NonNull WeekdayMealAdapter weekdayMealAdapter) {

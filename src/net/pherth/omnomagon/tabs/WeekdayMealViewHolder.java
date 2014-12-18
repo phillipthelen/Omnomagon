@@ -11,31 +11,33 @@ import net.pherth.omnomagon.data.PriceGroup;
 
 import java.util.List;
 
-//todo make view expandable to show all additions?
 public class WeekdayMealViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView _mealName;
     private final TextView _description;
     private final TextView _price;
+    private final ImageView _fishIndicator;
     private final ImageView _bioIndicator;
     private final ImageView _vegetarianIndicator;
     private final ImageView _veganIndicator;
 
     public WeekdayMealViewHolder(@NonNull View itemView) {
         super(itemView);
+        itemView.setTag(false);
         _mealName = (TextView) itemView.findViewById(R.id.menu_overview_list_item_name);
         _description = (TextView) itemView.findViewById(R.id.menu_overview_list_item_description);
         _price = (TextView) itemView.findViewById(R.id.menu_overview_list_item_price);
+        _fishIndicator = (ImageView) itemView.findViewById(R.id.menu_overview_list_indicator_fish);
         _bioIndicator = (ImageView) itemView.findViewById(R.id.menu_overview_list_indicator_bio);
         _vegetarianIndicator = (ImageView) itemView.findViewById(R.id.menu_overview_list_indicator_vegetarian);
         _veganIndicator = (ImageView) itemView.findViewById(R.id.menu_overview_list_indicator_vegan);
-        //todo add fish indicator
     }
 
     public void setMeal(@NonNull Meal meal, @NonNull PriceGroup priceGroup) {
         setMealName(meal);
         setDescription(meal);
         setPrice(meal, priceGroup);
+        setIndicatorVisibility(_fishIndicator, meal.getMsc());
         setIndicatorVisibility(_bioIndicator, meal.getBio());
         setIndicatorVisibility(_vegetarianIndicator, meal.getVegetarian());
         setIndicatorVisibility(_veganIndicator, meal.getVegan());

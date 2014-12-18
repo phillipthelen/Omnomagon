@@ -27,16 +27,14 @@ package net.pherth.omnomagon.data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.util.Pair;
 
 public class Day {
-	List<Pair<MealGroup, List<Meal>>> allMeals = new ArrayList<Pair<MealGroup, List<Meal>>>();
+
+	private Map<MealGroup, List<Meal>> allMeals = new LinkedHashMap<MealGroup, List<Meal>>();
 	public Date date;
 	public String id;
 	
@@ -66,39 +64,24 @@ public class Day {
 		id = dayid;
 	}
 	
-	public List<Pair<MealGroup, List<Meal>>> getMeals() {
+	public Map<MealGroup, List<Meal>> getMeals() {
 		return allMeals;
 	}
 	
-	public void addMealGroup(@NonNull MealGroup mealGroup) {
-		allMeals.add(new Pair<MealGroup, List<Meal>>(mealGroup, new ArrayList<Meal>()));
-	}
-	
 	public void addMealGroup(@NonNull MealGroup mealGroup, @NonNull List<Meal> meals) {
-		allMeals.add(new Pair<MealGroup, List<Meal>>(mealGroup, meals));
-	}
-	
-	public void addMealGroup(@NonNull Pair<MealGroup, List<Meal>> meals) {
-		allMeals.add(meals);
+		allMeals.put(mealGroup, meals);
 	}
 	
 	public void addMeal(@NonNull MealGroup mealGroup, Meal meal) {
-		boolean found = false;
-		for (final Pair<MealGroup, List<Meal>> allMeal : allMeals) {
-			if (allMeal.first == mealGroup) {
-				allMeal.second.add(meal);
-				found = true;
-			}
+		List<Meal> meals = allMeals.get(mealGroup);
+		if (meals == null) {
+			meals = new ArrayList<Meal>();
 		}
-		
-		if (!found) {
-			List<Meal> mealList = new ArrayList<Meal>();
-			mealList.add(meal);
-			allMeals.add(new Pair<MealGroup, List<Meal>>(mealGroup, mealList));
-		}
+		meals.add(meal);
+		allMeals.put(mealGroup, meals);
 	}
-	
-	public void setMeals(List<Pair<MealGroup, List<Meal>>> meals) {
-		allMeals = meals;
+
+	public void setAllMeals(@NonNull Map<MealGroup, List<Meal>> allMeals) {
+		this.allMeals = allMeals;
 	}
 }

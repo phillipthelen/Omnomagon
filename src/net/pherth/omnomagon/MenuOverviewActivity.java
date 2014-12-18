@@ -6,8 +6,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
-import com.joanzapata.android.iconify.IconDrawable;
-import com.joanzapata.android.iconify.Iconify;
 import net.pherth.omnomagon.header.FeatureImageHandler;
 import net.pherth.omnomagon.header.MensaNameViewHolder;
 import net.pherth.omnomagon.tabs.MenuTabHandler;
@@ -59,11 +57,6 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     public boolean onCreateOptionsMenu(Menu menu) {
         final MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_overview, menu);
-        final MenuItem refreshItem = menu.findItem(R.id.actionbar_refresh);
-        final IconDrawable iconDrawable = new IconDrawable(this, Iconify.IconValue.fa_refresh);
-        iconDrawable.colorRes(R.color.white);
-        iconDrawable.actionBarSize();
-        refreshItem.setIcon(iconDrawable);
         return super.onCreateOptionsMenu(menu);
     }
 

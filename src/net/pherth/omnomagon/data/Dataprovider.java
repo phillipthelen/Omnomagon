@@ -1,6 +1,8 @@
 package net.pherth.omnomagon.data;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -36,13 +38,12 @@ public class Dataprovider {
 			List<Pair<String, String>> daydata = new ArrayList<Pair<String, String>>();
 			daydata.add(new Pair<String, String>("date", day.date.toString()));
 			long dayId = insert("day", daydata);
-			List<Pair<MealGroup, List<Meal>>> meals = day.getMeals();
-			for (final Pair<MealGroup, List<Meal>> meal1 : meals) {
-				List<Meal> meallist = meal1.second;
-				for (final Meal meal : meallist) {
+			final Map<MealGroup, List<Meal>> meals = day.getMeals();
+			for (final Entry<MealGroup, List<Meal>> entry: meals.entrySet()) {
+				for (final Meal meal : entry.getValue()) {
 					ContentValues mealValues = new ContentValues();
 					mealValues.put("dayID", dayId);
-					mealValues.put("groupString", meal1.first.name());
+					mealValues.put("groupString", entry.getKey().name());
 					mealValues.put("name", meal.getName());
 					mealValues.put("vegan", meal.getVegan());
 					mealValues.put("vegetarian", meal.getVegetarian());

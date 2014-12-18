@@ -6,15 +6,15 @@
         android:paddingLeft="16dp"
         android:paddingStart="16dp"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="88dp"
         >
 
     <LinearLayout
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="72dp"
-            android:layout_marginStart="72dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
@@ -60,7 +60,7 @@
                     android:id="@+id/menu_overview_list_item_description"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="14sp"
-                    android:singleLine="true"
+                    android:maxLines="2"
                     android:layout_marginRight="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentLeft="true"
@@ -74,10 +74,21 @@
             <LinearLayout
                     android:id="@+id/menu_overview_list_indicator_area"
                     android:orientation="horizontal"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp">
+
+                <ImageView
+                        android:id="@+id/menu_overview_list_indicator_fish"
+                        android:contentDescription="@string/fish"
+                        android:visibility="gone"
+                        android:src="@drawable/mscsiegel"
+                        android:padding="2dp"
+                        android:layout_width="16dp"
+                        android:layout_height="match_parent"
+                        />
 
                 <ImageView
                         android:id="@+id/menu_overview_list_indicator_bio"

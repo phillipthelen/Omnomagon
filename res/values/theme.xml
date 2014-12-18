@@ -3,6 +3,7 @@
 
     <style name="OmnomagonTheme" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@color/anti_flash_white</item>
 
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
