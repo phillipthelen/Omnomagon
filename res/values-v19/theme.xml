@@ -5,4 +5,8 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="OmnomagonTheme.Settings.V21">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
 </resources>

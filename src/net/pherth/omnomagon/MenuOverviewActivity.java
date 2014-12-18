@@ -1,11 +1,14 @@
 package net.pherth.omnomagon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import net.pherth.omnomagon.header.FeatureImageHandler;
 import net.pherth.omnomagon.header.MensaNameViewHolder;
 import net.pherth.omnomagon.tabs.MenuTabHandler;
@@ -58,6 +61,18 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         final MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_overview, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = false;
+        final int id = item.getItemId();
+        if (id == R.id.actionbar_view_settings) {
+            handled = true;
+            final Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+        }
+        return handled || super.onOptionsItemSelected(item);
     }
 
     @Override

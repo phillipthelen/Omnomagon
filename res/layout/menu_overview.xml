@@ -44,7 +44,7 @@
         <android.support.v7.widget.Toolbar
                 app:popupTheme="@style/OmnomagonPopupTheme"
                 android:id="@+id/support_actionbar"
-                android:layout_marginTop="@dimen/menu_overview_actionbar_margin_top"
+                android:layout_marginTop="@dimen/actionbar_margin_top"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 />

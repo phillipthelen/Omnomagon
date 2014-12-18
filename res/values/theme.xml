@@ -7,6 +7,7 @@
 
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
+        <item name="colorAccent">@color/crayon_orange</item>
 
         <item name="pstsTabBackground">@android:color/transparent</item>
         <item name="pstsIndicatorColor">@color/crayon_orange</item>
@@ -22,5 +23,13 @@
     <style name="OmnomagonTheme.MenuOverview" />
 
     <style name="OmnomagonTheme.MenuOverview.V21" />
+
+    <style name="OmnomagonTheme.Settings">
+        <item name="popupMenuStyle">@style/OmnomagonPopupMenuStyle</item>
+        <item name="textAppearanceLargePopupMenu">@style/OmnomagonTextAppearancePopupMenuLarge</item>
+        <item name="textAppearanceSmallPopupMenu">@style/OmnomagonTextAppearancePopupMenuSmall</item>
+    </style>
+
+    <style name="OmnomagonTheme.Settings.V21" />
 
 </resources>

@@ -25,6 +25,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/OmnomagonTheme.Settings.V21"
+            android:label="@string/settings"
+            android:noHistory="true"
+            />
+
     </application>
 
 </manifest>

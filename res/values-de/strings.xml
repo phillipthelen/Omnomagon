@@ -10,12 +10,6 @@
 	<string name="vegan">Vegan</string>
 	<string name="chosenMensa">Keine</string>
 
-    <string-array name="priceClasses">
-        <item >Studenten</item>
-        <item >Mitarbeiter</item>
-        <item >Gäste</item>
-    </string-array>
-
 	<string name="updateAutomatic">Automatisch aktualisieren</string>
 	<string name="menu_refresh">Aktualisieren</string>
 
@@ -55,4 +49,12 @@
 	<string name="meal_group_salad">Salate</string>
 	<string name="meal_group_soup">Suppen</string>
 	<string name="meal_group_appetizer">Vorspeisen</string>
+
+	<string name="settings_select_hint">Zum Auswählen klicken</string>
+	<string name="settings_select_hint_only_one_mensa">Nur eine Mensa gefunden.</string>
+	<string name="settings_select_hint_select_city_first">Wähle zuerst eine Stadt aus.</string>
+
+	<string name="price_students">Studenten</string>
+	<string name="price_employees">Mitarbeiter</string>
+	<string name="price_guests">Gäste</string>
 </resources>
