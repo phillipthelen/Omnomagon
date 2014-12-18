@@ -13,6 +13,8 @@ import net.pherth.omnomagon.header.FeatureImageHandler;
 import net.pherth.omnomagon.header.MensaNameViewHolder;
 import net.pherth.omnomagon.tabs.MenuTabHandler;
 
+import java.util.Calendar;
+
 public class MenuOverviewActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
     private static final long FIVE_MINUTES = 1000L * 60L * 5L;
@@ -45,6 +47,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     protected void onResume() {
         super.onResume();
         changeFeatureImageAfterFiveMinutes();
+        preselectDay();
     }
 
     private void changeFeatureImageAfterFiveMinutes() {
@@ -53,6 +56,35 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
             _featureImageHandler.switchFeatureImage();
             final int selectedTab = _menuTabHandler.getSelectedTab();
             _featureImageHandler.onPageSelected(selectedTab);
+        }
+    }
+
+    private void preselectDay() {
+        final Calendar calendar = Calendar.getInstance();
+        final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (dayOfWeek) {
+            case Calendar.TUESDAY:
+                switchTab(1);
+                break;
+            case Calendar.WEDNESDAY:
+                switchTab(2);
+                break;
+            case Calendar.THURSDAY:
+                switchTab(3);
+                break;
+            case Calendar.FRIDAY:
+                switchTab(4);
+                break;
+            default:
+                switchTab(0);
+                break;
+        }
+    }
+
+    private void switchTab(int tabIndex) {
+        final int selectedTab = _menuTabHandler.getSelectedTab();
+        if (tabIndex != selectedTab) {
+            _menuTabHandler.onPageSelected(tabIndex);
         }
     }
 
