@@ -51,6 +51,7 @@ public class MensaSelectionViewHolder implements PopupMenu.OnMenuItemClickListen
 
     @Override
     public void onCitySelected() {
+        _mensaSelectionValue.setText(null);
         generatePopupMenu();
     }
 

@@ -6,14 +6,20 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.Toolbar
-        app:popupTheme="@style/OmnomagonPopupTheme"
-        android:id="@+id/support_actionbar"
+    <FrameLayout
         android:background="@color/mantis"
-        android:layout_marginTop="@dimen/actionbar_margin_top"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            app:popupTheme="@style/OmnomagonPopupTheme"
+            android:id="@+id/support_actionbar"
+            android:layout_marginTop="@dimen/actionbar_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            />
+
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
