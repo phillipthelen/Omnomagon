@@ -9,16 +9,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+import net.pherth.omnomagon.data.Day;
+import net.pherth.omnomagon.data.DummyDataProvider;
+import net.pherth.omnomagon.data.PriceGroup;
 import net.pherth.omnomagon.header.FeatureImageHandler;
+import net.pherth.omnomagon.header.MensaNameProvider;
 import net.pherth.omnomagon.header.MensaNameViewHolder;
 import net.pherth.omnomagon.tabs.MenuTabHandler;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
 
+//todo landscape layout
 public class MenuOverviewActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
 
     private static final long FIVE_MINUTES = 1000L * 60L * 5L;
 
+    private MensaNameProvider _mensaNameProvider;
     private MensaNameViewHolder _mensaNameViewHolder;
     private MenuTabHandler _menuTabHandler;
     private FeatureImageHandler _featureImageHandler;
@@ -29,8 +38,8 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_overview);
         configureActionBar();
+        _mensaNameProvider = new MensaNameProvider(this);
         _mensaNameViewHolder = new MensaNameViewHolder(this);
-        _mensaNameViewHolder.setMensaName("Veggie Nr.1");
         _menuTabHandler = new MenuTabHandler(this, this);
         _featureImageHandler = new FeatureImageHandler(this);
         _lastFeatureImageChange = System.currentTimeMillis();
@@ -46,8 +55,15 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     @Override
     protected void onResume() {
         super.onResume();
+        updateMensaName();
         changeFeatureImageAfterFiveMinutes();
         preselectDay();
+        _menuTabHandler.updateHints();
+    }
+
+    private void updateMensaName() {
+        final String mensaName = _mensaNameProvider.getName();
+        _mensaNameViewHolder.setMensaName(mensaName);
     }
 
     private void changeFeatureImageAfterFiveMinutes() {
@@ -103,6 +119,9 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
             handled = true;
             final Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
+        } else if (id == R.id.actionbar_refresh) {
+            handled = true;
+            triggerRefresh();
         }
         return handled || super.onOptionsItemSelected(item);
     }
@@ -120,5 +139,18 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     @Override
     public void onPageScrollStateChanged(int state) {
         _featureImageHandler.onPageScrollStateChanged(state);
+    }
+
+    public void triggerRefresh() {
+        final List<Day> days;
+        final Random random = new Random();
+        if (random.nextBoolean()) {
+            days = DummyDataProvider.generateCorruptedData();
+            Toast.makeText(this, "Corrupted Data", Toast.LENGTH_SHORT).show();
+        } else {
+            days = DummyDataProvider.generateDummyData();
+            Toast.makeText(this, "Valid Data", Toast.LENGTH_SHORT).show();
+        }
+        _menuTabHandler.setData(days, PriceGroup.students);
     }
 }

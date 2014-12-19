@@ -52,6 +52,7 @@
         <TextView
                 android:id="@+id/menu_overview_header_mensa_name"
                 android:gravity="center_vertical"
+                android:singleLine="true"
                 android:textSize="34sp"
                 android:textColor="@color/white"
                 android:layout_below="@+id/support_actionbar"

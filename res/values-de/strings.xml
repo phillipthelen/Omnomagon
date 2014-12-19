@@ -57,4 +57,8 @@
 	<string name="price_students">Studenten</string>
 	<string name="price_employees">Mitarbeiter</string>
 	<string name="price_guests">Gäste</string>
+
+	<string name="error_no_meals_found">Es ist kein Menü verfügbar.</string>
+	<string name="error_no_mensa_selected">Klicke hier um eine Mensa auszuwählen.</string>
+	<string name="error_no_refresh">Klicken zum Aktualiseren (oder aktiviere autmatisches Aktualisieren in den Einstellungen).</string>
 </resources>

@@ -3,6 +3,7 @@ package net.pherth.omnomagon.tabs;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.astuetz.PagerSlidingTabStrip;
 import net.pherth.omnomagon.R;
+import net.pherth.omnomagon.data.Day;
+import net.pherth.omnomagon.data.PriceGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +21,14 @@ public class MenuTabHandler implements ViewPager.OnPageChangeListener {
 
     private final List<TextView> _tabs;
     private final ViewPager.OnPageChangeListener _onPageChangeListener;
+    private final MenuTabAdapter _menuTabAdapter;
     private final ViewPager _viewPager;
     private int _selectedTab = 0;
 
     public MenuTabHandler(@NonNull ActionBarActivity actionBarActivity, @NonNull ViewPager.OnPageChangeListener onPageChangeListener) {
         _onPageChangeListener = onPageChangeListener;
         final MenuTabAdapter menuTabAdapter = createTabAdapter(actionBarActivity);
+        _menuTabAdapter = menuTabAdapter;
         final int menuTabAdapterCount = menuTabAdapter.getCount();
         _tabs = new ArrayList<TextView>(menuTabAdapterCount);
         _viewPager = createViewPager(actionBarActivity, menuTabAdapter);
@@ -83,5 +88,15 @@ public class MenuTabHandler implements ViewPager.OnPageChangeListener {
 
     public int getSelectedTab() {
         return _selectedTab;
+    }
+
+    public void setData(@Nullable List<Day> data, @Nullable PriceGroup priceGroup) {
+        if (data != null) {
+            _menuTabAdapter.setData(data, priceGroup);
+        }
+    }
+
+    public void updateHints() {
+        _menuTabAdapter.refreshHints();
     }
 }

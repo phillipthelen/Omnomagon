@@ -32,6 +32,8 @@
             android:noHistory="true"
             />
 
+        <!-- TODO: Implement about activity -->
+
     </application>
 
 </manifest>

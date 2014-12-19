@@ -40,8 +40,8 @@
     <string name="be_hu_spandauer">HU Spandauer Str.</string>
     <string name="be_hu_cafe_grimm">Caf. HU, Grimm-Zentrum</string>
     <string name="be_udk_jazzcafe">Cafeteria UdK Jazz Cafe</string>
-    <string name="be_htw_treskow">HTWB Treskowallee</string>
-    <string name="be_htw_wilhelminenhof">HTWB Wilhelminenhof</string>
+    <string name="be_htw_treskow">HTW Treskowallee</string>
+    <string name="be_htw_wilhelminenhof">HTW Wilhelminenhof</string>
     <string name="be_hwr">HWRB Badensche Str.</string>
     <string name="be_beuth">BHT Luxemburger Str</string>
     <string name="be_beuth_kurfuersten">BHT Kurfürstenstr.</string>
@@ -88,5 +88,9 @@
         <item>@string/be_khsb</item>
         <item>@string/be_ehb</item>
     </string-array>
+
+    <!-- Ulm -->
+
+    <string name="ulm_mensa">Uni Ulm</string>
 
 </resources>

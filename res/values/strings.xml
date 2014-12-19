@@ -59,4 +59,8 @@
 	<string name="price_students">Students</string>
 	<string name="price_employees">Employees</string>
 	<string name="price_guests">Guests</string>
+
+	<string name="error_no_meals_found">There are no meals available.</string>
+	<string name="error_no_mensa_selected">Click to select a mensa.</string>
+	<string name="error_no_refresh">Click to refresh or configure auto refresh via the settings.</string>
 </resources>

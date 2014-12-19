@@ -8,6 +8,11 @@ import java.util.List;
 public class DummyDataProvider {
 
     @NonNull
+    public static List<Day> generateCorruptedData() {
+        return Arrays.asList(monday(), Day.dummy(), Day.dummy(), thursday(), friday());
+    }
+
+    @NonNull
     public static List<Day> generateDummyData() {
         return Arrays.asList(monday(), tuesday(), wednesday(), thursday(), friday());
     }

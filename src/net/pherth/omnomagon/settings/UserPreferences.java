@@ -138,4 +138,8 @@ public class UserPreferences {
     public void setFishFlag(boolean fishFlag) {
         setFlag(FishFlag, fishFlag);
     }
+
+    public UserPreferencesValidator validator() {
+        return new UserPreferencesValidator(this);
+    }
 }

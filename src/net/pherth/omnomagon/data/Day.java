@@ -25,18 +25,24 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.omnomagon.data;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import android.support.annotation.NonNull;
-import android.util.Log;
 
 public class Day {
 
 	private Map<MealGroup, List<Meal>> allMeals = new LinkedHashMap<MealGroup, List<Meal>>();
 	public Date date;
 	public String id;
+
+	@NonNull
+	public static Day dummy() {
+		final Date currentDay = new Date();
+		return new Day(currentDay);
+	}
 	
 	public Day(Date currentDay) {
 		date = currentDay;
