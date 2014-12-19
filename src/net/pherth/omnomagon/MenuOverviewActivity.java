@@ -62,6 +62,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     }
 
     private void updateMensaName() {
+        //todo switch to activity results and react to specific changes for mensa, price group or indicators
         final String mensaName = _mensaNameProvider.getName();
         _mensaNameViewHolder.setMensaName(mensaName);
     }
