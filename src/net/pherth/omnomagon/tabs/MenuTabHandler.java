@@ -3,7 +3,6 @@ package net.pherth.omnomagon.tabs;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -11,8 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.astuetz.PagerSlidingTabStrip;
 import net.pherth.omnomagon.R;
-import net.pherth.omnomagon.data.Day;
-import net.pherth.omnomagon.data.PriceGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,13 +87,8 @@ public class MenuTabHandler implements ViewPager.OnPageChangeListener {
         return _selectedTab;
     }
 
-    public void setData(@Nullable List<Day> data, @Nullable PriceGroup priceGroup) {
-        if (data != null) {
-            _menuTabAdapter.setData(data, priceGroup);
-        }
-    }
-
-    public void updateHints() {
-        _menuTabAdapter.refreshHints();
+    @NonNull
+    public MenuTabAdapter getMenuTabAdapter() {
+        return _menuTabAdapter;
     }
 }

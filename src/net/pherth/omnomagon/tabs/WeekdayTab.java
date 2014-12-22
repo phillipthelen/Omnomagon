@@ -24,14 +24,18 @@ import net.pherth.omnomagon.R;
 import net.pherth.omnomagon.SettingsActivity;
 import net.pherth.omnomagon.data.Day;
 import net.pherth.omnomagon.data.PriceGroup;
-import net.pherth.omnomagon.settings.UserPreferences;
 
 public class WeekdayTab extends Fragment {
 
+    private static final String STATE_TAB_POSITION = "tabPosition";
+    private static final String STATE_HINT = "hint";
+    private static final String STATE_PRICE = "price";
+
     private ViewHolder _viewHolder;
     private WeekdayMealAdapter _weekdayMealAdapter;
-    private boolean _dataWasSet;
     private Integer _tabPosition;
+    private WeekdayTabHint _currentHint = WeekdayTabHint.NoMealData;
+    private PriceGroup _currentPrice = PriceGroup.guests;
 
     public WeekdayTab() {
         setRetainInstance(true);
@@ -39,6 +43,7 @@ public class WeekdayTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        restoreStates(savedInstanceState);
         final View rootView = inflater.inflate(R.layout.menu_overview_weekday_fragment, container, false);
         _viewHolder = new ViewHolder(rootView);
         final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
@@ -47,9 +52,21 @@ public class WeekdayTab extends Fragment {
         return rootView;
     }
 
-    public void refreshHint() {
-        final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
-        configureHint(weekdayMealAdapter);
+    private void restoreStates(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            final int tabPosition = savedInstanceState.getInt(STATE_TAB_POSITION, -1);
+            if (tabPosition >= 0) {
+                _tabPosition = tabPosition;
+            }
+            final String hintName = savedInstanceState.getString(STATE_HINT);
+            if (hintName != null) {
+                _currentHint = WeekdayTabHint.valueOf(hintName);
+            }
+            final String priceName = savedInstanceState.getString(STATE_PRICE);
+            if (priceName != null) {
+                _currentPrice = PriceGroup.valueOf(priceName);
+            }
+        }
     }
 
     private void configureHint(@NonNull WeekdayMealAdapter weekdayMealAdapter) {
@@ -66,16 +83,14 @@ public class WeekdayTab extends Fragment {
     private void showErrorHint() {
         final MenuOverviewActivity activity = (MenuOverviewActivity) getActivity();
         if (activity != null && !activity.isFinishing()) {
-            final UserPreferences userPreferences = new UserPreferences(activity);
-            final boolean mensaSelected = userPreferences.validator().hasMensaSelected();
-            if (mensaSelected) {
-                if (_dataWasSet) {
-                    _viewHolder.showHint(R.string.error_no_meals_found, null);
-                } else {
-                    showRefreshError(activity);
-                }
-            } else {
+            if (_currentHint == WeekdayTabHint.NoMensaSelected) {
                 showConfigurationError(activity);
+            } else {
+                if (_currentHint == WeekdayTabHint.NoDataRequested) {
+                    showRefreshError(activity);
+                } else {
+                    _viewHolder.showHint(R.string.error_no_meals_found, null);
+                }
             }
         }
     }
@@ -97,7 +112,7 @@ public class WeekdayTab extends Fragment {
             public void onClick(View v) {
                 if (!activity.isFinishing()) {
                     final Intent intent = new Intent(activity, SettingsActivity.class);
-                    activity.startActivity(intent);
+                    activity.startActivityForResult(intent, MenuOverviewActivity.REQUEST_SETTINGS);
                 }
             }
         });
@@ -111,27 +126,42 @@ public class WeekdayTab extends Fragment {
         return _weekdayMealAdapter;
     }
 
-    public void initializeData(@Nullable Day day, @NonNull PriceGroup priceGroup) {
-        setData(day, priceGroup, true);
-    }
-
-    public void setData(@Nullable Day day, @NonNull PriceGroup priceGroup) {
-        setData(day, priceGroup, false);
-    }
-
-    private void setData(@Nullable Day day, @NonNull PriceGroup priceGroup, boolean initialized) {
+    public void setData(@Nullable Day day) {
         final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
         if (day != null) {
-            weekdayMealAdapter.setData(day, priceGroup);
+            weekdayMealAdapter.setData(day, _currentPrice);
         } else {
-            weekdayMealAdapter.setData(Day.dummy(), priceGroup);
-        }
-        if (!initialized) {
-            _dataWasSet = true;
+            weekdayMealAdapter.setData(Day.dummy(), _currentPrice);
         }
         if (_viewHolder != null) {
             configureHint(weekdayMealAdapter);
             _viewHolder.setAdapter(weekdayMealAdapter);
+        }
+    }
+
+    public void setCurrentPrice(@NonNull PriceGroup priceGroup) {
+        _currentPrice = priceGroup;
+        final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
+        weekdayMealAdapter.changePriceForCurrentData(priceGroup);
+    }
+
+    public void setCurrentHint(@NonNull WeekdayTabHint currentHint) {
+        _currentHint = currentHint;
+        final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
+        configureHint(weekdayMealAdapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (_tabPosition != null) {
+            outState.putInt(STATE_TAB_POSITION, _tabPosition);
+        }
+        if (_currentHint != null) {
+            outState.putString(STATE_HINT, _currentHint.name());
+        }
+        if (_currentPrice != null) {
+            outState.putString(STATE_PRICE, _currentPrice.name());
         }
     }
 

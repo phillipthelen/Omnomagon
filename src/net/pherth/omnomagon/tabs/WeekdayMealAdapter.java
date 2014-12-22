@@ -12,7 +12,10 @@ import net.pherth.omnomagon.data.Meal;
 import net.pherth.omnomagon.data.MealGroup;
 import net.pherth.omnomagon.data.PriceGroup;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -44,6 +47,13 @@ public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
         notifyDataSetChanged();
+    }
+
+    public void changePriceForCurrentData(@NonNull PriceGroup priceGroup) {
+        _priceGroup = priceGroup;
+        if (!_dataObjects.isEmpty()) {
+            notifyDataSetChanged();
+        }
     }
 
     @Override

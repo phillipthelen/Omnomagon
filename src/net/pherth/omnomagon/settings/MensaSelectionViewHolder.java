@@ -10,11 +10,13 @@ import net.pherth.omnomagon.SettingsActivity;
 
 public class MensaSelectionViewHolder implements PopupMenu.OnMenuItemClickListener, CitySelectionViewHolder.Listener {
 
+    private final SettingsActivity _settingsActivity;
     private final UserPreferences _userPreferences;
     private final View _mensaSelectionButton;
     private final TextView _mensaSelectionValue;
 
     public MensaSelectionViewHolder(@NonNull SettingsActivity settingsActivity) {
+        _settingsActivity = settingsActivity;
         _userPreferences = settingsActivity.getUserPreferences();
         _mensaSelectionButton = settingsActivity.findViewById(R.id.settings_mensa_button);
         _mensaSelectionValue = (TextView) settingsActivity.findViewById(R.id.settings_mensa_value);
@@ -57,6 +59,7 @@ public class MensaSelectionViewHolder implements PopupMenu.OnMenuItemClickListen
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
+        _settingsActivity.registerChange(SettingsActivity.CHANGED_MENSA);
         final CharSequence title = menuItem.getTitle();
         _mensaSelectionValue.setText(title);
         final int mensaId = menuItem.getItemId();

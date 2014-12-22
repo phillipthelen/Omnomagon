@@ -8,6 +8,7 @@ import net.pherth.omnomagon.SettingsActivity;
 
 public class SettingsViewHolder implements CompoundButton.OnCheckedChangeListener {
 
+    private final SettingsActivity _settingsActivity;
     private final UserPreferences _userPreferences;
     private final SwitchCompat _autoRefreshSwitch;
     private final SwitchCompat _vegetarianSwitch;
@@ -16,6 +17,7 @@ public class SettingsViewHolder implements CompoundButton.OnCheckedChangeListene
     private final SwitchCompat _fishSwitch;
 
     public SettingsViewHolder(@NonNull SettingsActivity settingsActivity) {
+        _settingsActivity = settingsActivity;
         _userPreferences = settingsActivity.getUserPreferences();
         _autoRefreshSwitch = (SwitchCompat) settingsActivity.findViewById(R.id.settings_auto_update_switch);
         _vegetarianSwitch = (SwitchCompat) settingsActivity.findViewById(R.id.settings_indicator_vegetarian_switch);
@@ -45,12 +47,16 @@ public class SettingsViewHolder implements CompoundButton.OnCheckedChangeListene
         if (buttonView == _autoRefreshSwitch) {
             _userPreferences.setAutomaticReload(isChecked);
         } else if (buttonView == _vegetarianSwitch) {
+            _settingsActivity.registerChange(SettingsActivity.CHANGED_INDICATORS);
             _userPreferences.setVegetarianFlag(isChecked);
         } else if (buttonView == _veganSwitch) {
+            _settingsActivity.registerChange(SettingsActivity.CHANGED_INDICATORS);
             _userPreferences.setVeganFlag(isChecked);
         } else if (buttonView == _bioSwitch) {
+            _settingsActivity.registerChange(SettingsActivity.CHANGED_INDICATORS);
             _userPreferences.setBioFlag(isChecked);
         } else if (buttonView == _fishSwitch) {
+            _settingsActivity.registerChange(SettingsActivity.CHANGED_INDICATORS);
             _userPreferences.setFishFlag(isChecked);
         }
     }

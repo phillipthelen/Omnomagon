@@ -81,8 +81,8 @@ public class UserPreferences {
 
     @Nullable
     private Integer getId(@NonNull Setting setting) {
-        final String cityId = getPreferences().getString(setting.peferenceName(), null);
-        return cityId == null ? null : Integer.valueOf(cityId);
+        final String id = getPreferences().getString(setting.peferenceName(), null);
+        return id == null ? null : Integer.valueOf(id);
     }
 
     public void setSelectedCityId(@StringRes @Nullable Integer id) {

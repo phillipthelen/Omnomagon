@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import net.pherth.omnomagon.R;
 import net.pherth.omnomagon.data.Day;
-import net.pherth.omnomagon.data.MealGroupBasedSorter;
 import net.pherth.omnomagon.data.PriceGroup;
 
 import java.util.List;
@@ -22,6 +21,7 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
     private final FragmentManager _fragmentManager;
     private List<Day> _data;
     private PriceGroup _priceGroup = PriceGroup.guests;
+    private WeekdayTabHint _hint = WeekdayTabHint.NoMealData;
 
     public MenuTabAdapter(@NonNull Context context, @NonNull FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -33,12 +33,22 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         final WeekdayTab weekdayTab = new WeekdayTab();
         weekdayTab.setTabPosition(position);
-        if (_data != null) {
-            weekdayTab.setData(_data.get(position), _priceGroup);
-        } else {
-            weekdayTab.initializeData(null, _priceGroup);
-        }
+        weekdayTab.setCurrentPrice(_priceGroup);
+        weekdayTab.setCurrentHint(_hint);
+        final Day day = getDay(position);
+        weekdayTab.setData(day);
         return weekdayTab;
+    }
+
+    @Nullable
+    private Day getDay(int position) {
+        final Day day;
+        if (_data != null && position < _data.size()) {
+            day = _data.get(position);
+        } else {
+            day = null;
+        }
+        return day;
     }
 
     @Override
@@ -53,38 +63,60 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
         return weekDays[position];
     }
 
-    public void setData(@NonNull List<Day> data, @Nullable PriceGroup priceGroup) {
-        MealGroupBasedSorter.sort(data);
-        _data = data;
-        _priceGroup = (priceGroup == null) ? PriceGroup.guests : priceGroup;
-        refreshFragmentData();
-    }
-
-    private void refreshFragmentData() {
-        final List<Fragment> fragments = _fragmentManager.getFragments();
-        if (fragments != null) {
-            for (final Fragment fragment : fragments) {
-                if (fragment instanceof WeekdayTab) {
-                    final WeekdayTab weekdayTab = (WeekdayTab) fragment;
-                    final Integer tabPosition = weekdayTab.getTabPosition();
+    public void setData(@Nullable List<Day> data) {
+        if (_data != data) {
+            _data = data;
+            forEachFragment(new FragmentOperation<WeekdayTab>() {
+                @Override
+                public void invoke(@NonNull WeekdayTab tab) {
+                    final Integer tabPosition = tab.getTabPosition();
                     if (tabPosition != null) {
-                        final Day day = _data.get(tabPosition);
-                        weekdayTab.setData(day, _priceGroup);
+                        final Day day = getDay(tabPosition);
+                        tab.setData(day);
+                    } else {
+                        tab.setData(null);
                     }
                 }
-            }
+            });
         }
     }
 
-    public void refreshHints() {
+    public void setPriceGroup(@NonNull final PriceGroup priceGroup) {
+        if (_priceGroup != priceGroup) {
+            _priceGroup = priceGroup;
+            forEachFragment(new FragmentOperation<WeekdayTab>() {
+                @Override
+                public void invoke(@NonNull WeekdayTab tab) {
+                    tab.setCurrentPrice(priceGroup);
+                }
+            });
+        }
+    }
+
+    public void setHint(@NonNull final WeekdayTabHint hint) {
+        if (_hint != hint) {
+            _hint = hint;
+            forEachFragment(new FragmentOperation<WeekdayTab>() {
+                @Override
+                public void invoke(@NonNull WeekdayTab tab) {
+                    tab.setCurrentHint(hint);
+                }
+            });
+        }
+    }
+
+    private void forEachFragment(@NonNull FragmentOperation<WeekdayTab> fragmentOperation) {
         final List<Fragment> fragments = _fragmentManager.getFragments();
         if (fragments != null) {
             for (final Fragment fragment : fragments) {
                 if (fragment instanceof WeekdayTab) {
-                    final WeekdayTab weekdayTab = (WeekdayTab) fragment;
-                    weekdayTab.refreshHint();
+                    fragmentOperation.invoke((WeekdayTab) fragment);
                 }
             }
         }
+    }
+
+    private static interface FragmentOperation<T extends Fragment> {
+        public void invoke(@NonNull T tab);
     }
 }

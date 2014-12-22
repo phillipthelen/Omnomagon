@@ -2,6 +2,7 @@ package net.pherth.omnomagon;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -9,21 +10,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import net.pherth.omnomagon.data.DataProvider;
 import net.pherth.omnomagon.data.Day;
-import net.pherth.omnomagon.data.DummyDataProvider;
 import net.pherth.omnomagon.data.PriceGroup;
 import net.pherth.omnomagon.header.FeatureImageHandler;
 import net.pherth.omnomagon.header.MensaNameProvider;
 import net.pherth.omnomagon.header.MensaNameViewHolder;
+import net.pherth.omnomagon.settings.UserPreferences;
+import net.pherth.omnomagon.tabs.MenuTabAdapter;
 import net.pherth.omnomagon.tabs.MenuTabHandler;
+import net.pherth.omnomagon.tabs.WeekdayTabHint;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 //todo landscape layout
-public class MenuOverviewActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener {
+public class MenuOverviewActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener, DataProvider.DataListener {
+
+    public static final int REQUEST_SETTINGS = 1001;
 
     private static final long FIVE_MINUTES = 1000L * 60L * 5L;
 
@@ -32,6 +36,14 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     private MenuTabHandler _menuTabHandler;
     private FeatureImageHandler _featureImageHandler;
     private long _lastFeatureImageChange;
+    private int _lastPreselectionDay;
+    private DataProvider _dataProvider;
+    private UserPreferences _userPreferences;
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return _dataProvider;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +55,14 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         _menuTabHandler = new MenuTabHandler(this, this);
         _featureImageHandler = new FeatureImageHandler(this);
         _lastFeatureImageChange = System.currentTimeMillis();
+        final Object instance = getLastCustomNonConfigurationInstance();
+        if (instance != null && instance instanceof DataProvider) {
+            _dataProvider = (DataProvider) instance;
+        } else {
+            _dataProvider = new DataProvider(this);
+        }
+        _userPreferences = new UserPreferences(this);
+        updateMensaName();
     }
 
     private void configureActionBar() {
@@ -52,19 +72,19 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         supportActionBar.setDisplayShowTitleEnabled(false);
     }
 
+    private void updateMensaName() {
+        final String mensaName = _mensaNameProvider.getName();
+        _mensaNameViewHolder.setMensaName(mensaName);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        updateMensaName();
         changeFeatureImageAfterFiveMinutes();
         preselectDay();
-        _menuTabHandler.updateHints();
-    }
-
-    private void updateMensaName() {
-        //todo switch to activity results and react to specific changes for mensa, price group or indicators
-        final String mensaName = _mensaNameProvider.getName();
-        _mensaNameViewHolder.setMensaName(mensaName);
+        configureEmptyListHint();
+        configureSelectedPrice();
+        setDataForTabs();
     }
 
     private void changeFeatureImageAfterFiveMinutes() {
@@ -78,23 +98,27 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
 
     private void preselectDay() {
         final Calendar calendar = Calendar.getInstance();
-        final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        switch (dayOfWeek) {
-            case Calendar.TUESDAY:
-                switchTab(1);
-                break;
-            case Calendar.WEDNESDAY:
-                switchTab(2);
-                break;
-            case Calendar.THURSDAY:
-                switchTab(3);
-                break;
-            case Calendar.FRIDAY:
-                switchTab(4);
-                break;
-            default:
-                switchTab(0);
-                break;
+        final int dayInYear = calendar.get(Calendar.DAY_OF_YEAR);
+        if (dayInYear != _lastPreselectionDay) {
+            _lastPreselectionDay = dayInYear;
+            final int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            switch (dayOfWeek) {
+                case Calendar.TUESDAY:
+                    switchTab(1);
+                    break;
+                case Calendar.WEDNESDAY:
+                    switchTab(2);
+                    break;
+                case Calendar.THURSDAY:
+                    switchTab(3);
+                    break;
+                case Calendar.FRIDAY:
+                    switchTab(4);
+                    break;
+                default:
+                    switchTab(0);
+                    break;
+            }
         }
     }
 
@@ -102,6 +126,55 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         final int selectedTab = _menuTabHandler.getSelectedTab();
         if (tabIndex != selectedTab) {
             _menuTabHandler.onPageSelected(tabIndex);
+        }
+    }
+
+    private void configureEmptyListHint() {
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        final boolean dataRequested = _dataProvider.hasRequestedData();
+        if (dataRequested) {
+            menuTabAdapter.setHint(WeekdayTabHint.NoMealData);
+        } else {
+            final boolean mensaSelected = _userPreferences.validator().hasMensaSelected();
+            if (mensaSelected) {
+                menuTabAdapter.setHint(WeekdayTabHint.NoDataRequested);
+            } else {
+                menuTabAdapter.setHint(WeekdayTabHint.NoMensaSelected);
+            }
+        }
+    }
+
+    private void configureSelectedPrice() {
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        final Integer priceGroupId = _userPreferences.getSelectedPriceId();
+        final PriceGroup priceGroup;
+        if (priceGroupId != null) {
+            priceGroup = PriceGroup.findGroupForId(priceGroupId);
+        } else {
+            priceGroup = PriceGroup.guests;
+        }
+        menuTabAdapter.setPriceGroup(priceGroup);
+    }
+
+    private void setDataForTabs() {
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        final List<Day> data = _dataProvider.getData();
+        menuTabAdapter.setData(data);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_SETTINGS && data != null) {
+            final boolean changedMensa = data.getBooleanExtra(SettingsActivity.CHANGED_MENSA, false);
+            if (changedMensa) {
+                updateMensaName();
+                //todo request data
+            }
+            final boolean changedPrice = data.getBooleanExtra(SettingsActivity.CHANGED_PRICE, false);
+            if (changedPrice) {
+                configureSelectedPrice();
+            }
         }
     }
 
@@ -119,7 +192,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         if (id == R.id.actionbar_view_settings) {
             handled = true;
             final Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            startActivity(settingsIntent);
+            startActivityForResult(settingsIntent, REQUEST_SETTINGS);
         } else if (id == R.id.actionbar_refresh) {
             handled = true;
             triggerRefresh();
@@ -142,16 +215,23 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         _featureImageHandler.onPageScrollStateChanged(state);
     }
 
+    @Override
+    public void onNetworkError() {
+
+    }
+
+    @Override
+    public void onUnknownError() {
+
+    }
+
+    @Override
+    public void onDataReceived(@NonNull List<Day> data) {
+        configureEmptyListHint();
+        setDataForTabs();
+    }
+
     public void triggerRefresh() {
-        final List<Day> days;
-        final Random random = new Random();
-        if (random.nextBoolean()) {
-            days = DummyDataProvider.generateCorruptedData();
-            Toast.makeText(this, "Corrupted Data", Toast.LENGTH_SHORT).show();
-        } else {
-            days = DummyDataProvider.generateDummyData();
-            Toast.makeText(this, "Valid Data", Toast.LENGTH_SHORT).show();
-        }
-        _menuTabHandler.setData(days, PriceGroup.students);
+        _dataProvider.requestData(this);
     }
 }
