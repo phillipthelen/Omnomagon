@@ -119,14 +119,14 @@ public class WeekdayTab extends Fragment {
         setData(day, priceGroup, false);
     }
 
-    private void setData(@Nullable Day day, @NonNull PriceGroup priceGroup, boolean initialied) {
+    private void setData(@Nullable Day day, @NonNull PriceGroup priceGroup, boolean initialized) {
         final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
         if (day != null) {
             weekdayMealAdapter.setData(day, priceGroup);
         } else {
             weekdayMealAdapter.setData(Day.dummy(), priceGroup);
         }
-        if (!initialied) {
+        if (!initialized) {
             _dataWasSet = true;
         }
         if (_viewHolder != null) {

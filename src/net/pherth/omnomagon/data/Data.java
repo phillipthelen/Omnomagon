@@ -25,33 +25,32 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.omnomagon.data;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import net.pherth.omnomagon.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Data {
 	public static final String TAG = Data.class.getSimpleName();
 	List<Day> res;
 	private Context context;
 	SharedPreferences sharedPrefs;
-	Dataprovider dataprov;
+	DatabaseProvider dataprov;
 	
 	public Data(Context cxt) {
-		dataprov = new Dataprovider(cxt);
+		dataprov = new DatabaseProvider(cxt);
 		this.context = cxt;
 	}
 	

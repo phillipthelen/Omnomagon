@@ -1,8 +1,4 @@
 package net.pherth.omnomagon.data;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,13 +9,18 @@ import android.util.Log;
 import android.util.Pair;
 import net.pherth.omnomagon.Util;
 
-public class Dataprovider {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class DatabaseProvider {
 
 	// Database fields
 	private SQLiteDatabase database;
 	private Database dbHelper;
 
-	public Dataprovider(Context context) {
+	public DatabaseProvider(Context context) {
 		if(Util.getDebuggable(context)) Log.i("Dataprovider", "initializing Dataprovider");
 		dbHelper = new Database(context);
 	}
