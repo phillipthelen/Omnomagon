@@ -51,9 +51,15 @@ public class DatabaseProvider {
 					mealValues.put("msc", meal.getMsc());
 					mealValues.put("bio", meal.getBio());
 					Float[] prices = meal.getPrices();
-					mealValues.put("price1", prices[0]);
-					mealValues.put("price2", prices[1]);
-					mealValues.put("price3", prices[2]);
+					if (prices != null) {
+						mealValues.put("price1", prices[0]);
+						mealValues.put("price2", prices[1]);
+						mealValues.put("price3", prices[2]);
+					} else {
+						mealValues.putNull("price1");
+						mealValues.putNull("price2");
+						mealValues.putNull("price3");
+					}
 					long mealID = database.insert("meal", null, mealValues);
 
 					List<String> additions = meal.getAdditions();
@@ -96,8 +102,10 @@ public class DatabaseProvider {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
 				Meal meal = new Meal(cursor.getString(1));
-				Float[] prices = {cursor.getFloat(5), cursor.getFloat(6), cursor.getFloat(7)};
-				meal.setPrices(prices);
+				if (!cursor.isNull(5) && !cursor.isNull(6) && !cursor.isNull(7)) {
+					Float[] prices = {cursor.getFloat(5), cursor.getFloat(6), cursor.getFloat(7)};
+					meal.setPrices(prices);
+				}
 				meal.setBio((cursor.getInt(11) == 1));
 				meal.setMsc((cursor.getInt(10) == 1));
 				meal.setVegetarian((cursor.getInt(9) == 1));

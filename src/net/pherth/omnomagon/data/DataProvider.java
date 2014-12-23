@@ -23,13 +23,24 @@ public class DataProvider {
     }
 
     private final Activity _activity;
+    private final MensaFactory _mensaFactory;
     private List<Day> _data = new ArrayList<Day>(0);
     private State _state = State.Uninitialized;
     private RequestDataTask _requestDataTask;
+    private RestoreDataTask _restoreDataTask;
     private boolean _blockAutoRefresh;
 
     public DataProvider(@NonNull Activity activity) {
         _activity = activity;
+        _mensaFactory = new MensaFactory(activity);
+    }
+
+    public synchronized void restoreFromDatabase(@NonNull DataListener dataListener) {
+        cancelRunningRequests(_restoreDataTask);
+        final RestoreDataTask restoreDataTask = new RestoreDataTask(_activity, this, dataListener);
+        final Mensa databaseSnapshotMensa = _mensaFactory.getDatabaseSnapshotMensa();
+        _restoreDataTask = restoreDataTask;
+        restoreDataTask.execute(databaseSnapshotMensa);
     }
 
     public void blockNextAutoRefresh() {
@@ -62,23 +73,23 @@ public class DataProvider {
         if (mensaSelected) {
             final Integer cityId = userPreferences.getSelectedCityId();
             final Integer mensaId = userPreferences.getSelectedMensaId();
-            final Mensa mensa = MensaFactory.getMensa(cityId, mensaId);
+            final Mensa mensa = _mensaFactory.getMensa(cityId, mensaId);
             requestData(dataListener, mensa);
         }
     }
 
     private synchronized void requestData(@NonNull DataListener dataListener, @NonNull Mensa mensa) {
-        cancelRunningRequests();
+        cancelRunningRequests(_requestDataTask);
         final RequestDataTask requestDataTask = new RequestDataTask(_activity, this, dataListener);
         _requestDataTask = requestDataTask;
-        requestDataTask.execute();
+        requestDataTask.execute(mensa);
     }
 
-    private void cancelRunningRequests() {
-        if (_requestDataTask != null) {
-            final AsyncTask.Status status = _requestDataTask.getStatus();
+    private void cancelRunningRequests(@Nullable AsyncTask asyncTask) {
+        if (asyncTask != null) {
+            final AsyncTask.Status status = asyncTask.getStatus();
             if (status != AsyncTask.Status.FINISHED) {
-                _requestDataTask.cancel(true);
+                asyncTask.cancel(true);
             }
         }
     }

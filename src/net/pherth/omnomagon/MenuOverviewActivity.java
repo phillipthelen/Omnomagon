@@ -45,7 +45,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
-        return _dataProvider;
+        return new RetainedObjects(_dataProvider, _lastPreselectionDay);
     }
 
     @Override
@@ -58,9 +58,16 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         _menuTabHandler = new MenuTabHandler(this, this);
         _featureImageHandler = new FeatureImageHandler(this);
         _lastFeatureImageChange = System.currentTimeMillis();
-        final Object instance = getLastCustomNonConfigurationInstance();
-        if (instance != null && instance instanceof DataProvider) {
-            _dataProvider = (DataProvider) instance;
+        final Object configurationInstance = getLastCustomNonConfigurationInstance();
+        if (configurationInstance != null) {
+            final RetainedObjects retainedObjects = (RetainedObjects) configurationInstance;
+            _lastPreselectionDay = retainedObjects.getLastPreselectionDay();
+            final DataProvider dataProvider = retainedObjects.getDataProvider();
+            if (dataProvider != null) {
+                _dataProvider = dataProvider;
+            } else {
+                _dataProvider = new DataProvider(this);
+            }
         } else {
             _dataProvider = new DataProvider(this);
         }
@@ -68,6 +75,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         updateMensaName();
         configureSelectedPrice();
         configureIndicators();
+        restoreDataFromDatabase();
     }
 
     private void configureActionBar() {
@@ -80,6 +88,28 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     private void updateMensaName() {
         final String mensaName = _mensaNameProvider.getName();
         _mensaNameViewHolder.setMensaName(mensaName);
+    }
+
+    private void configureSelectedPrice() {
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        final Integer priceGroupId = _userPreferences.getSelectedPriceId();
+        final PriceGroup priceGroup;
+        if (priceGroupId != null) {
+            priceGroup = PriceGroup.findGroupForId(priceGroupId);
+        } else {
+            priceGroup = PriceGroup.guests;
+        }
+        menuTabAdapter.setPriceGroup(priceGroup);
+    }
+
+    private void configureIndicators() {
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        final WeekdayMealViewHolder.IndicatorConfiguration indicatorConfiguration = WeekdayMealViewHolder.IndicatorConfiguration.from(_userPreferences);
+        menuTabAdapter.setIndicators(indicatorConfiguration);
+    }
+
+    private void restoreDataFromDatabase() {
+        _dataProvider.restoreFromDatabase(this);
     }
 
     @Override
@@ -145,24 +175,6 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
                 menuTabAdapter.setHint(WeekdayTabHint.NoMensaSelected);
             }
         }
-    }
-
-    private void configureSelectedPrice() {
-        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
-        final Integer priceGroupId = _userPreferences.getSelectedPriceId();
-        final PriceGroup priceGroup;
-        if (priceGroupId != null) {
-            priceGroup = PriceGroup.findGroupForId(priceGroupId);
-        } else {
-            priceGroup = PriceGroup.guests;
-        }
-        menuTabAdapter.setPriceGroup(priceGroup);
-    }
-
-    private void configureIndicators() {
-        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
-        final WeekdayMealViewHolder.IndicatorConfiguration indicatorConfiguration = WeekdayMealViewHolder.IndicatorConfiguration.from(_userPreferences);
-        menuTabAdapter.setIndicators(indicatorConfiguration);
     }
 
     private void setDataForTabs() {
@@ -298,5 +310,25 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
             _featureImageHandler.recycleImageView();
         }
         super.onDestroy();
+    }
+
+    private static class RetainedObjects {
+
+        private final DataProvider _dataProvider;
+        private final int _lastPreselectionDay;
+
+        public RetainedObjects(@Nullable DataProvider dataProvider, int lastPreselectionDay) {
+            _dataProvider = dataProvider;
+            _lastPreselectionDay = lastPreselectionDay;
+        }
+
+        @Nullable
+        public DataProvider getDataProvider() {
+            return _dataProvider;
+        }
+
+        public int getLastPreselectionDay() {
+            return _lastPreselectionDay;
+        }
     }
 }

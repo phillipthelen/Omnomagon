@@ -26,11 +26,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package net.pherth.omnomagon.data;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import net.pherth.omnomagon.Util;
+import net.pherth.omnomagon.data.mensa.DatabaseSnapshot;
+import net.pherth.omnomagon.data.mensa.MensaBerlin;
+import net.pherth.omnomagon.data.mensa.MensaUlm;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -41,95 +44,86 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Data {
-	public static final String TAG = Data.class.getSimpleName();
-	List<Day> res;
-	private Context context;
-	SharedPreferences sharedPrefs;
-	DatabaseProvider dataprov;
-	
-	public Data(Context cxt) {
-		dataprov = new DatabaseProvider(cxt);
-		this.context = cxt;
+
+	final private DatabaseProvider _databaseProvider;
+	private Context _context;
+
+	public Data(@NonNull Context context) {
+		_databaseProvider = new DatabaseProvider(context);
+		_context = context;
 	}
-	
-	public void getAllData(boolean fromDatabase) {
-		res = new ArrayList<Day>();
-		if(fromDatabase) {
-			if(Util.getDebuggable(context)) Log.i("Data", "Load from database");
-			loadDataFromDatabase();
-		} else {
-			if(Util.getDebuggable(context)) Log.i("Data", "Load new data");
-			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
-			String city = sharedPrefs.getString("cityPreference", "beList");
-			String mensa = sharedPrefs.getString("mensaPreference", "fu1");
-			String url = getURL(city, mensa);
-			RSSHandler rh = new RSSHandler();
-			String htmlString= rh.getHTML(url, city);
-			if (htmlString != null) {
-				parseString(htmlString, city);
-			} else {
-			}
-			try {
-				dataprov.open();
-				dataprov.newData(res);
-				dataprov.close();
-			} catch (SQLiteException e) {
-				e.printStackTrace();
-			}
 
-
-			SharedPreferences.Editor editor = sharedPrefs.edit();
-			editor.putLong("lastUpdate", System.currentTimeMillis());
-			editor.commit();
+	@Nullable
+	public List<Day> parseData(@NonNull MensaBerlin mensaBerlin) {
+		List<Day> data = null;
+		final String mensaBerlinHTML = mensaBerlin.getHTML();
+		if (mensaBerlinHTML != null) {
+			data = parseHTMLBerlin(mensaBerlinHTML);
+			saveDataInDatabase(data);
 		}
+		return data;
 	}
-	
-	public void loadDataFromDatabase() {
+
+	@Nullable
+	public List<Day> parseData(@NonNull MensaUlm mensaUlm) {
+		List<Day> data = null;
+		final String mensaUlmXML = mensaUlm.getXML();
+		if (mensaUlmXML != null) {
+			data = parseXMLUlm(mensaUlmXML);
+			saveDataInDatabase(data);
+		}
+		return data;
+	}
+
+	private void saveDataInDatabase(@Nullable List<Day> data) {
 		try {
-			dataprov.open();
-			res = dataprov.getData();
-			dataprov.close();
+			if (data != null && !data.isEmpty()) {
+				_databaseProvider.open();
+				_databaseProvider.newData(data);
+				_databaseProvider.close();
+				DatabaseSnapshot.storeMetadata(_context);
+			}
+		} catch (SQLiteException e) {
+            e.printStackTrace();
+        }
+	}
+
+	@Nullable
+	public List<Day> loadDataFromDatabase() {
+		List<Day> data = null;
+		try {
+			_databaseProvider.open();
+			data = _databaseProvider.getData();
+			_databaseProvider.close();
 		} catch (SQLiteException e) {
 			e.printStackTrace();
 		}
-}
-	
-	public int getDayCount() {
-		if (res == null) {
-			return 0;
-		}
-		return res.size();
+		return data;
 	}
-	
-	private void parseString(String html, String id) {
-		if (id.equals("beList")) {
-			parseHTMLBerlin(html);
-		} else if (id.equals("ulm")) {
-			parseXMLUlm(html);
-		}
-	}
-	
-	private void parseHTMLBerlin(String htmlString) {
-		if(Util.getDebuggable(context)) Log.i("HTML", "beginning to parse");		
+
+	@Nullable
+	private List<Day> parseHTMLBerlin(String htmlString) {
+		final List<Day> data = new ArrayList<Day>(5);
+		if (Util.getDebuggable(_context)) Log.i("HTML", "beginning to parse");
 		Document doc = Jsoup.parse(htmlString);
 		Elements headers = doc.getElementsByClass("mensa_week_head_col");
-		for (int x=0; x < headers.size(); x++){
+		for (int x = 0; x < headers.size(); x++) {
 			String dateString = headers.get(x).ownText().substring(4);
-			Date date1 = new Date();
+			Date date = new Date();
 			try {
 				SimpleDateFormat sdfToDate = new SimpleDateFormat("dd.MM.yyyy");
-				date1 = sdfToDate.parse(dateString);
+				date = sdfToDate.parse(dateString);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			res.add(new Day(date1));
+			data.add(new Day(date));
 		}
-		
+
 		Elements rows = doc.getElementsByTag("tr");
-		for (int x=1; x < rows.size(); x++) {
+		for (int x = 1; x < rows.size(); x++) {
 			Element row = rows.get(x);
 			String groupname = row.getElementsByClass("mensa_week_speise_tag_title").get(0).ownText();
 			MealGroup mealGroup;
@@ -139,9 +133,9 @@ public class Data {
 				mealGroup = MealGroup.Essen;
 			}
 			Elements cols = row.getElementsByClass("mensa_week_speise_tag");
-			for (int y=0; y < cols.size(); y++) {
+			for (int y = 0; y < cols.size(); y++) {
 				List<Meal> meals = new ArrayList<Meal>();
-				Day currday = res.get(y);
+				Day currday = data.get(y);
 				Element col = cols.get(y);
 				Elements currmeals = col.getElementsByClass("mensa_speise");
 				for (int c = 0; c < currmeals.size(); c++) {
@@ -152,7 +146,7 @@ public class Data {
 						priceString = priceString.substring(4);
 						String[] priceList = priceString.split(" / ");
 						Float firstPrice = Float.parseFloat(priceList[0]);
-						Float[] priceFloatList = new Float[] {firstPrice, firstPrice, firstPrice};
+						Float[] priceFloatList = new Float[]{firstPrice, firstPrice, firstPrice};
 						for (int number = 1; number < priceList.length; number++) {
 							priceFloatList[number] = Float.parseFloat(priceList[number]);
 						}
@@ -161,10 +155,10 @@ public class Data {
 						meal.setPrices(new Float[]{(float) 0, (float) 0, (float) 0});
 					}
 					Elements additions = mealElement.getElementsByAttributeValue("href", "#zusatz");
-					for (int i=0; i<additions.size(); i++) {
+					for (int i = 0; i < additions.size(); i++) {
 						meal.addAddition(additions.get(i).attributes().get("title"));
 					}
-					
+
 					Element prevElem = mealElement.previousElementSibling();
 					if (prevElem != null && prevElem.tagName().equals("a")) {
 						meal.setSiegel(prevElem.attributes().get("href"));
@@ -174,44 +168,69 @@ public class Data {
 						}
 					}
 					meals.add(meal);
-					
+
 				}
 				currday.addMealGroup(mealGroup, meals);
-				res.set(y, currday);
+				data.set(y, currday);
 			}
 		}
+		return data;
 	}
-	
-	private void parseXMLUlm(String xml) {
-		if(Util.getDebuggable(context)) Log.i("HTML", "beginning to parse");		
+
+	@Nullable
+	private List<Day> parseXMLUlm(String xml) {
+		final List<Day> data = new ArrayList<Day>(5);
+		if(Util.getDebuggable(_context)) Log.i("HTML", "beginning to parse");
 		Document doc = Jsoup.parse(xml);
 		Elements weeks = doc.getElementsByTag("week");
 		Element week = weeks.get(0);
 		Elements days = week.getElementsByTag("day");
-		for (int x=0; x < days.size(); x++){
-			String dateString = days.get(x).ownText().substring(4);
-			Date date1 = new Date();
+		for (final Element currentDay : days) {
+			String dateString = currentDay.attr("date");
+			Date date = new Date();
 			try {
 				SimpleDateFormat sdfToDate = new SimpleDateFormat("yyyy-MM-dd");
-				date1 = sdfToDate.parse(dateString);
+				date = sdfToDate.parse(dateString);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			res.add(new Day(date1));
+
+			final List<Meal> meals = new ArrayList<Meal>();
+
+			final Elements items = currentDay.getElementsByTag("item");
+			for (Element item : items) {
+				final Element parent = item.parent();
+				boolean vegetarian = parent.hasAttr("type") && parent.attr("type").equalsIgnoreCase("Vegetarische Gerichte");
+				final String text = item.text();
+				final String name;
+				final String additions;
+				if (text != null && text.contains("mit")) {
+					final String[] split = text.split(Pattern.quote("mit"), 2);
+					if (split.length < 2) {
+						name = text;
+						additions = null;
+					} else {
+						name = split[0].trim();
+						additions = split[1] != null ? split[1].trim() : "";
+					}
+				} else {
+					name = text;
+					additions = null;
+				}
+				if (name != null) {
+					if (additions != null && additions.length() > 0) {
+						meals.add(Meal.create(name, vegetarian, false, false, false, additions));
+					} else {
+						meals.add(Meal.create(name, vegetarian, false, false, false));
+					}
+				}
+			}
+
+			final Day day = new Day(date);
+			day.addMealGroup(MealGroup.Essen, meals);
+			data.add(day);
 		}
-		
-	}
-	
-	private String getURL(String city, String mensa) {
-		String url = "";
-		if (city.equals("beList")) {
-			url = "http://www.studentenwerk-berlin.de/speiseplan/rss/" + mensa + "/woche/lang/1";
-		} else if (city.equals("ulm")) {
-			url = "http://www.uni-ulm.de/mensaplan/mensaplan.xml";
-		}
-		if(Util.getDebuggable(context)) Log.i("url", city + ", " + mensa + ", " + url);
-		return url;
+		return data;
 	}
 }
 

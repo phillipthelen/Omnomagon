@@ -25,10 +25,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.omnomagon.data;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -37,15 +33,34 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import net.pherth.omnomagon.R;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Meal {
     
     private String name;
-    private Float[] prices = new Float[] {(float) 0.1, (float) 0.2, (float) 0.3};
+    private Float[] prices;
     private Boolean vegetarianBool = false;
     private Boolean veganBool = false;
     private Boolean bioBool = false;
     private Boolean mscBool = false;
     private List<String> additions = new ArrayList<String>();
+
+    @NonNull
+    public static Meal create(@NonNull String name, boolean vegetarianBool, boolean veganBool, boolean bioBool, boolean mscBool, @Nullable String... additions) {
+        final Meal meal = new Meal(name);
+        meal.setVegetarian(vegetarianBool);
+        meal.setVegan(veganBool);
+        meal.setBio(bioBool);
+        meal.setMsc(mscBool);
+        if (additions != null && additions.length > 0) {
+            for (final String addition : additions) {
+                meal.addAddition(addition);
+            }
+        }
+        return meal;
+    }
 
     @NonNull
     public static Meal create(@NonNull String name, float price1, float price2, float price3, boolean vegetarianBool, boolean veganBool, boolean bioBool, boolean mscBool, @Nullable String... additions) {
@@ -152,11 +167,16 @@ public class Meal {
     		this.bioBool = true;
     	}
     }
+
+    public boolean hasPriceSet() {
+        return prices != null;
+    }
     
     public String getCorrectPriceString(int type) {
     	DecimalFormat dec = new DecimalFormat();
     	dec.setMinimumFractionDigits(2);
-    	return dec.format(this.prices[type]) + " €";
+        final Float price = this.prices != null ? this.prices[type] : 0.0f;
+        return dec.format(price) + " €";
     }
     
     

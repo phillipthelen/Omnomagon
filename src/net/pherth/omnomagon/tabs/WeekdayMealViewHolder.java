@@ -79,8 +79,13 @@ public class WeekdayMealViewHolder extends RecyclerView.ViewHolder {
 
     private void setPrice(@NonNull Meal meal, @NonNull PriceGroup priceGroup) {
         final int priceGroupTypeInteger = priceGroup.getTypeInteger();
-        final String priceText = meal.getCorrectPriceString(priceGroupTypeInteger);
-        _price.setText(priceText);
+        final boolean hasPriceSet = meal.hasPriceSet();
+        if (hasPriceSet) {
+            final String priceText = meal.getCorrectPriceString(priceGroupTypeInteger);
+            _price.setText(priceText);
+        } else {
+            _price.setText("");
+        }
     }
 
     private void setIndicatorVisibility(@NonNull View view, boolean visible) {
