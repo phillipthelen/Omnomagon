@@ -83,7 +83,6 @@ public class RequestDataTask extends AsyncTask<Void,Void,List<Day>> implements D
     protected void onPostExecute(@Nullable List<Day> days) {
         final DataProvider dataProvider = _dataProvider.get();
         if (dataProvider != null) {
-            dataProvider.setData(days);
             final DataProvider.DataListener dataListener = _dataListener.get();
             if (dataListener != null) {
                 if (_error != null) {
@@ -93,6 +92,8 @@ public class RequestDataTask extends AsyncTask<Void,Void,List<Day>> implements D
                         dataListener.onUnknownError();
                     }
                 } else {
+                    dataProvider.setData(days);
+                    dataProvider.setLastUpdateDayOfYear();
                     dataListener.onDataReceived(days);
                 }
             }

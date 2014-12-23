@@ -88,6 +88,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         configureEmptyListHint();
         configureSelectedPrice();
         setDataForTabs();
+        triggerAutoRefresh();
     }
 
     private void changeFeatureImageAfterFiveMinutes() {
@@ -139,9 +140,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
             menuTabAdapter.setHint(WeekdayTabHint.NoMealData);
         } else {
             final boolean mensaSelected = _userPreferences.validator().hasMensaSelected();
-            if (mensaSelected) {
-                menuTabAdapter.setHint(WeekdayTabHint.NoDataRequested);
-            } else {
+            if (!mensaSelected) {
                 menuTabAdapter.setHint(WeekdayTabHint.NoMensaSelected);
             }
         }
@@ -165,6 +164,16 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         menuTabAdapter.setData(data);
     }
 
+    private void triggerAutoRefresh() {
+        final boolean mensaSelected = _userPreferences.validator().hasMensaSelected();
+        if (mensaSelected) {
+            final boolean refreshTriggered = _dataProvider.autoRefreshForMensa(this, _userPreferences);
+            if (refreshTriggered) {
+                setRefreshHints();
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -172,7 +181,8 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
             final boolean changedMensa = data.getBooleanExtra(SettingsActivity.CHANGED_MENSA, false);
             if (changedMensa) {
                 updateMensaName();
-                //todo request data
+                _dataProvider.blockNextAutoRefresh();
+                triggerRefresh();
             }
             final boolean changedPrice = data.getBooleanExtra(SettingsActivity.CHANGED_PRICE, false);
             if (changedPrice) {
@@ -221,14 +231,16 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     @Override
     public void onNetworkError() {
         endRefreshAnimation();
-        configureEmptyListHint();
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        menuTabAdapter.setHint(WeekdayTabHint.NoNetwork);
         Toast.makeText(this, R.string.error_no_network, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUnknownError() {
         endRefreshAnimation();
-        configureEmptyListHint();
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        menuTabAdapter.setHint(WeekdayTabHint.SomethingWentWrong);
         Toast.makeText(this, R.string.error_unknown, Toast.LENGTH_SHORT).show();
     }
 
@@ -247,17 +259,24 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     public void triggerRefresh() {
         final boolean mensaSelected = _userPreferences.validator().hasMensaSelected();
         if (mensaSelected) {
-            final RefreshAnimationHelper refreshAnimationHelper = getRefreshAnimationHelper();
-            refreshAnimationHelper.startAnimation();
-            final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
-            menuTabAdapter.setHint(WeekdayTabHint.UpdateInProgress);
+            setRefreshHints();
             _dataProvider.requestDataForMensa(this, _userPreferences);
         }
     }
 
+    private void setRefreshHints() {
+        final RefreshAnimationHelper refreshAnimationHelper = getRefreshAnimationHelper();
+        refreshAnimationHelper.startAnimation();
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        menuTabAdapter.setHint(WeekdayTabHint.UpdateInProgress);
+    }
+
     public RefreshAnimationHelper getRefreshAnimationHelper() {
-        if (_refreshAnimationHelper == null || !_refreshAnimationHelper.canAnimate()) {
+        if (_refreshAnimationHelper == null) {
             _refreshAnimationHelper = new RefreshAnimationHelper(this);
+        }
+        if (!_refreshAnimationHelper.canAnimate()) {
+            _refreshAnimationHelper.refreshViewHint(this);
         }
         return _refreshAnimationHelper;
     }

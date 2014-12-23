@@ -62,7 +62,6 @@
 
 	<string name="error_no_meals_found">There is no schedule available.</string>
 	<string name="error_no_mensa_selected">Click to select a mensa.</string>
-	<string name="error_no_refresh">Click to refresh or configure auto refresh via the settings.</string>
 	<string name="error_no_network">Couldn\'t request the menu. Check your network connection.</string>
 	<string name="error_unknown">Something went wrong. Try again later.</string>
 </resources>

@@ -86,10 +86,12 @@ public class WeekdayTab extends Fragment {
             if (_currentHint == WeekdayTabHint.NoMensaSelected) {
                 showConfigurationError(activity);
             } else {
-                if (_currentHint == WeekdayTabHint.NoDataRequested) {
-                    showRefreshError(activity);
-                } else if(_currentHint == WeekdayTabHint.UpdateInProgress) {
+                if(_currentHint == WeekdayTabHint.UpdateInProgress) {
                     _viewHolder.showHint(R.string.retrvData, null);
+                } else if(_currentHint == WeekdayTabHint.NoNetwork) {
+                    showNetworkError(activity);
+                } else if(_currentHint == WeekdayTabHint.SomethingWentWrong) {
+                    showUnknownError(activity);
                 } else {
                     _viewHolder.showHint(R.string.error_no_meals_found, null);
                 }
@@ -97,8 +99,19 @@ public class WeekdayTab extends Fragment {
         }
     }
 
-    private void showRefreshError(@NonNull final MenuOverviewActivity activity) {
-        _viewHolder.showHint(R.string.error_no_refresh, new View.OnClickListener() {
+    private void showNetworkError(@NonNull final MenuOverviewActivity activity) {
+        _viewHolder.showHint(R.string.error_no_network, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!activity.isFinishing()) {
+                    activity.triggerRefresh();
+                }
+            }
+        });
+    }
+
+    private void showUnknownError(@NonNull final MenuOverviewActivity activity) {
+        _viewHolder.showHint(R.string.error_unknown, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!activity.isFinishing()) {

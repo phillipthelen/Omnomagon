@@ -9,13 +9,17 @@ import net.pherth.omnomagon.R;
 
 public class RefreshAnimationHelper {
 
-    private final View _refreshButton;
+    private View _refreshButton;
     private RotateAnimation _rotateAnimation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
     public RefreshAnimationHelper(@NonNull Activity activity) {
         _refreshButton = activity.findViewById(R.id.actionbar_refresh);
         _rotateAnimation.setDuration(2000L);
         _rotateAnimation.setRepeatMode(Animation.RESTART);
+    }
+
+    public void refreshViewHint(@NonNull Activity activity) {
+        _refreshButton = activity.findViewById(R.id.actionbar_refresh);
     }
 
     public boolean canAnimate() {
