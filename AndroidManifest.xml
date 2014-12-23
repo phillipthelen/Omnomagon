@@ -29,10 +29,21 @@
             android:name=".SettingsActivity"
             android:theme="@style/OmnomagonTheme.Settings.V21"
             android:label="@string/settings"
-            android:noHistory="true"
             />
 
-        <!-- TODO: Implement about activity -->
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/OmnomagonTheme.About.V21"
+            android:label="@string/about"
+            />
+
+        <activity
+            android:name=".about.Version"
+            android:theme="@style/OmnomagonTheme.About.V21"
+            android:label="@string/about"
+            android:screenOrientation="portrait"
+            android:noHistory="true"
+            />
 
     </application>
 

@@ -32,4 +32,8 @@
 
     <style name="OmnomagonTheme.Settings.V21" />
 
+    <style name="OmnomagonTheme.About" />
+
+    <style name="OmnomagonTheme.About.V21" />
+
 </resources>

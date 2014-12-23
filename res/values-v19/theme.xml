@@ -9,4 +9,8 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="OmnomagonTheme.About.V21">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
 </resources>

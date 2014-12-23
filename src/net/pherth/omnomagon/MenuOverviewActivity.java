@@ -232,6 +232,10 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         } else if (id == R.id.actionbar_refresh) {
             handled = true;
             triggerRefresh();
+        } else if (id == R.id.actionbar_view_about) {
+            handled = true;
+            final Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);
         }
         return handled || super.onOptionsItemSelected(item);
     }

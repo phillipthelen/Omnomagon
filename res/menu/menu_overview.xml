@@ -10,4 +10,8 @@
           android:title="@string/settings"
           android:orderInCategory="1"
           app:showAsAction="never" />
+    <item android:id="@+id/actionbar_view_about"
+        android:title="@string/about"
+        android:orderInCategory="2"
+        app:showAsAction="never" />
 </menu>

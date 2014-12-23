@@ -3,12 +3,10 @@
     <string name="app_name">Omnomagon</string>
     <string name="settings">Einstellungen</string>
     <string name="price">Preis</string>
-    <string name="preferences">Einstellungen</string>
 	<string name="mensa">Mensa</string>
 	<string name="contentBadges">Markierungen</string>
 	<string name="vegetarian">Vegetarisch</string>
 	<string name="vegan">Vegan</string>
-	<string name="chosenMensa">Keine</string>
 
 	<string name="updateAutomatic">Automatisch aktualisieren</string>
 	<string name="menu_refresh">Aktualisieren</string>
@@ -23,24 +21,18 @@
         <item >Sontag</item>
     </string-array>
 
-    <string name="pleaseWait">Bitte warten…</string>
 	<string name="retrvData">Speiseplan wird abgerufen…</string>
 	<string name="bio">Bio</string>
-	<string name="city">Stadt</string>
 	<string name="fish">MSC zertifizierter Fisch</string>
-	<string name="connError">Es gab einen Verbindungsfehler. Bitte versuche es später wieder.</string>
-	<string name="about">Über</string>
-	<string name="general">Generell</string>
-	<string name="misc">Misc.</string>
-	<string name="help">Hilfe</string>
-	<string name="graphics">Grafiken:</string>
-	<string name="code">Code:</string>
-	<string name="version">Version:</string>
-	<string name="github">Github:</string>
-	<string name="contact">Kontakt:</string>
-	<string name="website">Webseite:</string>
-	<string name="loadText">ucanhaz Update?</string>
-	<string name="noData">Keine Daten verfügbar.</string>
+	<string name="city">Stadt</string>
+
+	<string name="about">Impressum</string>
+	<string name="about_developers">Entwickler</string>
+	<string name="about_graphics">Grafiken</string>
+	<string name="about_code">Code</string>
+	<string name="about_version_failure">Fehler beim Abrufen der Version.</string>
+	<string name="about_contact">Kontakt</string>
+	<string name="about_website">Webseite</string>
 
 	<string name="meal_group_special">Aktionsstand</string>
 	<string name="meal_group_supplement">Beilagen</string>
