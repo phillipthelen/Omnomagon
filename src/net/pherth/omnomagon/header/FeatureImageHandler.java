@@ -6,6 +6,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -22,6 +24,7 @@ public class FeatureImageHandler implements ViewPager.OnPageChangeListener {
     private final Activity _activity;
     private final FeatureImageProvider _featureImageProvider;
     private final HorizontalScrollView _horizontalScrollView;
+    private ImageView _featureImageView;
 
     private FeatureImageDimensions _featureImageDimensions;
 
@@ -39,6 +42,13 @@ public class FeatureImageHandler implements ViewPager.OnPageChangeListener {
         _featureImageProvider = featureImageProvider;
         _featureImageDimensions = featureImageDimensions;
         _horizontalScrollView = (HorizontalScrollView) activity.findViewById(R.id.menu_overview_header_container);
+    }
+
+    public ImageView getFeatureImageView() {
+        if (_featureImageView == null) {
+            _featureImageView = (ImageView) _activity.findViewById(R.id.menu_overview_header_image);
+        }
+        return _featureImageView;
     }
 
     private BitmapDimensions findBitmapDimensionsForFeatureImage(@NonNull Activity activity, @DrawableRes int imageResource) {
@@ -88,14 +98,14 @@ public class FeatureImageHandler implements ViewPager.OnPageChangeListener {
     private void scaleViewAndImage(@NonNull Activity activity, @DrawableRes int imageResource, @NonNull FeatureImageDimensions featureImageDimensions) {
         final int width = featureImageDimensions.getWidth();
         final int height = featureImageDimensions.getHeight();
-        final ImageView featureImage = scaleView(activity, width);
+        final ImageView featureImage = scaleView(width);
         final Bitmap scaledBitmap = getScaledBitmap(activity, imageResource, width, height);
         featureImage.setImageBitmap(scaledBitmap);
     }
 
     @NonNull
-    private ImageView scaleView(@NonNull Activity activity, int width) {
-        final ImageView featureImage = (ImageView) activity.findViewById(R.id.menu_overview_header_image);
+    private ImageView scaleView(int width) {
+        final ImageView featureImage = getFeatureImageView();
         final ViewGroup.LayoutParams layoutParams = featureImage.getLayoutParams();
         layoutParams.width = width;
         featureImage.setLayoutParams(layoutParams);
@@ -137,6 +147,7 @@ public class FeatureImageHandler implements ViewPager.OnPageChangeListener {
     public void onPageScrollStateChanged(int state) { }
 
     public void switchFeatureImage() {
+        recycleImageView();
         final int randomImageResource;
         if (_currentImage != null) {
             randomImageResource = _featureImageProvider.getRandomImageResourceWithout(_currentImage);
@@ -148,5 +159,19 @@ public class FeatureImageHandler implements ViewPager.OnPageChangeListener {
         scaleViewAndImage(_activity, randomImageResource, featureImageDimensions);
         _currentImage = randomImageResource;
         _featureImageDimensions = featureImageDimensions;
+    }
+
+    public void recycleImageView() {
+        final ImageView featureImageView = getFeatureImageView();
+        final Drawable drawable = featureImageView.getDrawable();
+        if (drawable != null && drawable instanceof BitmapDrawable) {
+            final BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            final Bitmap bitmap = bitmapDrawable.getBitmap();
+            if (bitmap != null && !bitmap.isRecycled()) {
+                try {
+                    bitmap.recycle();
+                } catch (Exception ignore) { }
+            }
+        }
     }
 }

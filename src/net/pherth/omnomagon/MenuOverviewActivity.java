@@ -27,7 +27,6 @@ import net.pherth.omnomagon.tabs.WeekdayTabHint;
 import java.util.Calendar;
 import java.util.List;
 
-//todo landscape layout
 public class MenuOverviewActivity extends ActionBarActivity implements ViewPager.OnPageChangeListener, DataProvider.DataListener {
 
     public static final int REQUEST_SETTINGS = 1001;
@@ -291,5 +290,13 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
             _refreshAnimationHelper.refreshViewHint(this);
         }
         return _refreshAnimationHelper;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (_featureImageHandler != null) {
+            _featureImageHandler.recycleImageView();
+        }
+        super.onDestroy();
     }
 }
