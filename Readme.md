@@ -1,23 +1,24 @@
 Omnomagon
 =========
 
-Setup in Eclipse
-----------------
+Dependencies
+------------
 
-Dependencies:
+* Android Support Libraries (compatibility-v4, appcompat-v7, recyclerview-v7)
+* PagerSlidingTabStrip: https://github.com/astuetz/PagerSlidingTabStrip
+* jsoup: http://jsoup.org/
 
-* ActionBar Sherlock: http://actionbarsherlock.com/ (4.0 Beta)
-* Android Viewpager Indicator: https://github.com/JakeWharton/Android-ViewPagerIndicator
-* Amazing-Listview: http://code.google.com/p/android-amazing-listview/
+If some libraries are not available in your maven repository,
+you can import them by using the following tool:
 
-The dependencies have to be imported into eclipse as library projects.
+* maven-android-sdk-deployer: https://github.com/simpligility/maven-android-sdk-deployer
 
 Licence
 -------
 
 ### Code
 
-Copyright (c) 2012, Phillip Thelen
+Copyright (c) 2014, Phillip Thelen, Tim Nowaczynski
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
