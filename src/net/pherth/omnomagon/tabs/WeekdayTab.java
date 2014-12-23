@@ -36,6 +36,7 @@ public class WeekdayTab extends Fragment {
     private Integer _tabPosition;
     private WeekdayTabHint _currentHint = WeekdayTabHint.NoMealData;
     private PriceGroup _currentPrice = PriceGroup.guests;
+    private WeekdayMealViewHolder.IndicatorConfiguration _indicatorConfiguration = WeekdayMealViewHolder.IndicatorConfiguration.defaultConfiguration();
 
     public WeekdayTab() {
         setRetainInstance(true);
@@ -144,9 +145,9 @@ public class WeekdayTab extends Fragment {
     public void setData(@Nullable Day day) {
         final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
         if (day != null) {
-            weekdayMealAdapter.setData(day, _currentPrice);
+            weekdayMealAdapter.setData(day, _currentPrice, _indicatorConfiguration);
         } else {
-            weekdayMealAdapter.setData(Day.dummy(), _currentPrice);
+            weekdayMealAdapter.setData(Day.dummy(), _currentPrice, _indicatorConfiguration);
         }
         if (_viewHolder != null) {
             configureHint(weekdayMealAdapter);
@@ -158,6 +159,12 @@ public class WeekdayTab extends Fragment {
         _currentPrice = priceGroup;
         final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
         weekdayMealAdapter.changePriceForCurrentData(priceGroup);
+    }
+
+    public void setCurrentIndicators(@NonNull WeekdayMealViewHolder.IndicatorConfiguration indicators) {
+        _indicatorConfiguration = indicators;
+        final WeekdayMealAdapter weekdayMealAdapter = getWeekdayMealAdapter();
+        weekdayMealAdapter.changeIndicatorsForCurrentData(indicators);
     }
 
     public void setCurrentHint(@NonNull WeekdayTabHint currentHint) {

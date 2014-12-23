@@ -8,6 +8,7 @@ import android.widget.TextView;
 import net.pherth.omnomagon.R;
 import net.pherth.omnomagon.data.Meal;
 import net.pherth.omnomagon.data.PriceGroup;
+import net.pherth.omnomagon.settings.UserPreferences;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class WeekdayMealViewHolder extends RecyclerView.ViewHolder {
     private final ImageView _bioIndicator;
     private final ImageView _vegetarianIndicator;
     private final ImageView _veganIndicator;
+    private IndicatorConfiguration _indicatorConfiguration = IndicatorConfiguration.defaultConfiguration();
 
     public WeekdayMealViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -37,10 +39,14 @@ public class WeekdayMealViewHolder extends RecyclerView.ViewHolder {
         setMealName(meal);
         setDescription(meal);
         setPrice(meal, priceGroup);
-        setIndicatorVisibility(_fishIndicator, meal.getMsc());
-        setIndicatorVisibility(_bioIndicator, meal.getBio());
-        setIndicatorVisibility(_vegetarianIndicator, meal.getVegetarian());
-        setIndicatorVisibility(_veganIndicator, meal.getVegan());
+        setIndicatorVisibility(_fishIndicator, meal.getMsc() && _indicatorConfiguration._showFishIndicator);
+        setIndicatorVisibility(_bioIndicator, meal.getBio() && _indicatorConfiguration._showBioIndicator);
+        setIndicatorVisibility(_vegetarianIndicator, meal.getVegetarian() && _indicatorConfiguration._showVegetarianIndicator);
+        setIndicatorVisibility(_veganIndicator, meal.getVegan() && _indicatorConfiguration._showVeganIndicator);
+    }
+
+    public void setIndicatorConfiguration(@NonNull IndicatorConfiguration indicatorConfiguration) {
+        _indicatorConfiguration = indicatorConfiguration;
     }
 
     private void setMealName(@NonNull Meal meal) {
@@ -79,5 +85,35 @@ public class WeekdayMealViewHolder extends RecyclerView.ViewHolder {
 
     private void setIndicatorVisibility(@NonNull View view, boolean visible) {
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    public static class IndicatorConfiguration {
+
+        private static IndicatorConfiguration DEFAULT;
+
+        private final boolean _showFishIndicator;
+        private final boolean _showBioIndicator;
+        private final boolean _showVegetarianIndicator;
+        private final boolean _showVeganIndicator;
+
+        @NonNull
+        public static IndicatorConfiguration defaultConfiguration() {
+            if (DEFAULT == null) {
+                DEFAULT = new IndicatorConfiguration(true, true, true, true);
+            }
+            return DEFAULT;
+        }
+
+        @NonNull
+        public static IndicatorConfiguration from(@NonNull UserPreferences userPreferences) {
+            return new IndicatorConfiguration(userPreferences.fishFlagSelected(), userPreferences.bioFlagSelected(), userPreferences.vegetarianFlagSelected(), userPreferences.veganFlagSelected());
+        }
+
+        public IndicatorConfiguration(boolean showFishIndicator, boolean showBioIndicator, boolean showVegetarianIndicator, boolean showVeganIndicator) {
+            _showFishIndicator = showFishIndicator;
+            _showBioIndicator = showBioIndicator;
+            _showVegetarianIndicator = showVegetarianIndicator;
+            _showVeganIndicator = showVeganIndicator;
+        }
     }
 }

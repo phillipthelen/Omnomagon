@@ -108,19 +108,19 @@ public class UserPreferences {
     }
 
     public boolean vegetarianFlagSelected() {
-        return getPreferences().getBoolean(VegetarianFlag.peferenceName(), false);
+        return getPreferences().getBoolean(VegetarianFlag.peferenceName(), true);
     }
 
     public boolean veganFlagSelected() {
-        return getPreferences().getBoolean(VeganFlag.peferenceName(), false);
+        return getPreferences().getBoolean(VeganFlag.peferenceName(), true);
     }
 
     public boolean bioFlagSelected() {
-        return getPreferences().getBoolean(BioFlag.peferenceName(), false);
+        return getPreferences().getBoolean(BioFlag.peferenceName(), true);
     }
 
     public boolean fishFlagSelected() {
-        return getPreferences().getBoolean(FishFlag.peferenceName(), false);
+        return getPreferences().getBoolean(FishFlag.peferenceName(), true);
     }
 
     public void setVegetarianFlag(boolean vegetarianFlag) {

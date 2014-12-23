@@ -26,8 +26,9 @@ public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final Map<Integer,Integer> _typeMap = new HashMap<Integer, Integer>();
     private final List<Object> _dataObjects = new ArrayList<Object>();
     private PriceGroup _priceGroup = PriceGroup.guests;
+    private WeekdayMealViewHolder.IndicatorConfiguration _indicatorConfiguration = WeekdayMealViewHolder.IndicatorConfiguration.defaultConfiguration();
 
-    public void setData(@NonNull Day day, @NonNull PriceGroup priceGroup) {
+    public void setData(@NonNull Day day, @NonNull PriceGroup priceGroup, @NonNull WeekdayMealViewHolder.IndicatorConfiguration indicatorConfiguration) {
         _priceGroup = priceGroup;
         _typeMap.clear();
         _dataObjects.clear();
@@ -51,6 +52,13 @@ public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void changePriceForCurrentData(@NonNull PriceGroup priceGroup) {
         _priceGroup = priceGroup;
+        if (!_dataObjects.isEmpty()) {
+            notifyDataSetChanged();
+        }
+    }
+
+    public void changeIndicatorsForCurrentData(@NonNull WeekdayMealViewHolder.IndicatorConfiguration indicatorConfiguration) {
+        _indicatorConfiguration = indicatorConfiguration;
         if (!_dataObjects.isEmpty()) {
             notifyDataSetChanged();
         }
@@ -80,6 +88,7 @@ public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mealGroupViewHolder.setMealGroup(mealGroup);
         } else {
             final WeekdayMealViewHolder mealViewHolder = (WeekdayMealViewHolder) viewHolder;
+            mealViewHolder.setIndicatorConfiguration(_indicatorConfiguration);
             final Meal meal = (Meal) _dataObjects.get(position);
             mealViewHolder.setMeal(meal, _priceGroup);
         }

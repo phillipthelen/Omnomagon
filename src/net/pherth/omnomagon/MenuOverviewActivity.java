@@ -21,6 +21,7 @@ import net.pherth.omnomagon.header.RefreshAnimationHelper;
 import net.pherth.omnomagon.settings.UserPreferences;
 import net.pherth.omnomagon.tabs.MenuTabAdapter;
 import net.pherth.omnomagon.tabs.MenuTabHandler;
+import net.pherth.omnomagon.tabs.WeekdayMealViewHolder;
 import net.pherth.omnomagon.tabs.WeekdayTabHint;
 
 import java.util.Calendar;
@@ -66,6 +67,8 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         }
         _userPreferences = new UserPreferences(this);
         updateMensaName();
+        configureSelectedPrice();
+        configureIndicators();
     }
 
     private void configureActionBar() {
@@ -86,7 +89,6 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         changeFeatureImageAfterFiveMinutes();
         preselectDay();
         configureEmptyListHint();
-        configureSelectedPrice();
         setDataForTabs();
         triggerAutoRefresh();
     }
@@ -158,6 +160,12 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
         menuTabAdapter.setPriceGroup(priceGroup);
     }
 
+    private void configureIndicators() {
+        final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+        final WeekdayMealViewHolder.IndicatorConfiguration indicatorConfiguration = WeekdayMealViewHolder.IndicatorConfiguration.from(_userPreferences);
+        menuTabAdapter.setIndicators(indicatorConfiguration);
+    }
+
     private void setDataForTabs() {
         final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
         final List<Day> data = _dataProvider.getData();
@@ -187,6 +195,10 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
             final boolean changedPrice = data.getBooleanExtra(SettingsActivity.CHANGED_PRICE, false);
             if (changedPrice) {
                 configureSelectedPrice();
+            }
+            final boolean changedIndicators = data.getBooleanExtra(SettingsActivity.CHANGED_INDICATORS, false);
+            if (changedIndicators) {
+                configureIndicators();
             }
         }
     }

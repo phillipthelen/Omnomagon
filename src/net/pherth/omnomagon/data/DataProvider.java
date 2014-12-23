@@ -38,18 +38,19 @@ public class DataProvider {
 
     public boolean autoRefreshForMensa(@NonNull DataListener dataListener, @NonNull UserPreferences userPreferences) {
         final boolean shouldReloadAutomatically = userPreferences.shouldReloadAutomatically();
-        final boolean shouldRefresh = shouldReloadAutomatically && !_blockAutoRefresh;
-        if (shouldRefresh) {
+        boolean refreshTriggered = false;
+        if (shouldReloadAutomatically && !_blockAutoRefresh) {
             final Calendar instance = Calendar.getInstance();
             final int dayOfYear = instance.get(Calendar.DAY_OF_YEAR);
             final SharedPreferences sharedPreferences = getAutoUpdatePreferences();
             final int lastUpdate = sharedPreferences.getInt(SHARED_PREFERENCES_LAST_UPDATE_KEY, -1);
             if (dayOfYear != lastUpdate) {
+                refreshTriggered = true;
                 requestDataForMensa(dataListener, userPreferences);
             }
         }
         _blockAutoRefresh = false;
-        return shouldRefresh;
+        return refreshTriggered;
     }
 
     private SharedPreferences getAutoUpdatePreferences() {

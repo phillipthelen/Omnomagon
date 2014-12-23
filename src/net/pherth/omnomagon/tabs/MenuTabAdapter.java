@@ -22,6 +22,7 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
     private List<Day> _data;
     private PriceGroup _priceGroup = PriceGroup.guests;
     private WeekdayTabHint _hint = WeekdayTabHint.NoMealData;
+    private WeekdayMealViewHolder.IndicatorConfiguration _indicatorConfiguration = WeekdayMealViewHolder.IndicatorConfiguration.defaultConfiguration();
 
     public MenuTabAdapter(@NonNull Context context, @NonNull FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -100,6 +101,18 @@ public class MenuTabAdapter extends FragmentStatePagerAdapter {
                 @Override
                 public void invoke(@NonNull WeekdayTab tab) {
                     tab.setCurrentHint(hint);
+                }
+            });
+        }
+    }
+
+    public void setIndicators(@NonNull final WeekdayMealViewHolder.IndicatorConfiguration indicators) {
+        if (_indicatorConfiguration != indicators) {
+            _indicatorConfiguration = indicators;
+            forEachFragment(new FragmentOperation<WeekdayTab>() {
+                @Override
+                public void invoke(@NonNull WeekdayTab tab) {
+                    tab.setCurrentIndicators(indicators);
                 }
             });
         }
