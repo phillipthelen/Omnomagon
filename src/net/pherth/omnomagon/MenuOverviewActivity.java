@@ -2,7 +2,7 @@ package net.pherth.omnomagon;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -10,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 import net.pherth.omnomagon.data.DataProvider;
 import net.pherth.omnomagon.data.Day;
 import net.pherth.omnomagon.data.PriceGroup;
 import net.pherth.omnomagon.header.FeatureImageHandler;
 import net.pherth.omnomagon.header.MensaNameProvider;
 import net.pherth.omnomagon.header.MensaNameViewHolder;
+import net.pherth.omnomagon.header.RefreshAnimationHelper;
 import net.pherth.omnomagon.settings.UserPreferences;
 import net.pherth.omnomagon.tabs.MenuTabAdapter;
 import net.pherth.omnomagon.tabs.MenuTabHandler;
@@ -39,6 +41,7 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
     private int _lastPreselectionDay;
     private DataProvider _dataProvider;
     private UserPreferences _userPreferences;
+    private RefreshAnimationHelper _refreshAnimationHelper;
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
@@ -217,21 +220,45 @@ public class MenuOverviewActivity extends ActionBarActivity implements ViewPager
 
     @Override
     public void onNetworkError() {
-
+        endRefreshAnimation();
+        configureEmptyListHint();
+        Toast.makeText(this, R.string.error_no_network, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUnknownError() {
-
+        endRefreshAnimation();
+        configureEmptyListHint();
+        Toast.makeText(this, R.string.error_unknown, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onDataReceived(@NonNull List<Day> data) {
+    public void onDataReceived(@Nullable List<Day> data) {
+        endRefreshAnimation();
         configureEmptyListHint();
         setDataForTabs();
     }
 
+    private void endRefreshAnimation() {
+        final RefreshAnimationHelper refreshAnimationHelper = getRefreshAnimationHelper();
+        refreshAnimationHelper.endAnimation();
+    }
+
     public void triggerRefresh() {
-        _dataProvider.requestData(this);
+        final boolean mensaSelected = _userPreferences.validator().hasMensaSelected();
+        if (mensaSelected) {
+            final RefreshAnimationHelper refreshAnimationHelper = getRefreshAnimationHelper();
+            refreshAnimationHelper.startAnimation();
+            final MenuTabAdapter menuTabAdapter = _menuTabHandler.getMenuTabAdapter();
+            menuTabAdapter.setHint(WeekdayTabHint.UpdateInProgress);
+            _dataProvider.requestDataForMensa(this, _userPreferences);
+        }
+    }
+
+    public RefreshAnimationHelper getRefreshAnimationHelper() {
+        if (_refreshAnimationHelper == null || !_refreshAnimationHelper.canAnimate()) {
+            _refreshAnimationHelper = new RefreshAnimationHelper(this);
+        }
+        return _refreshAnimationHelper;
     }
 }

@@ -88,6 +88,8 @@ public class WeekdayTab extends Fragment {
             } else {
                 if (_currentHint == WeekdayTabHint.NoDataRequested) {
                     showRefreshError(activity);
+                } else if(_currentHint == WeekdayTabHint.UpdateInProgress) {
+                    _viewHolder.showHint(R.string.retrvData, null);
                 } else {
                     _viewHolder.showHint(R.string.error_no_meals_found, null);
                 }
