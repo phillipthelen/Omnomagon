@@ -3,94 +3,14 @@
     <string name="app_name">Omnomagon</string>
     <string name="settings">Einstellungen</string>
     <string name="price">Preis</string>
-    <string name="preferences">Einstellungen</string>
-    <string-array name="beList">
-		<item>Veggie Nr.1</item>
-		<item>FU II Otto-v.-Sims.</item>
-		<item>FU Lankwitz</item>
-		<item>FU AßmannshauserStr</item>
-		<item>FU Düppel</item>
-		<item>Cafeteria FU Koserstraße</item>
-		<item>Caf. FU Königin-Luise-St</item>
-		<item>Cafeteria FU  V.-Hoff-Str</item>
-		<item>Cafeteria FU Ihnestraße</item>
-		<item>Cafet.  FU Garystraße</item>
-		<item>TU Hardenbergstraße</item>
-		<item>Cafeteria TU Franklinstr.</item>
-		<item>Cafeteria TU Ackerstraße</item>
-		<item>Cafeteria TU E.-Reuter-Pl</item>
-		<item>Cafeteria TU Skyline</item>
-		<item>HU Nord</item>
-		<item>HU Süd</item>
-		<item>HU Oase Adlershof</item>
-		<item>HU Spandauer Str.</item>
-		<item>Caf. HU, Grimm-Zentrum</item>
-		<item>Cafeteria UdK Jazz Cafe</item>
-		<item>HTWB Treskowallee</item>
-		<item>HTWB Wilhelminenhof</item>
-		<item>HWRB Badensche Str.</item>
-		<item>BHT Luxemburger Str</item>
-		<item>BHT Kurfürstenstr.</item>
-		<item>HfM Charlottenstr.</item>
-		<item>Caf. HfM Neuer Marstall</item>
-		<item>ASH Berlin</item>
-		<item>HSF Schnellerstr.</item>
-		<item>KHS Weißensee</item>
-		<item>KHSB Karlshorst</item>
-		<item>EHB Teltower Damm</item>
-    </string-array>
-    <string-array name="beListValues">
-		<item>fu1</item>
-		<item>fu2</item>
-		<item>fu_lankwitz</item>
-		<item>fu_assmannshauser</item>
-		<item>fu_dueppel</item>
-		<item>fu_cafeteria</item>
-		<item>fu_cafe_koenigin_luise</item>
-		<item>fu_cafe_vant_hoff</item>
-		<item>fu_cafe_ihne</item>
-		<item>fu_cafe_gary</item>
-		<item>tu</item>
-		<item>tu_cafeteria</item>
-		<item>tu_ackerstr</item>
-		<item>tu_cafe_erp</item>
-		<item>tu_cafe_skyline</item>
-		<item>hu_nord</item>
-		<item>hu_sued</item>
-		<item>hu_adlershof</item>
-		<item>hu_spandauer</item>
-		<item>hu_cafe_grimm</item>
-		<item>udk_jazzcafe</item>
-		<item>htw_treskow</item>
-		<item>htw_wilhelminenhof</item>
-		<item>hwr</item>
-		<item>beuth</item>
-		<item>beuth_kurfuersten</item>
-		<item>hfm</item>
-		<item>hfm_cafeteria</item>
-		<item>ashb</item>
-		<item>hfs</item>
-		<item>khs</item>
-		<item>khsb</item>
-		<item>ehb</item>
-    </string-array>
-        <string name="mensa">Mensa</string>
-        <string name="contentBadges">Markierungen</string>
-        <string name="vegetarian">Vegetarisch</string>
-        <string name="vegan">Vegan</string>
-        <string name="chosenMensa">Keine</string>
-    <string-array name="priceClasses">
-        <item >Studenten</item>
-        <item >Mitarbeiter</item>
-        <item >Gäste</item>
-    </string-array>
-    <string-array name="priceClassesValue">
-        <item >0</item>
-        <item >1</item>
-        <item >2</item>
-    </string-array>
-        <string name="updateAutomatic">Automatisch aktualisieren</string>
-        <string name="menu_refresh">Aktualisieren</string>
+	<string name="mensa">Mensa</string>
+	<string name="contentBadges">Markierungen</string>
+	<string name="vegetarian">Vegetarisch</string>
+	<string name="vegan">Vegan</string>
+
+	<string name="updateAutomatic">Automatisch aktualisieren</string>
+	<string name="menu_refresh">Aktualisieren</string>
+
 	<string-array name="weekDays">
         <item >Montag</item>
         <item >Dienstag</item>
@@ -100,22 +20,38 @@
         <item >Samstag</item>
         <item >Sontag</item>
     </string-array>
-    <string name="pleaseWait">Bitte warten…</string>
+
 	<string name="retrvData">Speiseplan wird abgerufen…</string>
 	<string name="bio">Bio</string>
-	<string name="city">Stadt</string>
 	<string name="fish">MSC zertifizierter Fisch</string>
-	<string name="connError">Es gab einen Verbindungsfehler. Bitte versuche es später wieder.</string>
-	<string name="about">Über</string>
-	<string name="general">Generell</string>
-	<string name="misc">Misc.</string>
-	<string name="help">Hilfe</string>
-	<string name="graphics">Grafiken:</string>
-	<string name="code">Code:</string>
-	<string name="version">Version:</string>
-	<string name="github">Github:</string>
-	<string name="contact">Kontakt:</string>
-	<string name="website">Webseite:</string>
-		<string name="loadText">ucanhaz Update?</string>
-	<string name="noData">Keine Daten verfügbar.</string>
+	<string name="city">Stadt</string>
+
+	<string name="about">Impressum</string>
+	<string name="about_developers">Entwickler</string>
+	<string name="about_graphics">Grafiken</string>
+	<string name="about_code">Code</string>
+	<string name="about_version_failure">Fehler beim Abrufen der Version.</string>
+	<string name="about_contact">Kontakt</string>
+	<string name="about_website">Webseite</string>
+
+	<string name="meal_group_special">Aktionsstand</string>
+	<string name="meal_group_supplement">Beilagen</string>
+	<string name="meal_group_dessert">Desserts</string>
+	<string name="meal_group_meal">Essen</string>
+	<string name="meal_group_salad">Salate</string>
+	<string name="meal_group_soup">Suppen</string>
+	<string name="meal_group_appetizer">Vorspeisen</string>
+
+	<string name="settings_select_hint">Zum Auswählen klicken</string>
+	<string name="settings_select_hint_only_one_mensa">Nur eine Mensa gefunden.</string>
+	<string name="settings_select_hint_select_city_first">Wähle zuerst eine Stadt aus.</string>
+
+	<string name="price_students">Studenten</string>
+	<string name="price_employees">Mitarbeiter</string>
+	<string name="price_guests">Gäste</string>
+
+	<string name="error_no_meals_found">Es ist keine Speisekarte verfügbar.</string>
+	<string name="error_no_mensa_selected">Klicke hier um eine Mensa auszuwählen.</string>
+	<string name="error_no_network">Konnte die Speisekarte nicht abrufen. Überprüfe deine Netzwerkverbindung.</string>
+	<string name="error_unknown">Fehler beim abrufen der Speisekarte. Versuche es später noch einmal.</string>
 </resources>

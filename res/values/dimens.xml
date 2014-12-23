@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actionbar_margin_top">0dp</dimen>
+    <dimen name="menu_overview_header_layout_height">160dp</dimen>
+    <dimen name="menu_overview_header_layout_height_landscape">104dp</dimen>
+</resources>

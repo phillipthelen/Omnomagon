@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <FrameLayout
+        android:background="@color/mantis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            app:popupTheme="@style/OmnomagonPopupTheme"
+            android:id="@+id/support_actionbar"
+            android:layout_marginTop="@dimen/actionbar_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            />
+
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/settings_auto_update_switch"
+                android:text="@string/updateAutomatic"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                />
+
+            <View
+                android:background="@android:color/darker_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/mensa"
+                    android:textColor="@color/mantis"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp" />
+
+                <LinearLayout
+                    android:id="@+id/settings_city_button"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:minHeight="56dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="@string/city"
+                        android:textColor="@android:color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/settings_city_value"
+                        android:hint="@string/settings_select_hint"
+                        android:textColor="@android:color/darker_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/settings_mensa_button"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:minHeight="56dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="@string/mensa"
+                        android:textColor="@android:color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/settings_mensa_value"
+                        android:hint="@string/settings_select_hint"
+                        android:textColor="@android:color/darker_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/settings_price_button"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:minHeight="56dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="@string/price"
+                        android:textColor="@android:color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/settings_price_value"
+                        android:hint="@string/settings_select_hint"
+                        android:textColor="@android:color/darker_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:background="@android:color/darker_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/contentBadges"
+                    android:textColor="@color/mantis"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/settings_indicator_vegetarian_switch"
+                    android:text="@string/vegetarian"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/settings_indicator_vegan_switch"
+                    android:text="@string/vegan"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/settings_indicator_bio_switch"
+                    android:text="@string/bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/settings_indicator_fish_switch"
+                    android:text="@string/fish"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>Omnomagon</name>
+    <groupId>net.pherth</groupId>
+    <artifactId>omnomagon</artifactId>
+    <version>0.10.0-SNAPSHOT</version>
+    <packaging>apk</packaging>
+
+    <properties>
+        <!-- PLUGIN -->
+        <versions.android.maven.plugin>4.0.0</versions.android.maven.plugin>
+        <versions.maven.jarsigner.plugin>1.2</versions.maven.jarsigner.plugin>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>android</groupId>
+            <artifactId>android</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>android.support</groupId>
+            <artifactId>compatibility-v4</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.android.support</groupId>
+            <artifactId>recyclerview-v7</artifactId>
+            <type>aar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.android.support</groupId>
+            <artifactId>appcompat-v7</artifactId>
+            <type>aar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.astuetz</groupId>
+            <artifactId>pagerslidingtabstrip</artifactId>
+            <type>aar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.10</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.10.8</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.dexmaker</groupId>
+                <artifactId>dexmaker-mockito</artifactId>
+                <version>1.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.dexmaker</groupId>
+                <artifactId>dexmaker</artifactId>
+                <version>1.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.3</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup</groupId>
+                <artifactId>fest-android</artifactId>
+                <version>1.0.6</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>2.0.0</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jayway.android.robotium</groupId>
+                <artifactId>robotium-solo</artifactId>
+                <version>5.2.1</version>
+            </dependency>
+
+            <!-- SDK -->
+
+            <dependency>
+                <groupId>android.test.uiautomator</groupId>
+                <artifactId>uiautomator</artifactId>
+                <version>5.0.1_r2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>android</groupId>
+                <artifactId>android</artifactId>
+                <version>5.0.1_r2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>android.support</groupId>
+                <artifactId>compatibility-v4</artifactId>
+                <version>21.0.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.android.support</groupId>
+                <artifactId>recyclerview-v7</artifactId>
+                <version>21.0.3</version>
+                <type>aar</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.android.support</groupId>
+                        <artifactId>support-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.android.support</groupId>
+                        <artifactId>support-v4</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.android.support</groupId>
+                <artifactId>palette-v7</artifactId>
+                <version>21.0.3</version>
+                <type>aar</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.android.support</groupId>
+                        <artifactId>support-v4</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.android.support</groupId>
+                <artifactId>appcompat-v7</artifactId>
+                <version>21.0.3</version>
+                <type>aar</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.android.support</groupId>
+                        <artifactId>support-v4</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>android.support</groupId>
+                <artifactId>renderscript-v8</artifactId>
+                <version>21.0.0-rc1</version>
+            </dependency>
+
+            <!-- MISC -->
+
+            <dependency>
+                <groupId>com.j256.ormlite</groupId>
+                <artifactId>ormlite-core</artifactId>
+                <version>4.48</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.j256.ormlite</groupId>
+                <artifactId>ormlite-android</artifactId>
+                <version>4.48</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.danlew</groupId>
+                <artifactId>android.joda</artifactId>
+                <version>2.4.0</version>
+                <type>aar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jakewharton</groupId>
+                <artifactId>disklrucache</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.retrofit</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>1.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>2.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp</groupId>
+                <artifactId>okhttp-urlconnection</artifactId>
+                <version>2.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.astuetz</groupId>
+                <artifactId>pagerslidingtabstrip</artifactId>
+                <version>1.0.1</version>
+                <type>aar</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.android.support</groupId>
+                        <artifactId>support-v4</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- INDICATE PROVIDED DEPENDENCIES -->
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+                <scope>provided</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>sign</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jarsigner-plugin</artifactId>
+                        <version>${versions.maven.jarsigner.plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>signing</id>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <inherited>true</inherited>
+                                <configuration>
+                                    <includes>
+                                        <include>target/*.apk</include>
+                                    </includes>
+                                    <!-- todo configure keystore here -->
+                                    <keystore>${pom.basedir}/XXX.keystore</keystore>
+                                    <storepass>XXX</storepass>
+                                    <keypass>XXX</keypass>
+                                    <alias>XXX</alias>
+                                    <arguments>
+                                        <argument>-sigalg</argument><argument>MD5withRSA</argument>
+                                        <argument>-digestalg</argument><argument>SHA1</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                        <artifactId>android-maven-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>alignApk</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>zipalign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <release>true</release>
+                            <sign>
+                                <debug>false</debug>
+                            </sign>
+                            <zipalign>
+                                <skip>false</skip>
+                            </zipalign>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <sourceDirectory>${pom.basedir}/src</sourceDirectory>
+        <testSourceDirectory>${pom.basedir}/test</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>${versions.android.maven.plugin}</version>
+                <extensions>true</extensions>
+
+                <configuration>
+                    <sourceDirectories>
+                        <sourceDirectory>${pom.basedir}/src</sourceDirectory>
+                    </sourceDirectories>
+                    <nativeLibrariesDirectory>${pom.basedir}/libs</nativeLibrariesDirectory>
+                    <assetsDirectory>${pom.basedir}/assets</assetsDirectory>
+                    <resourceDirectory>${pom.basedir}/res</resourceDirectory>
+                    <androidManifestFile>${pom.basedir}/AndroidManifest.xml</androidManifestFile>
+                    <genDirectory>${pom.basedir}/target/generated-sources/r</genDirectory>
+                    <genDirectoryAidl>${pom.basedir}/target/generated-sources/aidl</genDirectoryAidl>
+
+                    <sdk>
+                        <platform>21</platform>
+                        <path>${env.ANDROID_HOME}</path>
+                    </sdk>
+
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+
+                    <test>
+                        <createReport>true</createReport>
+                        <skip>true</skip>
+                    </test>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <FrameLayout
+        android:background="@color/mantis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            app:popupTheme="@style/OmnomagonPopupTheme"
+            android:id="@+id/support_actionbar"
+            android:layout_marginTop="@dimen/actionbar_margin_top"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/about_version_info"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:lines="2"
+        android:padding="16dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_margin="30dp"
+            android:layout_gravity="center"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            >
+
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/about_version_button_top"
+                android:src="@drawable/ic_indication_msc"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/about_version_button_left"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_indication_vegan"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/about_version_button_right"
+                android:src="@drawable/ic_indication_vegetarian"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/about_version_button_bottom"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_indication_bio"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
