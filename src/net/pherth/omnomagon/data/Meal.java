@@ -25,13 +25,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package net.pherth.omnomagon.data;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import net.pherth.omnomagon.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -132,19 +128,6 @@ public class Meal {
     	return this.mscBool;
     }
     
-    public int getVeganterianMsc(Context context) {
-    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-    	if (sharedPrefs.getBoolean("vegetarianCheckbox", false) && this.vegetarianBool) {
-    		return R.drawable.vegetarischsiegel;
-    	} else if (sharedPrefs.getBoolean("vegetarianCheckbox", false) &&this.veganBool) {
-    		return R.drawable.vegansiegel;
-    	} else if (sharedPrefs.getBoolean("vegetarianCheckbox", false) &&this.mscBool) {
-    		return 0;
-    	}
-    	
-    	return 0;
-    }
-    
     public void addAddition(String addition) {
     	this.additions.add(addition);
     }
@@ -152,10 +135,6 @@ public class Meal {
     public List<String> getAdditions() {
     	Log.i("Additions", this.additions.toString());
     	return this.additions;
-    }
-    
-    public float getCorrectPrice(int type) {
-    	return this.prices[type];
     }
     
     public void setSiegel(String siegellink) {
