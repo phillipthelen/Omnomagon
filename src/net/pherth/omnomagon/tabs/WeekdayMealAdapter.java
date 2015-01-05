@@ -29,6 +29,7 @@ public class WeekdayMealAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private WeekdayMealViewHolder.IndicatorConfiguration _indicatorConfiguration = WeekdayMealViewHolder.IndicatorConfiguration.defaultConfiguration();
 
     public void setData(@NonNull Day day, @NonNull PriceGroup priceGroup, @NonNull WeekdayMealViewHolder.IndicatorConfiguration indicatorConfiguration) {
+        _indicatorConfiguration = indicatorConfiguration;
         _priceGroup = priceGroup;
         _typeMap.clear();
         _dataObjects.clear();

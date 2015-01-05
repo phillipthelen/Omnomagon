@@ -8,9 +8,6 @@ import java.util.Random;
 public class FeatureImageProvider {
 
     public static final int[] FEATURE_IMAGE_IDS = {
-            R.drawable.feature_image_1,
-            R.drawable.feature_image_2,
-            R.drawable.feature_image_3,
             R.drawable.feature_image_4
     };
 
@@ -18,21 +15,33 @@ public class FeatureImageProvider {
 
     @DrawableRes
     public int getRandomImageResource() {
-        final int randomIndex = _random.nextInt(FEATURE_IMAGE_IDS.length);
-        return FEATURE_IMAGE_IDS[randomIndex];
+        final int resourceId;
+        if (FEATURE_IMAGE_IDS.length > 1) {
+            final int randomIndex = _random.nextInt(FEATURE_IMAGE_IDS.length);
+            resourceId = FEATURE_IMAGE_IDS[randomIndex];
+        } else {
+            resourceId = FEATURE_IMAGE_IDS[0];
+        }
+        return resourceId;
     }
 
     @DrawableRes
     public int getRandomImageResourceWithout(@DrawableRes int id) {
-        final int[] reducedFeatureImages = new int[FEATURE_IMAGE_IDS.length - 1];
-        int currentIndex = 0;
-        for (int currentId : FEATURE_IMAGE_IDS) {
-            if (currentId != id) {
-                reducedFeatureImages[currentIndex] = currentId;
-                currentIndex++;
+        final int resourceId;
+        if (FEATURE_IMAGE_IDS.length > 1) {
+            final int[] reducedFeatureImages = new int[FEATURE_IMAGE_IDS.length - 1];
+            int currentIndex = 0;
+            for (int currentId : FEATURE_IMAGE_IDS) {
+                if (currentId != id) {
+                    reducedFeatureImages[currentIndex] = currentId;
+                    currentIndex++;
+                }
             }
+            final int randomIndex = _random.nextInt(reducedFeatureImages.length);
+            resourceId = reducedFeatureImages[randomIndex];
+        } else {
+            resourceId = FEATURE_IMAGE_IDS[0];
         }
-        final int randomIndex = _random.nextInt(reducedFeatureImages.length);
-        return reducedFeatureImages[randomIndex];
+        return resourceId;
     }
 }

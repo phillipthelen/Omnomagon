@@ -28,7 +28,6 @@
 
 	<string name="about">Impressum</string>
 	<string name="about_developers">Entwickler</string>
-	<string name="about_graphics">Grafiken</string>
 	<string name="about_code">Code</string>
 	<string name="about_version_failure">Fehler beim Abrufen der Version.</string>
 	<string name="about_contact">Kontakt</string>
