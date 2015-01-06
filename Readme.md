@@ -13,29 +13,29 @@ Omnomagon is a small Android app that shows you the current menu of your univers
 
 ## Build (Maven)
 
-0. Install JAVA and set your $JAVA_HOME environment variable
+0. Install JAVA and set your  ````$JAVA_HOME ```` environment variable
 
-1. Download [Android SDK](http://developer.android.com/sdk/index.html). Don’t forget to set your $ANROID_HOME environment variable.
+1. Download [Android SDK](http://developer.android.com/sdk/index.html). Don’t forget to set your  ````$ANROID_HOME ```` environment variable.
 
 2. Install [Android SDK Deployer](https://github.com/simpligility/maven-android-sdk-deployer). You may not have to install all SDK components. Uncomment the unwanted modules in the ````pom.xml```` files.
 	
-	$ git clone *REPO*
-	$ cd maven-android-sdk-deployer/
-	$ mvn install
+		$ git clone *REPO*
+		$ cd maven-android-sdk-deployer/
+		$ mvn install
 
 3. Build Omnomagon
 
-	$ git clone *REPO*
-	$ cd Omnomagon/
-	$ mvn clean
-	$ mvn install
+		$ git clone *REPO*
+		$ cd Omnomagon/
+		$ mvn clean
+		$ mvn install
 
-Now an .apk is build under ./target
+	Now an .apk is build under  ````./target ````
 
 4. Install on device or emulator (optional)
 
-	$ mvn android:deploy
-	$ mvn android:run
+		$ mvn android:deploy
+		$ mvn android:run
 
 ## Licence
 
