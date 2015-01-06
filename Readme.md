@@ -11,14 +11,35 @@ Omnomagon is a small Android app that shows you the current menu of your univers
 * [PagerSlidingTabStrip](https://github.com/astuetz/PagerSlidingTabStrip)
 * [jsoup](http://jsoup.org)
 
-If some libraries are not available in your maven repository,
-you can import them by using the following tool:
+## Build (Maven)
 
-* [maven-android-sdk-deployer](https://github.com/simpligility/maven-android-sdk-deployer)
+0. Install JAVA and set your $JAVA_HOME environment variable
+
+1. Download [Android SDK](http://developer.android.com/sdk/index.html). Don’t forget to set your $ANROID_HOME environment variable.
+
+2. Install [Android SDK Deployer](https://github.com/simpligility/maven-android-sdk-deployer). You may not have to install all SDK components. Uncomment the unwanted modules in the ````pom.xml```` files.
+	
+	$ git clone *REPO*
+	$ cd maven-android-sdk-deployer/
+	$ mvn install
+
+3. Build Omnomagon
+
+	$ git clone *REPO*
+	$ cd Omnomagon/
+	$ mvn clean
+	$ mvn install
+
+Now an .apk is build under ./target
+
+4. Install on device or emulator (optional)
+
+	$ mvn android:deploy
+	$ mvn android:run
 
 ## Licence
 
-Copyright (c) 2014, [Phillip Thelen](https://github.com/vIiRuS), [Tim Nowaczynski](https://github.com/TimNowaczynski), [Peter Amende](https://github.com/zutrinken)
+Copyright (c) 2015, [Phillip Thelen](https://github.com/vIiRuS), [Tim Nowaczynski](https://github.com/TimNowaczynski), [Peter Amende](https://github.com/zutrinken)  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
