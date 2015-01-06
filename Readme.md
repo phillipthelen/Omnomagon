@@ -5,6 +5,8 @@ Omnomagon is a small Android app that shows you the current menu of your univers
 * [PlayStore](https://play.google.com/store/apps/details?id=net.pherth.omnomagon)
 * [Website](http://omnomagon.de)
 
+![Omnomagon](https://raw.githubusercontent.com/vIiRuS/Omnomagon/gh-pages/images/mockup.png)
+
 ## Dependencies
 
 * Android Support Libraries (compatibility-v4, appcompat-v7, recyclerview-v7)
