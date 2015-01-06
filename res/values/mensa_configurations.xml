@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="priceClasses">
+        <item>@string/price_students</item>
+        <item>@string/price_employees</item>
+        <item>@string/price_guests</item>
+    </string-array>
+
+    <!-- Cities -->
+
+    <string name="city_berlin">Berlin</string>
+    <string name="city_ulm">Ulm</string>
+
+    <string-array name="cityList">
+        <item>@string/city_berlin</item>
+        <item>@string/city_ulm</item>
+    </string-array>
+
+    <!-- Berlin -->
+
+    <string name="be_fu1">Veggie Nr.1</string>
+    <string name="be_fu2">FU II Otto-v.-Sims.</string>
+    <string name="be_fu_lankwitz">FU Lankwitz</string>
+    <string name="be_fu_assmannshauser">FU AßmannshauserStr</string>
+    <string name="be_fu_dueppel">FU Düppel</string>
+    <string name="be_fu_cafeteria">Cafeteria FU Koserstraße</string>
+    <string name="be_fu_cafe_koenigin_luise">Caf. FU Königin-Luise-St</string>
+    <string name="be_fu_cafe_vant_hoff">Cafeteria FU  V.-Hoff-Str</string>
+    <string name="be_fu_cafe_ihne">Cafeteria FU Ihnestraße</string>
+    <string name="be_fu_cafe_gary">Cafet.  FU Garystraße</string>
+    <string name="be_tu">TU Hardenbergstraße</string>
+    <string name="be_tu_cafeteria">Cafeteria TU Franklinstr.</string>
+    <string name="be_tu_ackerstr">Cafeteria TU Ackerstraße</string>
+    <string name="be_tu_cafe_erp">Cafeteria TU E.-Reuter-Pl</string>
+    <string name="be_tu_cafe_skyline">Cafeteria TU Skyline</string>
+    <string name="be_hu_nord">HU Nord</string>
+    <string name="be_hu_sued">HU Süd</string>
+    <string name="be_hu_adlershof">HU Oase Adlershof</string>
+    <string name="be_hu_spandauer">HU Spandauer Str.</string>
+    <string name="be_hu_cafe_grimm">Caf. HU, Grimm-Zentrum</string>
+    <string name="be_udk_jazzcafe">Cafeteria UdK Jazz Cafe</string>
+    <string name="be_htw_treskow">HTW Treskowallee</string>
+    <string name="be_htw_wilhelminenhof">HTW Wilhelminenhof</string>
+    <string name="be_hwr">HWRB Badensche Str.</string>
+    <string name="be_beuth">BHT Luxemburger Str</string>
+    <string name="be_beuth_kurfuersten">BHT Kurfürstenstr.</string>
+    <string name="be_hfm">HfM Charlottenstr.</string>
+    <string name="be_hfm_cafeteria">Caf. HfM Neuer Marstall</string>
+    <string name="be_ashb">ASH Berlin</string>
+    <string name="be_hfs">HSF Schnellerstr.</string>
+    <string name="be_khs">KHS Weißensee</string>
+    <string name="be_khsb">KHSB Karlshorst</string>
+    <string name="be_ehb">EHB Teltower Damm</string>
+
+    <string-array name="beList">
+        <item>@string/be_fu1</item>
+        <item>@string/be_fu2</item>
+        <item>@string/be_fu_lankwitz</item>
+        <item>@string/be_fu_assmannshauser</item>
+        <item>@string/be_fu_dueppel</item>
+        <item>@string/be_fu_cafeteria</item>
+        <item>@string/be_fu_cafe_koenigin_luise</item>
+        <item>@string/be_fu_cafe_vant_hoff</item>
+        <item>@string/be_fu_cafe_ihne</item>
+        <item>@string/be_fu_cafe_gary</item>
+        <item>@string/be_tu</item>
+        <item>@string/be_tu_cafeteria</item>
+        <item>@string/be_tu_ackerstr</item>
+        <item>@string/be_tu_cafe_erp</item>
+        <item>@string/be_tu_cafe_skyline</item>
+        <item>@string/be_hu_nord</item>
+        <item>@string/be_hu_sued</item>
+        <item>@string/be_hu_adlershof</item>
+        <item>@string/be_hu_spandauer</item>
+        <item>@string/be_hu_cafe_grimm</item>
+        <item>@string/be_udk_jazzcafe</item>
+        <item>@string/be_htw_treskow</item>
+        <item>@string/be_htw_wilhelminenhof</item>
+        <item>@string/be_hwr</item>
+        <item>@string/be_beuth</item>
+        <item>@string/be_beuth_kurfuersten</item>
+        <item>@string/be_hfm</item>
+        <item>@string/be_hfm_cafeteria</item>
+        <item>@string/be_ashb</item>
+        <item>@string/be_hfs</item>
+        <item>@string/be_khs</item>
+        <item>@string/be_khsb</item>
+        <item>@string/be_ehb</item>
+    </string-array>
+
+    <!-- Ulm -->
+
+    <string name="ulm_mensa">Uni Ulm</string>
+
+</resources>
