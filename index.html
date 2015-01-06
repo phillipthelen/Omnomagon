@@ -1,91 +1,97 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="de-DE">
-	<head profile="http://gmpg.org/xfn/11">
-
+<html class="no-js" xmlns="http://www.w3.org/1999/xhtml" lang="en">	
+	<head>
 		<title>Omnomagon</title>
-
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="description" content="List all the Menus" />
-		<meta name="author" content="Peter Amende, Phillip Thelen" />
-		<meta name="robots" content="all, noodp" />	
-		<meta name="keywords" content="app, android, ios, mensa, list, menus, nom nom" />
+		<meta name="robots" content="index, follow">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+		<link rel="canonical" href="http://http://omnomagon.de/" />
+		
 		<link type="text/css" rel="stylesheet" href="style.css" media="screen" />
-		<link type="text/css" rel="stylesheet" href="jquery.lightbox-0.5.css" media="screen" />
-		<link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico" />
+		<link rel="icon" type="image/png" href="images/favicon.png">
 
-		<script type="text/javascript" src="js/jquery.1.7.1.js"></script>
-		<script type="text/javascript" src="js/libs/modernizr-1.7.min.js"></script>
-		<script type="text/javascript" src="js/jquery.lightbox-0.5.js"></script>
-		<script type="text/javascript" src="js/jquery.cycle.js"></script>
-		<script type="text/javascript" src="js/global.js"></script>
-		<script type="text/javascript">
-/* <![CDATA[ */
-    (function() {
-        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-        t.parentNode.insertBefore(s, t);
-    })();
-/* ]]> */</script>
-<script type="text/javascript">
+		<script src="js/libs/modernizr-2.6.2.min.js"></script>
+		<script src="js/libs/jquery-1.10.2.min.js"></script>
+		<script src="js/script.js"></script>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-32231409-1']);
-  _gaq.push(['_trackPageview']);
+		<meta name="description" content="A free app that shows Berlin students the weekly menu of their cafeteria" />
+		<meta name="keywords" content="android, app, berlin, mensa, student, cafeteria" />
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+		<meta property="og:title" content="Omnomagon" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="http://omnomagon.de" />
+		<meta property="og:site_name" content="Omnomagon" />
+		<meta property="og:description" content="A free app that shows Berlin students the weekly menu of their cafeteria" />
+		<meta property="og:image" content="http://omnomagon.de/images/appicon.png" />
 
-</script>
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="Omnomagon">
+		<meta name="twitter:description" content="A free app that shows Berlin students the weekly menu of their cafeteria">
+		<meta name="twitter:image:src" content="http://omnomagon.de/images/appicon.png">
+		<meta name="twitter:domain" content="omnomagon.de">
+		
+		<script type="text/javascript">		
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-32231409-1']);
+		_gaq.push(['_trackPageview']);
+		
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+		</script>
 	</head>
-
-	<body>
-		<div class="ribbon">
-			<a href="https://github.com/vIiRuS/Omnomagon" rel="me">Fork me on GitHub</a>
-		</div>
-		<div id="wrapper">
-			<section id="intro" class="container">
-				<img id="artwork" src="images/artwork.png" alt="" />
-				<article class="post front-post">
-					<h1>Omnomagon</h1>
-					<p>Omnomagon shows you the current Menue of your university cafeteria - including useful information for allergy sufferers, vegetarians and vegans.</p>
-					<p>Follow <a href="https://twitter.com/#!/OmnomagonApp">@OmnomagonApp</a> for updates</p>
-					<a href="https://play.google.com/store/apps/details?id=net.pherth.omnomagon" style="margin-right:30px;"><img src="badge_android.png" /></a> <a class="FlattrButton" style="display:none;" href="https://github.com/vIiRuS/omnomagon"></a>
-<noscript><a href="http://flattr.com/thing/538996/Omnomagon" target="_blank">
-<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript></small>
-					<p><small>Code by <a href="http://pherth.net/">Phillip Thelen</a>, Graphics by <a href="http://peteramende.de/">Peter Amende</a>.</small></p>
-				</article>
-			</section>
-			
-			
-			<!--
-			<section id="screenshot" class="container">
-				<article id="gallery" class="gallery">
-					<div>
-						<a href="images/scr-1.png"><img id="" src="images/scr-1.png" alt="" /></a>
-						<a href="images/scr-1.png"><img id="" src="images/scr-1.png" alt="" /></a>
-						<a href="images/scr-1.png"><img id="" src="images/scr-1.png" alt="" /></a>
-						<a href="images/scr-1.png"><img id="" src="images/scr-1.png" alt="" /></a>
-					</div>
-					<div>
-						<a href="images/scr-2.png"><img id="" src="images/scr-2.png" alt="" /></a>
-						<a href="images/scr-2.png"><img id="" src="images/scr-2.png" alt="" /></a>
-						<a href="images/scr-2.png"><img id="" src="images/scr-2.png" alt="" /></a>
-						<a href="images/scr-2.png"><img id="" src="images/scr-2.png" alt="" /></a>
-					</div>
-				</article>
-			</section>
-
-			<footer id="footer">
-			</footer>
-
-			-->
-		</div>
+	<body itemscope itemtype="http://schema.org/SoftwareApplication">
+		<header id="header">
+			<div class="inner">
+				<div class="col-1">
+					<figure>
+						<img itemprop="image" id="appicon" class="fx" src="images/appicon.png" alt="" />
+					</figure>
+				</div>
+				<div class="col-2">
+					<h1><span itemprop="name"><img id="logo" alt="Omnomagon" src="images/logo.png" width="370" height="128"></span> <em itemprop="operatingSystem">for Android <i class="icon-android"></i></em></h1>
+					<h2>is a free app that shows Berlin students the weekly menu of their cafeteria. </h2>
+					<a itemprop="downloadUrl" id="download" href="https://play.google.com/store/apps/details?id=net.pherth.omnomagon"><img src="images/download.png" alt="Download" /></a>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>
+		<section id="main">
+			<div class="inner">
+				<img id="mockup" src="images/mockup.png" alt="" />
+				<p><a id="fork" href="https://github.com/vIiRuS/Omnomagon" target="_blank"><i class="icon-fork"></i> fork me on GitHub</a></p>
+			</div>
+		</section>
+		<footer id="footer">
+			<div class="inner">
+				<p>Omnomagon by <a rel="nofollow" href="http://pherth.net/">vIiRuS</a>, <a rel="nofollow" href="https://github.com/TimNowaczynski">Tim</a> & <a rel="nofollow" href="http://zutrinken.com">zutrinken</a>
+						<span id="flattr" class="donate"><script id='fbls1c5'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//api.flattr.com/button/view/?uid=vIiRuS&button=compact&url=http%3A%2F%2Fgithub.com%2FvIiRuS%2Fomnomagon%2F';f.title='Flattr';f.height=20;f.width=110;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbls1c5');</script></span>
+				</p>
+			</div>
+		</footer>
+		<aside id="legal">
+			<div class="inner">
+				<p><a href="mailto:contact@omnomagon.de"><i class="icon-mail"></i> contact@omnomagon.de</a> | <a target="_blank" href="https://twitter.com/OmnomagonApp"><i class="icon-twitter"></i> OmnomagonApp</a></p>
+			</div>
+		</aside>
+		<!-- Piwik -->
+		<script type="text/javascript">
+		  var _paq = _paq || [];
+		  _paq.push(['trackPageView']);
+		  _paq.push(['enableLinkTracking']);
+		  (function() {
+		    var u="//piwik.zutrinken.com/";
+		    _paq.push(['setTrackerUrl', u+'piwik.php']);
+		    _paq.push(['setSiteId', 8]);
+		    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+		  })();
+		</script>
+		<noscript><p><img src="//piwik.zutrinken.com/piwik.php?idsite=8" style="border:0;" alt="" /></p></noscript>
+		<!-- End Piwik Code -->
 	</body>
 </html>
