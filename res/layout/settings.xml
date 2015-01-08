@@ -153,6 +153,9 @@
 
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/settings_indicator_vegetarian_switch"
+                    android:drawableLeft="@drawable/ic_indication_vegetarian"
+                    android:drawableStart="@drawable/ic_indication_vegetarian"
+                    android:drawablePadding="16dp"
                     android:text="@string/vegetarian"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -160,6 +163,9 @@
 
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/settings_indicator_vegan_switch"
+                    android:drawableLeft="@drawable/ic_indication_vegan"
+                    android:drawableStart="@drawable/ic_indication_vegan"
+                    android:drawablePadding="16dp"
                     android:text="@string/vegan"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -167,6 +173,9 @@
 
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/settings_indicator_bio_switch"
+                    android:drawableLeft="@drawable/ic_indication_bio"
+                    android:drawableStart="@drawable/ic_indication_bio"
+                    android:drawablePadding="16dp"
                     android:text="@string/bio"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -174,6 +183,9 @@
 
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/settings_indicator_fish_switch"
+                    android:drawableLeft="@drawable/ic_indication_msc"
+                    android:drawableStart="@drawable/ic_indication_msc"
+                    android:drawablePadding="16dp"
                     android:text="@string/fish"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
